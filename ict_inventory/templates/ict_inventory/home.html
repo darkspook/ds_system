@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<div class="container text-center">
+	<h1>Welcome to ICT Inventory System!</h1>
+	{% for asset in assets %}
+	<h2>{{ asset.name }}</h2><br>
+	<p>{{ asset.description }}</p>
+	{% endfor %}
+</div>

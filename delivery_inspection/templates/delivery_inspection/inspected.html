@@ -1,0 +1,9 @@
+{% extends 'delivery_inspection/base.html' %}
+{% block content %}
+	<ul class="list-group">
+		<li class="list-group-item active" style="text-transform: uppercase; background-color: green; border-color: green;">Inspected &amp; Accepted Deliveries</li>
+		{% for del in delivery %}
+		<li class="list-group-item">{{ del.iar_no }} - {{ del.purpose }}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

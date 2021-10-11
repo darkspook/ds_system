@@ -1,0 +1,10 @@
+{% extends 'delivery_inspection/base.html' %}
+{% block content %}
+	<div class="list-group">
+		<div class="list-group-item list-group-item-action active" style="
+    text-transform: uppercase;">All Deliveries for Inspection</div>
+		{% for del in delivery %}
+		<a href="{% url 'inspection:inspectorviewdelivery' del.pk %}" class="list-group-item list-group-item-action">{{ del.iar_no }} - {{ del.purpose }} - created by: {{ del.created_by }}</a>
+		{% endfor %}
+	</div>
+{% endblock %}
