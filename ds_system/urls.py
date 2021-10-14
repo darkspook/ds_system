@@ -19,10 +19,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 from ict_inventory import views
 from delivery_inspection import views
+from portfolio import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', views.home, name='home'),
+    path('', views.home, name='home'),
+    path('projects/', views.projects, name='projects'),
     #path('ictinventory/', views.home, name='home'),
     path('inspection/', include('delivery_inspection.urls')),
 ]

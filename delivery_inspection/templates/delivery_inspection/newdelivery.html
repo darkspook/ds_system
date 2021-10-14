@@ -1,19 +1,28 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">New Delivery</h1>
+<div class="card-header bg-info text-white">
+	<i class="fas fa-notes-medical"></i>
+	New Delivery
 </div>
+<div style="padding: 1em 2em;">
 
-<!-- Content Row -->
-<div class="row">
-
-<h2>{{ error }}</h2>
-<form method="POST" class="user">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit" class="btn btn-primary btn-user btn-block">Save</button>
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+{% endif %}
+<form method="POST">
+{% csrf_token %}
+{% for field in form %}
+    <div class="form-floating mb-3">
+        {{ field }}
+        <label>{{ field.label|upper }}</label>
+    </div>
+{% endfor %}
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+        <div class="small"></div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
 </form>
-
 </div>
 {% endblock %}

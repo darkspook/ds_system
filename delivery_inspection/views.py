@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from django.utils import timezone
-from .forms import DeliveryForm
+from .forms import DeliveryForm, LoginForm
 from .models import Delivery
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.timezone import datetime
@@ -21,7 +21,7 @@ def signupuser(request):
 				user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
 				user.save()
 				login(request, user)
-				return redirect('inspection:dashboard')
+				return redirect('inspection:alldeliveries')
 			except IntegrityError:
 				return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm(), 'error':'That username has already bee taken. Please use a new username.'})
 		else:
@@ -29,14 +29,14 @@ def signupuser(request):
 
 def loginuser(request):
 	if request.method == 'GET':
-		return render(request, 'delivery_inspection/loginuser.html', {'form':AuthenticationForm()})
+		return render(request, 'delivery_inspection/loginuser.html', {'form':LoginForm()})
 	else:
 		user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
 		if user is None:
-			return render(request, 'delivery_inspection/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match.'})
+			return render(request, 'delivery_inspection/loginuser.html', {'form':LoginForm(), 'error':'Username and Password did not match.'})
 		else:
 			login(request, user)
-			return redirect('inspection:dashboard')
+			return redirect('inspection:alldeliveries')
 
 @login_required
 def logoutuser(request):
@@ -62,7 +62,7 @@ def is_inspector(request):
 # 	return user.groups.filter(name='Inspector').exists()
 
 @login_required
-def allpending(request):
+def alldeliveries(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveries
 	if is_inspector(request): #check if inspector or not
 		print("go to inspector page!")
@@ -72,7 +72,7 @@ def allpending(request):
 		return render(request, 'delivery_inspection/allpending.html', {'delivery':delivery})
 
 @login_required
-def mypending(request):
+def mydeliveries(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=True, created_by_id=request.user) #show only not inspected deliveries
 	return render(request, 'delivery_inspection/currentpending.html', {'delivery':delivery})
 
@@ -86,7 +86,7 @@ def newdelivery(request):
 			new = form.save(commit=False) #will not save to DB
 			new.created_by = request.user #set created_by to the logged in user
 			new.save()
-			return redirect('inspection:dashboard')
+			return redirect('inspection:mydeliveries')
 		except ValueError:
 			return render(request, 'delivery_inspection/newdelivery.html', {'form':DeliveryForm(), 'error':'Invalid data entered'})
 
@@ -96,12 +96,12 @@ def viewdelivery(request, pk):
 	#delivery = get_object_or_404(Delivery, pk=iar_no)
 	if request.method == 'GET':
 		form = DeliveryForm(instance=delivery)
-		return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form})	
+		return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form})
 	else:
 		try:
 			form = DeliveryForm(request.POST, instance=delivery)
 			form.save()
-			return redirect('inspection:mypending')
+			return redirect('inspection:mydeliveries')
 		except ValueError:
 			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
 
@@ -114,14 +114,14 @@ def inspectdelivery(request, pk):
 		delivery.inspected_by = str(request.user)
 		delivery.date_inspected = timezone.now()
 		delivery.save()
-		return redirect('inspection:mypending')
+		return redirect('inspection:mydeliveries')
 
 @login_required
 def deletedelivery(request, pk):
 	delivery = get_object_or_404(Delivery, pk=pk)
 	if request.method == 'POST':
 		delivery.delete()
-		return redirect('inspection:mypending')
+		return redirect('inspection:mydeliveries')
 
 @login_required
 def inspecteddelivery(request):
@@ -138,7 +138,7 @@ def inspectorviewdelivery(request, pk):
 		try:
 			form = DeliveryForm(request.POST, instance=delivery)
 			form.save()
-			return redirect('inspection:allpending')
+			return redirect('inspection:alldeliveries')
 		except ValueError:
 			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
 

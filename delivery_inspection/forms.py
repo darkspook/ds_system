@@ -2,6 +2,8 @@ from django.forms import ModelForm
 from .models import Delivery
 from django import forms
 from django.utils.timezone import datetime
+from django.contrib.auth.forms import  AuthenticationForm
+from django.forms.widgets import PasswordInput, TextInput, Textarea, DateInput, FileInput
 
 def generate_iarno():
 	last_record = Delivery.objects.last()
@@ -22,6 +24,16 @@ class DeliveryForm(ModelForm):
 		self.fields['iar_no'].initial = generate_iarno()
 		self.fields['date_delivered'].initial = datetime.now()
 
+	iar_no = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'IAR Number'}))
+	supplier = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Supplier'}))
+	purpose = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Supplier'}))
+	date_delivered = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Supplier'}))
+	image = forms.ImageField(widget=FileInput(attrs={'class': 'form-control'}), required=False)
+
 	class Meta:
 		model = Delivery
 		fields = ['iar_no', 'supplier', 'purpose', 'date_delivered', 'image',]
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Username'}))
+    password = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control','placeholder':'Password'}))

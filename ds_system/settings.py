@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ict_inventory',
     'delivery_inspection',
+    'portfolio',
 ]
 
 MIDDLEWARE = [

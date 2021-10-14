@@ -1,18 +1,33 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
-<form method="POST">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit" class="btn btn-primary btn-user btn-block">Save</button>
-</form>
+<div class="card-header bg-info text-white">
+	<i class="fas fa-notes-medical"></i>
+	Edit/Delete Delivery
+</div>
+<div style="padding: 1em 2em;">
 
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+{% endif %}
+<form method="POST">
+{% csrf_token %}
+{% for field in form %}
+    <div class="form-floating mb-3">
+        {{ field }}
+        <label>{{ field.label|upper }}</label>
+    </div>
+{% endfor %}
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+        <div class="small"></div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
 <form method="POST" action="{% url 'inspection:deletedelivery' delivery.pk %}">
 	{% csrf_token %}
-	<button type="submit" class="btn btn-danger btn-user btn-block">Delete</button>
+	<button type="submit" class="btn btn-danger" style="position: relative;top: -40px;">Delete</button>
 </form>
-<form method="POST" action="{% url 'inspection:inspectdelivery' delivery.pk %}">
-	{% csrf_token %}
-	<button type="submit" class="btn btn-success btn-user btn-block">Inspect &amp; Accept</button>
-</form>
-
+</div>
+<a href="{{ delivery.image.url }}"><img src="{{ delivery.image.url }}" alt=""></a>
 {% endblock %}
