@@ -7,7 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        {% if titile %}
+        <title>{{ title|capfirst }} | Delivery I&amp;A</title>
+        {% else %}
         <title>Delivery I&amp;A</title>
+        {% endif %}
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{% static 'delivery_inspection/css/styles.css' %}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" 
@@ -20,6 +24,10 @@
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
         <script type="text/javascript">
             $(function() {$("#id_date_delivered").datepicker({dateFormat:"yy-mm-dd"})});
+            
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').trigger('focus')
+            })
         </script>
 
     </head>

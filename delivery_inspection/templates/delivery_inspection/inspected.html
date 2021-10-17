@@ -23,7 +23,7 @@
 	        <tbody>
 {% for del in delivery %}
 	        	<tr>
-					<td>{{ del.iar_no }}</td>
+					<td><a href="{% url 'inspection:viewaccepted' del.pk %}">{{ del.iar_no }}</a></td>
 					<td>{{ del.purpose }}</td>
 					<td>{{ del.supplier }}</td>
                 </tr>

@@ -82,7 +82,7 @@ def newdelivery(request):
 		return render(request, 'delivery_inspection/newdelivery.html', {'form':DeliveryForm()})
 	else:
 		try:
-			form = DeliveryForm(request.POST)
+			form = DeliveryForm(request.POST, request.FILES)
 			new = form.save(commit=False) #will not save to DB
 			new.created_by = request.user #set created_by to the logged in user
 			new.save()
@@ -99,22 +99,12 @@ def viewdelivery(request, pk):
 		return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form})
 	else:
 		try:
-			form = DeliveryForm(request.POST, instance=delivery)
+			form = DeliveryForm(request.POST, request.FILES, instance=delivery)
+			#print(form)
 			form.save()
 			return redirect('inspection:mydeliveries')
 		except ValueError:
 			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
-
-@login_required
-#@user_passes_test(is_member) #validate if inspector
-def inspectdelivery(request, pk):
-	delivery = get_object_or_404(Delivery, pk=pk)
-	if request.method == 'POST':
-		delivery.inspected = 1
-		delivery.inspected_by = str(request.user)
-		delivery.date_inspected = timezone.now()
-		delivery.save()
-		return redirect('inspection:mydeliveries')
 
 @login_required
 def deletedelivery(request, pk):
@@ -123,23 +113,53 @@ def deletedelivery(request, pk):
 		delivery.delete()
 		return redirect('inspection:mydeliveries')
 
+#overall CRUD
+# @login_required
+# def inspectorviewdelivery(request, pk):
+# 	delivery = get_object_or_404(Delivery, pk=pk)
+# 	if request.method == 'GET':
+# 		form = DeliveryForm(instance=delivery)
+# 		return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery, 'form':form})	
+# 	else:
+# 		try:
+# 			form = DeliveryForm(request.POST, instance=delivery)
+# 			form.save()
+# 			return redirect('inspection:alldeliveries')
+# 		except ValueError:
+# 			return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
+
+
+
+
+@login_required
+def inspectorviewdelivery(request, pk):
+	delivery = Delivery.objects.filter(pk=pk)
+	#print(delivery)
+	return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery})
+
+@login_required
+def inspectdelivery(request, pk):
+	print("inside inspectdelivery")
+	delivery = get_object_or_404(Delivery, pk=pk)
+	if request.method == 'POST':
+		delivery.inspected_by = str(request.user)
+		delivery.date_inspected = timezone.now()
+		delivery.save()
+		return redirect('inspection:alldeliveries')
+
 @login_required
 def inspecteddelivery(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('-date_inspected') #will show inspected recently
 	return render(request, 'delivery_inspection/inspected.html', {'delivery':delivery})
 
-@login_required
-def inspectorviewdelivery(request, pk):
+def deleteimage(request, pk):
 	delivery = get_object_or_404(Delivery, pk=pk)
-	if request.method == 'GET':
-		form = DeliveryForm(instance=delivery)
-		return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form})	
-	else:
-		try:
-			form = DeliveryForm(request.POST, instance=delivery)
-			form.save()
-			return redirect('inspection:alldeliveries')
-		except ValueError:
-			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
+	if request.method == 'POST':
+		print("delete image")
+		if delivery.image:
+			delivery.image.delete()
+	return redirect('inspection:viewdelivery', pk=pk)
 
-
+def viewaccepted(request, pk):
+	delivery = Delivery.objects.filter(pk=pk)
+	return render(request, 'delivery_inspection/viewaccepted.html', {'delivery':delivery})

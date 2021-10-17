@@ -1,10 +1,37 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
-	<div class="list-group">
-		<div class="list-group-item list-group-item-action active" style="
-    text-transform: uppercase;">All Deliveries for Inspection</div>
-		{% for del in delivery %}
-		<a href="{% url 'inspection:inspectorviewdelivery' del.pk %}" class="list-group-item list-group-item-action">{{ del.iar_no }} - {{ del.purpose }} - created by: {{ del.created_by }}</a>
-		{% endfor %}
+	<div class="card-header bg-warning text-dark">
+		<i class="fas fa-tasks"></i>
+		Deliveries for Inspection &amp; Acceptance
+    </div>
+    <div class="card-body">
+    	<table id="datatablesSimple">
+    		<thead>
+	            <tr>
+	                <th>IAR Number</th>
+	                <th>Purpose</th>
+	                <th>Supplier</th>
+	                <th>Created by</th>
+	            </tr>
+	        </thead>
+	        <tfoot>
+	            <tr>
+					<th>IAR NO</th>
+					<th>Purpose</th>
+					<th>Supplier</th>
+					<th>Created by</th>
+	            </tr>
+	        </tfoot>
+	        <tbody>
+{% for del in delivery %}
+	        	<tr>
+					<td><a href="{% url 'inspection:inspectorviewdelivery' del.pk %}">{{ del.iar_no }}</a></td>
+					<td>{{ del.purpose }}</td>
+					<td>{{ del.supplier }}</td>
+					<td>{{ del.created_by }}</td>
+	            </tr>
+{% endfor %}
+			</tbody>
+		</table>
 	</div>
 {% endblock %}

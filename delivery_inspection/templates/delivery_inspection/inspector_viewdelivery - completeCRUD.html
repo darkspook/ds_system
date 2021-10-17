@@ -28,6 +28,10 @@
 	{% csrf_token %}
 	<button type="submit" class="btn btn-danger" style="position: relative;top: -40px;">Delete</button>
 </form>
+<form method="POST" action="{% url 'inspection:inspectdelivery' delivery.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success btn-user btn-block" style="position: relative;top: -40px;">Inspect &amp; Accept</button>
+</form>
 {% if delivery.image %}
 <form method="POST" action="{% url 'inspection:deleteimage' delivery.pk %}">
     Image: <a href="{{ delivery.image.url }}">{{ delivery.image.name|slice:"35:" }}</a>

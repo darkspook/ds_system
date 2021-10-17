@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ict_inventory',
     'delivery_inspection',
     'portfolio',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
