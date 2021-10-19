@@ -57,13 +57,9 @@ def is_inspector(request):
 	else:
 		return False;
 
-# def is_member(user):
-# 	print("Inspector? "+str(user.groups.filter(name='Inspector').exists()))
-# 	return user.groups.filter(name='Inspector').exists()
-
 @login_required
 def alldeliveries(request):
-	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveries
+	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
 	if is_inspector(request): #check if inspector or not
 		print("go to inspector page!")
 		return render(request, 'delivery_inspection/inspector_allpending.html', {'delivery':delivery})

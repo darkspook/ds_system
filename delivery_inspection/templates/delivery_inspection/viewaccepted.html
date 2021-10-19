@@ -1,8 +1,8 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
 <div class="card-header bg-success text-white">
-	<i class="fas fa-clipboard-check"></i>
-	Inspected &amp; Accepted Delivery
+    <i class="fas fa-clipboard-check"></i>
+    Inspected &amp; Accepted Delivery
 </div>
 {% for del in delivery %}
 <div style="padding: 1em 2em;">
@@ -17,8 +17,8 @@
     {% endif %}
     </div>
     <div class="card-footer text-muted">
-    <p><b>CREATED BY:</b> {{ del.created_by|capfirst }} &mdash; <i class="font-weight-light">{{ del.date_created}}</i></p>
-    <p><b>INSPECTED &amp; ACCEPTED BY:</b> {{ del.inspected_by|capfirst }} &mdash; <i class="font-weight-light">{{ del.date_inspected}}</i></p>
+    <p><b>CREATED BY:</b> {{ del.created_by|upper }} &mdash; <i class="font-weight-light">{{ del.date_created}}</i></p>
+    <p><b>INSPECTED &amp; ACCEPTED BY:</b> {{ del.inspected_by|upper }} &mdash; <i class="font-weight-light">{{ del.date_inspected}}</i></p>
     </div>
 </div>
 {% endfor %}
