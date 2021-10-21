@@ -8,10 +8,47 @@ from .forms import DeliveryForm, LoginForm
 from .models import Delivery
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.timezone import datetime
+import datetime
+
 
 #def home(request):
 #	return render(request, 'delivery_inspection/home.html')
 
+def generate_report(request):
+	if request.GET['reportType'] == 'dateRange':
+		dateFrom = request.GET['dateFrom']
+		dateTo = request.GET['dateTo'] 
+		if not dateFrom or not dateTo:
+			return render(request, 'delivery_inspection/reports_base.html', {'title':'No parameter provided in the'})
+		else:
+			dateFromf = datetime.datetime.strptime(dateFrom, '%Y-%m-%d').strftime("%b. %d, %Y")
+			print(dateFromf)
+			dateTof = datetime.datetime.strptime(dateTo, '%Y-%m-%d').strftime("%b. %d, %Y")
+			print(dateTof)
+			title = "Inspected deliveries from {} to {}".format(dateFromf, dateTof)
+			# delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('date_inspected')
+			delivery = Delivery.objects.filter(date_inspected__isnull=False).exclude(date_delivered__gte=dateTo).filter(date_delivered__gte=dateFrom).order_by('date_inspected')
+			return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
+	elif(request.GET['reportType'] == 'byIARNo'):
+		title = "Inspected deliveries by IAR Number"
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(iar_no__contains=request.GET['IARNo']).order_by('date_inspected')
+		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
+	elif(request.GET['reportType'] == 'byPurpose'):
+		title = "Inspected deliveries by Purpose"
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(purpose__contains=request.GET['purposeKeywords']).order_by('date_inspected')
+		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
+	elif(request.GET['reportType'] == 'bySupplier'):
+		title = "Inspected deliveries by Supplier"
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__contains=request.GET['supplierKeywords']).order_by('date_inspected')
+		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
+	else:
+		print("No report type selected")
+		return render(request, 'delivery_inspection/reports.html', {'error':'No report selected or invalid parameter!'})
+	
+
+def reports(request):
+	return render(request, 'delivery_inspection/reports.html')
+		
 def signupuser(request):
 	if request.method == 'GET':
 		return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm()})
@@ -156,6 +193,6 @@ def deleteimage(request, pk):
 			delivery.image.delete()
 	return redirect('inspection:viewdelivery', pk=pk)
 
-def viewaccepted(request, pk):
+def viewinspected(request, pk):
 	delivery = Delivery.objects.filter(pk=pk)
-	return render(request, 'delivery_inspection/viewaccepted.html', {'delivery':delivery})
+	return render(request, 'delivery_inspection/viewinspected.html', {'delivery':delivery})

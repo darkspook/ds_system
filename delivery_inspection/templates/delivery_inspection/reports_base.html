@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	{% if title %}
+        <title>{{ title|capfirst }} Report | Delivery I&amp;A</title>
+    {% else %}
+        <title>Reports | Delivery I&amp;A</title>
+    {% endif %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+	</head>
+	<body>
+		{% if title %}
+        <h3>{{ title }} Report</h3>
+    	{% else %}
+        <h3>Reports</h3>
+    	{% endif %}<br>
+		<table data-toggle="table">
+			<thead>
+				<tr>
+					<th>IAR NUMBER</th>
+					<th>PURPOSE</th>
+					<th>SUPPLIER</th>
+					<th>DATE DELIVERED</th>
+					<th>INSPECTED BY</th>
+				</tr>
+			</thead>
+			<tbody>
+{% for report in reports %}
+	        	<tr>
+					<td>{{ report.iar_no }}</td>
+					<td>{{ report.purpose }}</td>
+					<td>{{ report.supplier }}</td>
+					<td>{{ report.date_delivered }}</td>
+					<td>{{ report.inspected_by|upper }}</td>
+                </tr>
+{% endfor %}
+				<tr>
+					<td colspan="5" class="text-center font-weight-bold">***NOTHING FOLLOWS***</td>
+                </tr>
+			</tbody>
+		</table><br>
+		<p>
+			<h6>Prepared by:</h6>
+		</p><br>
+		<p>
+			<h5>{{ user.username|upper }}</h5>
+		</p>
+		<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+		<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+	</body>
+</html>

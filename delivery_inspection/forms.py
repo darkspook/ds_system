@@ -26,8 +26,8 @@ class DeliveryForm(ModelForm):
 
 	iar_no = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'IAR Number'}))
 	supplier = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Supplier'}))
-	purpose = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Supplier'}))
-	date_delivered = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Supplier'}))
+	purpose = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Purpose'}))
+	date_delivered = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Date of Delivery'}))
 	image = forms.ImageField(widget=FileInput(attrs={'class': 'form-control'}), required=False)
 
 	class Meta:

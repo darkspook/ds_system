@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        {% if titile %}
+        {% if title %}
         <title>{{ title|capfirst }} | Delivery I&amp;A</title>
         {% else %}
         <title>Delivery I&amp;A</title>
@@ -64,9 +64,13 @@
                             </a>
                             <a class="nav-link" href="{% url 'inspection:inspecteddelivery' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-check"></i></div>
-                                Accepted Deliveries
+                                Inspected Deliveries
                             </a>
                             <div class="sb-sidenav-menu-heading">Others</div>
+                            <a class="nav-link" href="{% url 'inspection:reports' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                                Reports
+                            </a>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-folder-plus"></i></div>
                                 New I&ampA Year

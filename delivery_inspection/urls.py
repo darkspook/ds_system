@@ -18,8 +18,9 @@ urlpatterns = [
     path('view/<int:pk>/delete', views.deletedelivery, name='deletedelivery'),
    	path('accepted/', views.inspecteddelivery, name='inspecteddelivery'),
     path('view/<int:pk>/deleteimage', views.deleteimage, name='deleteimage'),
-    path('view/<int:pk>/accepted', views.viewaccepted, name='viewaccepted'),
-
+    path('view/<int:pk>/inspected', views.viewinspected, name='viewinspected'),
+    path('reports/', views.reports, name='reports'),
+    path('generatereport/', views.generate_report, name='generate_report'),
 
     # Inspector views
     path('inspectorview/<int:pk>', views.inspectorviewdelivery, name='inspectorviewdelivery'),

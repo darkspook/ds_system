@@ -2,7 +2,7 @@
 {% block content %}
 	<div class="card-header bg-success text-white">
 		<i class="fas fa-clipboard-check"></i>
-		Accepted Deliveries
+		Inspected Deliveries
     </div>
     <div class="card-body">
     	<table id="datatablesSimple">
@@ -17,13 +17,13 @@
 	            <tr>
 					<th>IAR NO</th>
 					<th>Purpose</th>
-					<th>Accepted by</th>
+					<th>Inspected by</th>
 	            </tr>
 	        </tfoot>
 	        <tbody>
 {% for del in delivery %}
 	        	<tr>
-					<td><a href="{% url 'inspection:viewaccepted' del.pk %}">{{ del.iar_no }}</a></td>
+					<td><a href="{% url 'inspection:viewinspected' del.pk %}">{{ del.iar_no }}</a></td>
 					<td>{{ del.purpose }}</td>
 					<td>{{ del.inspected_by }}</td>
                 </tr>
