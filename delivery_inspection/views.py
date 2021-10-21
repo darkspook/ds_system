@@ -42,7 +42,7 @@ def generate_report(request):
 		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__contains=request.GET['supplierKeywords']).order_by('date_inspected')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	else:
-		print("No report type selected")
+		# print("No report type selected")
 		return render(request, 'delivery_inspection/reports.html', {'error':'No report selected or invalid parameter!'})
 	
 
