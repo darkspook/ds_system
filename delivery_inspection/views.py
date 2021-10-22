@@ -8,7 +8,7 @@ from .forms import DeliveryForm, LoginForm
 from .models import Delivery
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.timezone import datetime
-import datetime
+import datetime, math
 
 
 #def home(request):
@@ -19,33 +19,34 @@ def generate_report(request):
 		dateFrom = request.GET['dateFrom']
 		dateTo = request.GET['dateTo'] 
 		if not dateFrom or not dateTo:
-			return render(request, 'delivery_inspection/reports_base.html', {'title':'No parameter provided in the'})
+			return render(request, 'delivery_inspection/reports_base.html', {'title':'No parameter provided'})
 		else:
 			dateFromf = datetime.datetime.strptime(dateFrom, '%Y-%m-%d').strftime("%b. %d, %Y")
 			print(dateFromf)
 			dateTof = datetime.datetime.strptime(dateTo, '%Y-%m-%d').strftime("%b. %d, %Y")
 			print(dateTof)
-			title = "Inspected deliveries from {} to {}".format(dateFromf, dateTof)
+			title = "By Date Range: {} to {}".format(dateFromf, dateTof)
 			# delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('date_inspected')
 			delivery = Delivery.objects.filter(date_inspected__isnull=False).exclude(date_delivered__gte=dateTo).filter(date_delivered__gte=dateFrom).order_by('date_inspected')
 			return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'byIARNo'):
-		title = "Inspected deliveries by IAR Number"
+		title = 'By IAR Number "'+request.GET['IARNo']+'"'
 		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(iar_no__contains=request.GET['IARNo']).order_by('date_inspected')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'byPurpose'):
-		title = "Inspected deliveries by Purpose"
+		title = 'By Purpose "'+request.GET['purposeKeywords']+'"'
 		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(purpose__contains=request.GET['purposeKeywords']).order_by('date_inspected')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'bySupplier'):
-		title = "Inspected deliveries by Supplier"
+		#title = "By Supplier"
+		title = 'By Supplier "'+request.GET['supplierKeywords']+'"'
 		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__contains=request.GET['supplierKeywords']).order_by('date_inspected')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	else:
 		# print("No report type selected")
 		return render(request, 'delivery_inspection/reports.html', {'error':'No report selected or invalid parameter!'})
 	
-
+@login_required
 def reports(request):
 	return render(request, 'delivery_inspection/reports.html')
 		
@@ -97,12 +98,14 @@ def is_inspector(request):
 @login_required
 def alldeliveries(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
+	data, maxval = generatechart(request)
+	context = {'delivery':delivery, 'data':data, 'maxval':maxval}
 	if is_inspector(request): #check if inspector or not
 		print("go to inspector page!")
-		return render(request, 'delivery_inspection/inspector_allpending.html', {'delivery':delivery})
+		return render(request, 'delivery_inspection/inspector_allpending.html', context)
 	else:
 		print("go to user page!")
-		return render(request, 'delivery_inspection/allpending.html', {'delivery':delivery})
+		return render(request, 'delivery_inspection/allpending.html', context)
 
 @login_required
 def mydeliveries(request):
@@ -196,3 +199,22 @@ def deleteimage(request, pk):
 def viewinspected(request, pk):
 	delivery = Delivery.objects.filter(pk=pk)
 	return render(request, 'delivery_inspection/viewinspected.html', {'delivery':delivery})
+
+def generatechart(request):
+	t = ()
+	for i in range(1,13):
+		count = Delivery.objects.filter(date_inspected__month=i).count()
+		t += count,
+	data = str(t)[1:-1]
+	maxval = round(max(t)/10)*10
+	return data, maxval+5
+
+def test(request):
+	t = ()
+	for i in range(1,13):
+		count = Delivery.objects.filter(date_inspected__month=i).count()
+		t += count,
+	data = str(t)[1:-1]
+	maxval = round(max(t)/10)*10
+	print(maxval)
+	return render(request, 'delivery_inspection/test.html', {'data':data, 'maxval':maxval+5})

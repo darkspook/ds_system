@@ -14,7 +14,10 @@
         {% endif %}
 
         <!--CSS-->
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /><!-- Table sorting-->
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{% static 'delivery_inspection/assets/logo.png' %}">
+        <!-- Table sorting-->
         <link href="{% static 'delivery_inspection/css/styles.css' %}" rel="stylesheet" />
         <!--Fontawesome scripts-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -22,12 +25,14 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <!-- Chart -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     </head>
 
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="{% url 'inspection:alldeliveries' %}">Delivery I&amp;A</a>
+            <a class="navbar-brand ps-3" href="{% url 'inspection:alldeliveries' %}"><img src="{% static 'delivery_inspection/assets/logo.png' %}" class="img-fluid" alt="Logo" width="45" height="45" style="margin-right: 10px;">Delivery I&amp;A</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
@@ -86,10 +91,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <div class="mt-4"></div>
-                        <div class="card mb-4">
 {% block content %}{% endblock %}
-                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

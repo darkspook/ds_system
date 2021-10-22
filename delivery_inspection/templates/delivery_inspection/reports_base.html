@@ -12,12 +12,12 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
 	</head>
-	<body>
+	<body><br>
+		<h2 class="text-center"><span class="border border-dark" style="padding: 0 5px;">INSPECTION REPORT</span></h2>
 		{% if title %}
-        <h3>{{ title }} Report</h3>
-    	{% else %}
-        <h3>Reports</h3>
+        <h6 class="text-center">{{ title|upper }}</h6>
     	{% endif %}<br>
+    	<div class="font-italic text-right">Report timestamp: {% now "N j, Y P" %}</div>
 		<table data-toggle="table">
 			<thead>
 				<tr>

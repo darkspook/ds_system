@@ -1,5 +1,7 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
 	<div class="card-header bg-warning text-dark">
 		<i class="fas fa-tasks"></i>
 		Deliveries for Inspection &amp; Acceptance
@@ -10,6 +12,7 @@
 	            <tr>
 	                <th>IAR Number</th>
 	                <th>Purpose</th>
+	                <th>Supplier</th>
 	                <th>Created by</th>
 	            </tr>
 	        </thead>
@@ -17,6 +20,7 @@
 	            <tr>
 					<th>IAR NO</th>
 					<th>Purpose</th>
+					<th>Supplier</th>
 					<th>Created by</th>
 	            </tr>
 	        </tfoot>
@@ -25,10 +29,13 @@
 	        	<tr>
 					<td>{{ del.iar_no }}</td>
 					<td>{{ del.purpose }}</td>
+					<td>{{ del.supplier }}</td>
 					<td>{{ del.created_by }}</td>
                 </tr>
 {% endfor %}
 			</tbody>
 		</table>
 	</div>
+</div>
+{% include 'delivery_inspection/chart.html' %}
 {% endblock %}

@@ -1,39 +1,42 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
-<div class="card-header bg-info text-white">
-	<i class="fas fa-notes-medical"></i>
-	Edit/Delete Delivery
-</div>
-<div style="padding: 1em 2em;">
+<div class="mt-4"></div>
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+    	<i class="fas fa-notes-medical"></i>
+    	Edit/Delete Delivery
+    </div>
+    <div style="padding: 1em 2em;">
 
-{% if error %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-{% endif %}
-<form method="POST" enctype="multipart/form-data">
-{% csrf_token %}
-{% for field in form %}
-    <div class="form-floating mb-3">
-        {{ field }}
-        <label>{{ field.label|upper }}</label>
-    </div>
-{% endfor %}
-    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-        <div class="small"></div>
-        <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Save?');">Save</button>
-    </div>
-</form>
-<form method="POST" action="{% url 'inspection:deletedelivery' delivery.pk %}">
-	{% csrf_token %}
-	<button type="submit" class="btn btn-danger" style="position: relative;top: -40px;" onclick="return confirm('Are you sure you want to Delete?');">Delete</button>
-</form>
-{% if delivery.image %}
-<form method="POST" action="{% url 'inspection:deleteimage' delivery.pk %}">
-    Image: <a href="{{ delivery.image.url }}">{{ delivery.image.name|slice:"35:" }}</a>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <button type="submit" class="badge btn btn-danger" onclick="return confirm('Are you sure you want to delete the image?');"><i class="fas fa-times-circle"></i></button>
-</form> 
-{% endif %}
+    {% for field in form %}
+        <div class="form-floating mb-3">
+            {{ field }}
+            <label>{{ field.label|upper }}</label>
+        </div>
+    {% endfor %}
+        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+            <div class="small"></div>
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Save?');">Save</button>
+        </div>
+    </form>
+    <form method="POST" action="{% url 'inspection:deletedelivery' delivery.pk %}">
+    	{% csrf_token %}
+    	<button type="submit" class="btn btn-danger" style="position: relative;top: -40px;" onclick="return confirm('Are you sure you want to Delete?');">Delete</button>
+    </form>
+    {% if delivery.image %}
+    <form method="POST" action="{% url 'inspection:deleteimage' delivery.pk %}">
+        Image: <a href="{{ delivery.image.url }}">{{ delivery.image.name|slice:"35:" }}</a>
+        {% csrf_token %}
+        <button type="submit" class="badge btn btn-danger" onclick="return confirm('Are you sure you want to delete the image?');"><i class="fas fa-times-circle"></i></button>
+    </form> 
+    {% endif %}
+    </div>
 </div>
 {% endblock %}

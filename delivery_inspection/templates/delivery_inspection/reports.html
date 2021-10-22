@@ -1,114 +1,117 @@
 {% extends 'delivery_inspection/base.html' %}
 {% block content %}
 <!-- reports.html -->
-<div class="card-header bg-secondary text-light">
-  <i class="fas fa-file-alt"></i>
-  Reports
-</div>
-<div class="card-body">
-{% if error %}
-  <div class="alert alert-danger" role="alert">
-    {{ error }}
+<div class="mt-4"></div>
+<div class="card mb-4">
+  <div class="card-header bg-secondary text-light">
+    <i class="fas fa-file-alt"></i>
+    Reports
   </div>
-{% endif %}
-  <div class="accordion" id="accordionReports">
-    <!-- BY DATE RANGE -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Inspected Deliveries by DATE RANGE
-        </button>
-      </h2>
-      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionReports">
-        <div class="accordion-body">
-          <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
-            {% csrf_token %}
-            <input type="hidden" id="reportType" name="reportType" value="dateRange">
-            <div class="input-group mb-3">
-              <div class="form-floating">
-                <input type="text" id="dateFrom" name="dateFrom" class="form-control" placeholder="From" aria-label="From">
-                <label for="dateFrom">From</label>
+  <div class="card-body">
+  {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  {% endif %}
+    <div class="accordion" id="accordionReports">
+      <!-- BY DATE RANGE -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Inspected Deliveries by DATE RANGE
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="dateRange">
+              <div class="input-group mb-3">
+                <div class="form-floating">
+                  <input type="text" id="dateFrom" name="dateFrom" class="form-control" placeholder="From" aria-label="From">
+                  <label for="dateFrom">From</label>
+                </div>
+                <span class="input-group-text">&mdash;</span>
+                <div class="form-floating">
+                  <input type="text" id="dateTo" name="dateTo" class="form-control" placeholder="To" aria-label="To">
+                  <label for="dateTo">To</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate</button>
               </div>
-              <span class="input-group-text">&mdash;</span>
-              <div class="form-floating">
-                <input type="text" id="dateTo" name="dateTo" class="form-control" placeholder="To" aria-label="To">
-                <label for="dateTo">To</label>
-              </div>
-              <button type="submit" class="btn btn-primary">Generate</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- BY IAR Number -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingFour">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Inspected Deliveries by IAR Number
-        </button>
-      </h2>
-      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionReports">
-        <div class="accordion-body">
-          <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
-            {% csrf_token %}
-            <input type="hidden" id="reportType" name="reportType" value="byIARNo">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">IAR Number</span>
+      <!-- BY IAR Number -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Inspected Deliveries by IAR Number
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="byIARNo">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">IAR Number</span>
+                </div>
+                <input type="text" id="IARNo" name="IARNo" class="form-control" aria-label="IAR Number">
+                <button type="submit" class="btn btn-primary">Generate</button>
               </div>
-              <input type="text" id="IARNo" name="IARNo" class="form-control" aria-label="IAR Number">
-              <button type="submit" class="btn btn-primary">Generate</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- BY PURPOSE  -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Inspected Deliveries by PURPOSE
-        </button>
-      </h2>
-      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionReports">
-        <div class="accordion-body">
-          <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
-            {% csrf_token %}
-            <input type="hidden" id="reportType" name="reportType" value="byPurpose">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Purpose Keyword(s)</span>
+      <!-- BY PURPOSE  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Inspected Deliveries by PURPOSE
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="byPurpose">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Purpose Keyword(s)</span>
+                </div>
+                <input type="text" id="purposeKeywords" name="purposeKeywords" class="form-control" aria-label="Purpose Keywords">
+                <button type="submit" class="btn btn-primary">Generate</button>
               </div>
-              <input type="text" id="purposeKeywords" name="purposeKeywords" class="form-control" aria-label="Purpose Keywords">
-              <button type="submit" class="btn btn-primary">Generate</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- BY SUPPLIER -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Inspected Deliveries by SUPPLIER
-        </button>
-      </h2>
-      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionReports">
-        <div class="accordion-body">
-          <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
-            {% csrf_token %}
-            <input type="hidden" id="reportType" name="reportType" value="bySupplier">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Supplier Keyword(s)</span>
+      <!-- BY SUPPLIER -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Inspected Deliveries by SUPPLIER
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'inspection:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="bySupplier">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Supplier Keyword(s)</span>
+                </div>
+                <input type="text" id="supplierKeywords" name="supplierKeywords" class="form-control" aria-label="Supplier Keywords">
+                <button type="submit" class="btn btn-primary">Generate</button>
               </div>
-              <input type="text" id="supplierKeywords" name="supplierKeywords" class="form-control" aria-label="Supplier Keywords">
-              <button type="submit" class="btn btn-primary">Generate</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-</div>
+  </div>
+  </div>
 </div>
 {% endblock %}
