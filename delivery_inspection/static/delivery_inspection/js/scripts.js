@@ -1,12 +1,4 @@
-/*!
-    * Start Bootstrap - SB Admin v7.0.3 (https://startbootstrap.com/template/sb-admin)
-    * Copyright 2013-2021 Start Bootstrap
-    * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
-    */
-    // 
-// Scripts
-// 
-
+// SB Admmin Navigation
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation
@@ -23,4 +15,16 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
+});
+
+//Datepicker for new delivery
+$(function() {
+    $("#id_date_delivered").datepicker({dateFormat:"yy-mm-dd"})
+});
+
+//Datepicker for reports
+$(function() {
+    $("#dateFrom").datepicker({dateFormat:"yy-mm-dd"})
+    
+    $("#dateTo").datepicker({dateFormat:"yy-mm-dd"})
 });
