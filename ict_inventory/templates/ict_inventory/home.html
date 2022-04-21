@@ -1,9 +1,17 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-<div class="container text-center">
-	<h1>Welcome to ICT Inventory System!</h1>
-	{% for asset in assets %}
-	<h2>{{ asset.name }}</h2><br>
-	<p>{{ asset.description }}</p>
-	{% endfor %}
+{% extends 'ict_inventory/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+	<div class="card-header bg-warning text-dark">
+		<i class="fas fa-tasks"></i>
+		ICT Inventory
+    </div>
+    <div class="card-body">
+	    <h1>Welcome to ICT Inventory System!</h1>
+		{% for asset in assets %}
+		<h2><a href="{% url 'ict_inventory:asset_detail' asset.pk %}">{{ asset.name }}</a></h2><br>
+		<p>{{ asset.description }}</p>
+		{% endfor %}
+    </div>
 </div>
+{% endblock %}

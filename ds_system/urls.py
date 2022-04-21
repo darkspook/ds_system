@@ -24,9 +24,10 @@ from portfolio import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
     path('projects/', views.projects, name='projects'),
-    #path('ictinventory/', views.home, name='home'),
     path('inspection/', include('delivery_inspection.urls')),
+    path('ictinventory/', include('ict_inventory.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
