@@ -1,0 +1,13 @@
+{% extends 'ict_inventory/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+	<div class="card-header bg-warning text-dark">
+		{{ asset.name }}
+    </div>
+    <div class="card-body">
+	    <h1>{{ asset.name }}</h1>
+		<p>{{ asset.description }}</p>
+    </div>
+</div>
+{% endblock %}
