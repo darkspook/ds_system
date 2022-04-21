@@ -11,7 +11,7 @@
         <!-- mobile viwport meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- fevicon -->
-        <link rel="icon" type="image/png" href="{% static 'portfolio/assets/logo.png' %}">
+        <link rel="icon" type="image/png" href="{% static 'portfolio/img/logo.png' %}">
         
         <!-- ================================
         CSS Files
@@ -89,6 +89,15 @@
                                                 <polygon class="st1" points="331.2,297.6 186.9,380.9 42.6,297.6 42.6,131 186.9,47.6 331.2,131"/>
                                             </g>
                                         </svg>
+
+                                        <div class="content">
+                                            <div class="icon">
+                                                <i class="et-line icon-mobile"></i>
+                                            </div>
+                                            <h4>This can be ...</h4>
+                                            <p>&quot;YOUR PROJECT&quot; <br><br><a href="{% url 'contact' %}">Click here!</a></p>
+                                        </div>
+
                                     </div>
                                     <div class="service-hex">
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 372 424.5" style="enable-background:new 0 0 372 424.5;" xml:space="preserve">
@@ -117,6 +126,9 @@
                     <nav class="page-nav clear">
                         <div class="container">
                             <div class="flex flex-middle space-between">
+                                <span class="prev-page"><a href="{{ request.META.HTTP_REFERER }}" class="link">&larr; Prev Page</a></span>
+                                <span class="copyright hidden-xs">Copyright &copy; 2020 JCBA, All Rights Reserved.</span>
+                                <span></span>
                             </div>
                         </div>
                         <!-- /.page-nav -->

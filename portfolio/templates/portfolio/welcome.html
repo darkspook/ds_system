@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" >
+    <head>
+        <!-- meta charset -->
+        <meta charset="utf-8">
+        <!-- site title -->
+        <title>Welcome | JCBArroyo</title>
+        <!-- meta description -->
+        <meta name="description" content="">
+        <!-- mobile viwport meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- fevicon -->
+        <link rel="icon" type="image/png" href="{% static 'portfolio/img/logo.png' %}">
+        <!-- ================================
+        CSS Files
+        ================================= -->
+        <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i|Open+Sans:400,600,700,800" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'portfolio/css/themefisher-fonts.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/dark.css' %}">
+        <link id="color-changer" rel="stylesheet" href="{% static 'portfolio/css/colors/red.css' %}">
+    </head>
+
+    <body class="dark">
+
+        <div class="preloader">
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+        </div>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+
+                    <div class="author-image-large">
+                        <img src=" {% static 'portfolio/img/author.png' %}" alt="">
+                    </div>
+                   
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 col-lg-7">
+                                <div class="page-title">
+                                    <h2>Julius <span class="primary">Arroyo</span> <span class="title-bg">About</span></h2>
+                                    <p>A DevOps from Philippines, who focuses on providing IT solutions such:
+                                    <ul>
+                                        <li>Web Development using Python Django</li>
+                                        <li>Hardware setup using Windows or Linux</li>
+                                        <li>Network setup utilizing WAN, LAN, WLAN, and pfSense technologies</li>
+                                    </ul>
+                                    </p>
+                                    <p>With 15 years of experience in IT field. Currently working at Department of Defense as Computer Programmer while concurrently collaborating with freelance projects to continually excel in the chosen field.</p>
+                                </div>
+                            </div>
+                        </div> <!-- /.row -->
+
+                    </div> <!-- /.container -->
+
+                    <nav class="page-nav clear">
+                        <div class="container">
+                            <div class="flex flex-middle space-between">
+                                <span class="prev-page"><a href="{{ request.META.HTTP_REFERER }}" class="link">&larr; Prev Page</a></span>
+                                <span class="copyright hidden-xs">Copyright &copy; 2020 JCBA, All Rights Reserved.</span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- /.page-nav -->
+                    </nav>
+                    <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+        
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <script src="{% static 'portfolio/js/vendor/jquery-2.2.4.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/jquery.easing.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/jquery.nicescroll.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/jquery-validation.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/main.js' %}"></script>
+    </body>
+</html>

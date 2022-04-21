@@ -11,7 +11,7 @@
         <!-- mobile viwport meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- fevicon -->
-        <link rel="icon" type="image/png" href="{% static 'portfolio/assets/logo.png' %}">
+        <link rel="icon" type="image/png" href="{% static 'portfolio/img/logo.png' %}">
         
         <!-- ================================
         CSS Files
@@ -27,18 +27,24 @@
 
     <body class="dark">
 
-
+        <div class="preloader">
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+        </div>
 
         <main class="site-wrapper">
             <div class="pt-table">
-                <div class="pt-tablecell page-home relative" style="background-image: url('img/banner.jpg');">
+                <div class="pt-tablecell page-home relative">
                     <div class="overlay"></div>
 
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
                                 <div class="page-title home text-center">
-                                    <img src="img/phantom.png" alt="">
+                                    <img src="{% static 'portfolio/img/banner.png' %}" alt="">
                                     <p>&ldquo;The true sign of intelligence is not knowledge but imagination.&rdquo; &#8212; A. Einstein</p>
                                 </div>
 
@@ -54,7 +60,7 @@
                                             <div></div>
                                             <div></div>
                                         </div>
-                                        <a href="#" class="hex-content">
+                                        <a href="{% url 'welcome' %}" class="hex-content">
                                             <span class="hex-content-inner">
                                                 <span class="icon">
                                                     <i class="tf-dial"></i>
@@ -117,7 +123,7 @@
                                             <div></div>
                                             <div></div>
                                         </div>
-                                        <a href="{% url 'about' %}" class="hex-content">
+                                        <a href="{% url 'contact' %}" class="hex-content">
                                             <span class="hex-content-inner">
                                                 <span class="icon">
                                                     <i class="tf-envelope2"></i>

@@ -1,58 +1,187 @@
 {% load static %}
-<!doctype html>
-<html lang="en">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html class="no-js" >
+    <head>
+        <!-- meta charset -->
+        <meta charset="utf-8">
+        <!-- site title -->
+        <title>About | JCBArroyo</title>
+        <!-- meta description -->
+        <meta name="description" content="">
+        <!-- mobile viwport meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- fevicon -->
+        <link rel="icon" type="image/png" href="{% static 'portfolio/img/logo.png' %}">
+        
+        <!-- ================================
+        CSS Files
+        ================================= -->
+        <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i|Open+Sans:400,600,700,800" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'portfolio/css/themefisher-fonts.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/css/dark.css' %}">
+        <link id="color-changer" rel="stylesheet" href="{% static 'portfolio/css/colors/blue.css' %}">
+    </head>
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <body class="dark">
 
-		<!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link  rel="stylesheet" href="{% static 'portfolio/css/about-styles.css' %}"/>
-
-		<link rel="icon" type="image/png" href="{% static 'portfolio/img/logo.png' %}">
-
-		<title>About | JCBArroyo</title>
-	</head>
-	<body>
-		<!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}"
-                ><span class="d-block d-lg-none">Julius Arroyo</span><span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{% static 'portfolio/img/profile.jpg' %}" alt="" /></span></a
-            ><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <section class="resume-section" id="about">
-        <div class="resume-section-content">
-        <h1 class="mb-0">Julius <span class="text-primary">Arroyo</span></h1>
-        <div class="subheading mb-5">Zone 1, Sta. Justina West · Buhi, Cam. Sur 4433 · +63 919 997 5765 · <a href="mailto:jcba003@gmail.com">jcba003@gmail.com</a></div>
-        <p class="lead mb-5">Hi I'm Julius Arroyo an IT Expert. Graduated with Bachelors Degree in Computer Science with more than 10 years experience in IT industry. I write code, develop web apps, assemble and fix computers; desktops, laptops, servers, printers and other IT equipment. I also design computer networks and implement them cost effectively. I'm confident there's something I can help you with. Feel free to explore and contact me by visiting the contact links below. I'm looking forward to working with you soon!</p>
-        <div class="social-icons">
-            <a class="social-icon" href="https://www.facebook.com/juliuschristopherarroyo"><i class="fab fa-facebook-f"></i></a><a class="social-icon" href="https://www.linkedin.com/in/julius-christopher-arroyo-25137b122/"><i class="fab fa-linkedin-in"></i></a><a class="social-icon" href="https://github.com/darkspook"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.strava.com/athletes/3484685"><i class="fab fa-strava"></i></a><a class="social-icon" href="https://www.plotaroute.com/userprofile/70250"><i class="fa fa-map-marker"></i></a>
+        <div class="preloader">
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
+            <div class="loading-mask"></div>
         </div>
-        </div>
-        </section>
-        <hr class="m-0" />
 
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                                <div class="page-title text-center">
+                                    <h2>About <span class="primary">me</span> <span class="title-bg">Name</span></h2>
+                                    <p>I have been working as an IT professional aka DevOps since 2008. Worked for 3 reputable firms (retail, banking, government) and also with several clients as a freelancer. I'm also a seasonal triathlete and a marathoner since 2009. These hobbies helped me to become physically and mentally fit since the IT industry requires long periods of sitting and analytical thinking.</p>
+                                </div>
+                            </div>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="{% static 'portfolio/js/scripts.js' %}"></script>
-	</body>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="about-author">
+                                    <figure class="author-thumb">
+                                        <img src="{% static 'portfolio/img/profile-2.jpg' %}" alt="">
+                                    </figure> <!-- /.author-bio -->
+                                    <div class="author-desc">
+                                        <p><b>Language:</b> English, Tagalog</p>
+                                        <p><b>Expert in:</b> Web development &amp; DevOps</p>
+                                        <p><b>Freelance:</b> Available</p>
+                                        <p><b>Hobbies:</b> Swim, Bike, Run</p>
+                                    </div>
+                                    <!-- /.author-desc -->
+                                </div> <!-- /.about-author -->
+                                <p>I'm highly passionate about helping people achieve their goals at their own firm. For the past 15 years, IT has been my bread and butter in my day to day work. I believe my skill sets can amplify one's capability to deliver targets rapidly and efficiently.</p>
+                            </div> <!-- /.col -->
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="section-title clear">
+                                    <h3>Skills</h3>
+                                </div>
+                                <div class="skill-wrapper">
+                                    <div class="progress clear">
+                                        <div class="skill-name">Python</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="70%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">Django</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="70%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">HTML5</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="90%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">CSS3</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="80%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">jQuery</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="70%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">BootStrap</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="80%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">Photoshop</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="90%"></div>
+                                    </div> <!-- /.progress -->
+                                                                        <div class="progress clear">
+                                        <div class="skill-name">Windows</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="95%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">Linux</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="90%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">Network Topology</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="90%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">pfSense</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="80%"></div>
+                                    </div> <!-- /.progress -->
+                                    <div class="progress clear">
+                                        <div class="skill-name">Desktops &amp; Servers</div>
+                                        <div class="skill-bar">
+                                            <div class="bar"></div>
+                                        </div>
+                                        <div class="skill-lavel" data-skill-value="95%"></div>
+                                    </div> <!-- /.progress -->
+                                </div> <!-- /.skill-wrapper -->
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <nav class="page-nav clear">
+                        <div class="container">
+                            <div class="flex flex-middle space-between">
+                                <span class="prev-page"><a href="{{ request.META.HTTP_REFERER }}" class="link">&larr; Prev Page</a></span>
+                                <span class="copyright hidden-xs">Copyright &copy; 2020 JCBA, All Rights Reserved.</span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- /.page-nav -->
+                    </nav>
+                    <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+        
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <script src="{% static 'portfolio/js/vendor/jquery-2.2.4.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/jquery.easing.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/jquery.nicescroll.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/jquery-validation.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/main.js' %}"></script>
+    </body>
 </html>

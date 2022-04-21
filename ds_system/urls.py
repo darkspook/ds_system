@@ -24,8 +24,10 @@ from portfolio import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('welcome/', views.welcome, name='welcome'),
     path('about/', views.about, name='about'),
     path('projects/', views.projects, name='projects'),
+    path('contact/', views.contact, name='contact'),
     path('inspection/', include('delivery_inspection.urls')),
     path('ictinventory/', include('ict_inventory.urls')),
 ]
