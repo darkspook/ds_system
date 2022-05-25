@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'delivery_inspection',
     'portfolio',
     'django_cleanup.apps.CleanupConfig',
+    'crispy_forms',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +130,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/inspection/login/'
+
+CRYSPY_TEMPLATE_PACK = 'bootstrap5'
 
 try:
     from .local_settings import *

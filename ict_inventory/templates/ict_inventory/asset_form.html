@@ -1,12 +1,14 @@
 {% extends 'ict_inventory/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
-    <div class="card-header bg-success text-white">
-    	<i class="fas fa-laptop-medical"></i>
+    <div class="card-header bg-info text-white">
+    	<i class="fas fa-notes-medical"></i>
     	New Asset
     </div>
     <div style="padding: 1em 2em;">
+
     {% if error %}
         <div class="alert alert-danger" role="alert">
             {{ error }}
@@ -15,16 +17,14 @@
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
             <div class="row g-2">
-        {% for field in form %}
 
                 <div class="col-md-6 ">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">{{field.label|upper}}</span>
-                        {{ field }}
+                        
+                        {{ form|crispy }}
                     </div>
                 </div>
 
-        {% endfor %}
             </div>
             <div class="d-flex align-items-center justify-content-between">
                 <div class="small" style="padding-bottom: 4em;"></div>

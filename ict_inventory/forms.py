@@ -21,10 +21,11 @@ class ComponentForm(ModelForm):
 	remarks = forms.CharField(widget=Textarea(attrs={'class': 'form-control', 'style':'height:50px;'}), required=False)
 	image = forms.ImageField(widget=FileInput(attrs={'class': 'form-control'}), required=False)
 	asset = forms.ModelChoiceField(widget=Select(attrs={'class': 'form-control'}), queryset=Asset.objects.order_by('id').reverse()) #reverse so that last added asset will be on top
+	status = forms.ChoiceField(widget=Select(attrs={'class': 'form-control'}), choices=Asset.STATUS_CHOICES)
 
 	class Meta:
 		model = Component
-		fields = ['name', 'asset', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'description', 'remarks', 'image',]
+		fields = ['name', 'asset', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'description', 'remarks', 'image', 'status']
 
 class AssetForm(ModelForm):
 	def __init__(self, *args, **kwargs):
@@ -48,4 +49,4 @@ class AssetForm(ModelForm):
 
 	class Meta:
 		model = Asset
-		fields = ['name', 'asset_type', 'end_user', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'description', 'remarks', 'image']
+		fields = ['name', 'asset_type', 'end_user', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'description', 'remarks', 'image', 'status']

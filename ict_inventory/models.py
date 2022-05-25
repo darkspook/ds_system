@@ -1,8 +1,9 @@
 from django.db import models
 from datetime import date
+from django.urls import reverse
 
 class Type(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique=True)
 	symbol = models.CharField(max_length=10, blank=True)
 	remarks = models.CharField(max_length=200, blank=True)
 	date_last_modified = models.DateTimeField(auto_now=True)
@@ -11,7 +12,7 @@ class Type(models.Model):
 		return self.name
 
 class Location(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique=True)
 	remarks = models.CharField(max_length=200, blank=True)
 	date_last_modified = models.DateTimeField(auto_now=True)
 
@@ -19,7 +20,7 @@ class Location(models.Model):
 		return self.name
 
 class Brand(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique=True)
 	remarks = models.CharField(max_length=200, blank=True)
 	date_last_modified = models.DateTimeField(auto_now=True)
 
@@ -36,7 +37,7 @@ class EndUser(models.Model):
 		return self.first_name+" "+self.last_name
 
 class Asset(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique=True)
 	description = models.TextField(blank=True)
 	property_num = models.CharField(max_length=50, blank=True)
 	brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
@@ -59,6 +60,11 @@ class Asset(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_absolute_url(self):
+		#print('pk= '+str(self.pk))
+		#print('reverse = '+str(reverse('asset_detail', kwargs={'pk': str(self.pk)})))
+		return reverse('ict_inventory:asset_detail', kwargs={'pk': self.pk})
+
 class Component(models.Model):
 	name = models.CharField(max_length=50)
 	description = models.TextField(blank=True)
@@ -72,7 +78,10 @@ class Component(models.Model):
 	image = models.ImageField(upload_to='component/images/', blank=True)
 	remarks = models.CharField(max_length=200, blank=True)
 	date_last_modified = models.DateTimeField(auto_now=True)
-	asset = models.ForeignKey(Asset, null=True, on_delete=models.SET_NULL)
+	asset = models.ForeignKey(Asset, null=True, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.name
+
+	def get_absolute_url(self):
+		return reverse('ict_inventory:component_listview', kwargs={'pk': self.pk})
