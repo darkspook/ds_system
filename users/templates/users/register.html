@@ -1,0 +1,69 @@
+{% extends 'users/forms_base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-7">
+    <div class="card shadow-lg border-0 rounded-lg mt-3 mb-3">
+        <div class="card-header"><h3 class="text-center font-weight-light my-4">Register to <img src="{% static 'users/assets/brand_logo.png' %}" width="110px" alt=""></h3></div>
+        <div class="card-body">
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %} 
+                        <div class="alert alert-danger"><strong>{{ error|escape }}</strong></div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <form method="POST">
+            {% csrf_token %}
+
+
+
+<div class="form-floating mb-3">
+    {{ form.username }}
+    <label for="{{ form.username.label | title }}">{{ form.username.label | title }}</label>
+</div>
+
+<div class="form-floating mb-3">
+    {{ form.email }}
+    <label for="{{ form.email.label | title }}">{{ form.email.label | title }}</label>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="form-floating mb-3 mb-md-0">
+            {{ form.password1 }}
+            <label for="{{ form.password1.label | title }}">{{ form.password1.label | title }}</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating mb-3 mb-md-0">
+            {{ form.password2 }}
+            <label for="{{ form.password2.label | title }}">{{ form.password2.label | title }}</label>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-4 mb-0">
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+    </div>
+</div>
+
+            </form>
+        </div>
+        <div class="card-footer text-center py-3">
+            <div class="small">Already have an account? <a href="{% url 'login' %}">Go to login</a></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#id_username, #id_email, #id_password1, #id_password2").addClass("form-control");
+        $("#id_email").attr("placeholder", "Email");
+        $("#id_username").attr("placeholder", "Username");
+        $("#id_password1").attr("placeholder", "Password");
+        $("#id_password2").attr("placeholder", "Password Confirmation");
+    });
+</script>
+{% endblock %}

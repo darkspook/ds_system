@@ -20,16 +20,23 @@ from django.conf import settings
 from ict_inventory import views
 from delivery_inspection import views
 from portfolio import views
+from users import views as user_views
+from django.contrib.auth import views as auth_views
+from users.decorators import unauthenticated_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('register/', user_views.register, name='register'),
+    path('login/', unauthenticated_user(auth_views.LoginView.as_view(template_name='users/login.html')), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('welcome/', views.welcome, name='welcome'),
     path('about/', views.about, name='about'),
     path('projects/', views.projects, name='projects'),
     path('contact/', views.contact, name='contact'),
     path('inspection/', include('delivery_inspection.urls')),
     path('ictinventory/', include('ict_inventory.urls')),
+    path('accounts/', include('users.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if title %}
+    <title>{{ title|capfirst }} | DS Systems</title>
+    {% else %}
+    <title>DS Systems</title>
+  {% endif %}
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'users/assets/logo.png' %}">
+  <link rel="stylesheet" href="{% static 'users/css/bootstrap.min.css' %}">
+  <link href="{% static 'users/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'users/css/accounts_style.css' %}" rel="stylesheet">
+</head>
+
+<body class="body-wrapper bg-light">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-expand-lg navbar-light navigation">
+            <a class="navbar-brand" href="#">
+              <img src="{% static 'users/assets/brand_logo.png' %}" alt="">
+            </a>
+            <ul class="navbar-nav ml-auto mt-10">
+              <li class="nav-item">
+                <a class="btn btn-danger" href="{% url 'logout' %}" title="Logout"><i class="fa fa-sign-out"></i></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="dashboard section" style="padding: 0;">
+    <!-- Container Start -->
+    <div class="container">
+      <!-- Row Start -->
+      <div class="row">
+{% block content %}
+{% endblock %}
+      </div>
+      <!-- Row End -->
+    </div>
+    <!-- Container End -->
+  </section>
+  <!-- Footer Bottom -->
+  <footer class="footer-bottom">
+    <!-- Container Start -->
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-12">
+        <!-- Copyright -->
+        <div class="copyright">
+          <p><img src="{% static 'users/assets/logo.png' %}" width="21px" alt=""> &copy; 2021-<script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> DS Systems.</script></p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-12">
+      </div>
+    </div>
+    </div>
+    <!-- Container End -->
+    <!-- To Top -->
+    <div class="top-to">
+      <a id="top" class="" href="#"><i class="fa fa-angle-up"></i></a>
+    </div>
+  </footer>
+<!-- JAVASCRIPTS -->
+<script src="{% static 'users/js/jquery.min.js' %}"></script>
+<script src="{% static 'users/js/accounts_script.js' %}"></script>
+
+</body>
+</html>

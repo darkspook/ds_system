@@ -3,7 +3,6 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth import views as auth_views
 from .views import (
     AssetListView, 
     AssetDetailView, 
@@ -34,8 +33,7 @@ urlpatterns = [
     # path('component/<int:pk>/delete/', views.component_deleteview, name='component_delete'),
     path('component/<int:pk>/delete/', ComponentDeleteView.as_view(), name='component_delete'),
     path('component/<int:pk>/clone/', views.component_clone, name='component_clone'),
-    path('login/', auth_views.LoginView.as_view(template_name='ict_inventory/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='ict_inventory/login.html'), name='logout'),
+    
 
     #Test
     path('test/', views.test, name='test'),

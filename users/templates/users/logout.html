@@ -1,0 +1,15 @@
+{% extends 'users/forms_base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-5">
+    <div class="card shadow-lg border-0 rounded-lg mt-5">
+        <div class="card-header"><h3 class="text-center font-weight-light my-4">You Have Been Logged Out</h3></div>
+        <div class="card-body text-center">
+        	<h5>Thank you for using <img src="{% static 'users/assets/brand_logo.png' %}" width="110px" alt=""></h5><br>
+        	Please <a href="{% url 'login' %}">click here</a> to login back to the system.
+        </div>
+        <div class="card-footer text-center py-3">
+        </div>
+    </div>
+</div>
+{% endblock%}

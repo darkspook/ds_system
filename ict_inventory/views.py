@@ -7,7 +7,11 @@ from django.urls import reverse_lazy, reverse
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
+from users.decorators import allowed_users
 
+@login_required
+@allowed_users(allowed_roles=['ict'])
 def home(request):
 	# assets = Asset.objects.order_by('-date_acquired')
 	assets = Asset.objects.order_by('-date_last_modified')
@@ -29,6 +33,7 @@ def home(request):
 	# print('Context: ',context)
 	return render(request, 'ict_inventory/home.html', context)
 
+# @login_required
 def search(request):
 	if request.method == 'POST':
 		#searchbox = request.POST['searchbox']
@@ -54,6 +59,7 @@ def search(request):
 		return render(request, 'ict_inventory/search.html',{})
 
 # Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset
+# @login_required
 def asset_clone(request, pk):
 	# print("Inside clone")
 	asset = get_object_or_404(Asset, pk=pk)
@@ -72,6 +78,7 @@ def asset_clone(request, pk):
 		except ValueError:
 			return render(request, 'ict_inventory/asset_clone.html', {'form':form, 'error':'Invalid data entered.'})
 
+# @login_required
 class AssetCreateView(CreateView):
 	model = Asset
 	template_name = 'ict_inventory/asset_new.html'
@@ -82,25 +89,30 @@ class AssetCreateView(CreateView):
 	# 	form.instance.author = self.request.user
 	# 	return super().form_valid(form)
 
-class AssetUpdateView(UpdateView):
+# @login_required
+class AssetUpdateView(SuccessMessageMixin, UpdateView):
 	model = Asset
 	template_name = 'ict_inventory/asset_update.html'
 	#fields = ['name', 'description', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'remarks', 'image', 'end_user', 'status', 'asset_type']
 	form_class = AssetForm
 	success_message = "Asset was updated successfully"
 
+# @login_required
 class AssetDeleteView(DeleteView):
 	model = Asset
 	success_url = reverse_lazy('ict_inventory:home')
 
+# @login_required
 class AssetListView(ListView):
 	model = Asset
 	context_object_name = "assets"
 	ordering = ['-date_acquired']
 
+# @login_required
 class AssetDetailView(DetailView):
 	model = Asset
 
+# @login_required
 def delete_image(request, pk):
 	asset = get_object_or_404(Asset, pk=pk)
 	if request.method == 'POST':

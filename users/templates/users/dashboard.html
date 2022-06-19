@@ -1,0 +1,52 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-md-10 offset-md-1 col-lg-4 offset-lg-0">
+	<div class="sidebar">
+		<!-- User Widget -->
+		<div class="widget user-dashboard-profile" style="background-image: url('{{user.profile.image.url }}');background-position: center;background-repeat: no-repeat;background-size: cover;box-shadow: inset 2000px 0 0 0 rgba(255, 255, 255, 0.8);border-color: rgba(255, 255, 255, 1);">
+			<!-- User Image -->
+			<div class="profile-thumb">
+				<img src="{{ user.profile.image.url }}" alt="" class="rounded-circle" style="width:130px; height:130px; object-fit: cover;">
+			</div>
+			<!-- User Name -->
+			<h5 class="text-center">{{ user.username|upper }}</h5>
+			{% if user.first_name and user.last_name %}
+			<h6>{{ user.first_name|title }} {{ user.last_name|title }}</h6>
+			{% endif %}
+			<p class="font-weight-light">Joined: {{ user.date_joined|date:"F d, Y" }}<br>Last login: <!-- {{ user.last_login }} or  -->{{ user.last_login|timesince }} ago</p>
+			<a href="{% url 'users:profile' %}" class="btn btn-main-sm">Edit Profile</a>
+		</div>
+	</div>
+</div>
+<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
+	<div class="widget dashboard-container my-adslist">
+		<h3 class="widget-header">Available Applications</h3>
+
+		<div class="card mb-3" style="background-image: url('{% static 'users/assets/delivery_inspection.jpg' %}');background-position: center;background-repeat: no-repeat;background-size: cover;box-shadow: inset 2000px 0 0 0 rgba(255, 255, 255, 0.8);border-color: rgba(255, 255, 255, 1);">
+			<div class="card-body">
+				<h5 class="card-title">Delivery Inspection &amp; Acceptance</h5>
+				<p class="card-text text-dark">Delivery I&amp;A is a digital logistics tool used for planning, managing, tracking, optimizing, and executing delivery inspection and acceptance. Enabling Inspectors to focus on the inspection processes.</p>
+				<a href="{% url 'inspection:alldeliveries' %}" class="btn btn-primary">Go to App</a>
+			</div>
+		</div>
+
+		<div class="card mb-3" style="background-image: url('{% static 'users/assets/ict_inventory.jpg' %}');background-position: center;background-repeat: no-repeat;background-size: cover;box-shadow: inset 2000px 0 0 0 rgba(255, 255, 255, 0.8);border-color: rgba(255, 255, 255, 1);">
+			<div class="card-body">
+				<h5 class="card-title">ICT Inventory</h5>
+				<p class="card-text text-dark">ICT Inventory gives you the framework to document and manage the lifecycle of each IT asset from when it's first used to retirement of the asset, and the moves in between.</p>
+				<a href="{% url 'ict_inventory:home' %}" class="btn btn-primary">Go to App</a>
+			</div>
+		</div>
+
+		<div class="card mb-3" style="background-image: url('{% static 'users/assets/ict_supplies.jpg' %}');background-position: center;background-repeat: no-repeat;background-size: cover;box-shadow: inset 2000px 0 0 0 rgba(255, 255, 255, 0.8);border-color: rgba(255, 255, 255, 1);">
+			<div class="card-body">
+				<h5 class="card-title">ICT Supplies Request</h5>
+				<p class="card-text text-dark">A paperless wizard for requesting IT supplies.</p>
+				<a href="#" class="btn btn-primary">Go to App</a>
+			</div>
+		</div>
+		
+	</div>
+</div>
+{% endblock %}

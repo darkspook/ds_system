@@ -129,9 +129,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = '/inspection/login/'
+#LOGIN_URL = '/inspection/login/'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/accounts/'
 
-CRYSPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 try:
     from .local_settings import *

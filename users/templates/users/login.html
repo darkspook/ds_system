@@ -1,0 +1,42 @@
+{% extends 'users/forms_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-5">
+    <div class="card shadow-lg border-0 rounded-lg mt-3 mb-3">
+        <div class="card-header"><h3 class="text-center font-weight-light my-4">Login to <img src="{% static 'users/assets/brand_logo.png' %}" width="110px" alt=""></h3>
+            
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert"><strong>Your username and password didn't match. Please try again.</strong></div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-floating mb-3">
+                        {{ field }}
+                        <label for="{{ field.label | lower }}">{{ field.label }}</label>
+                    </div>
+                {% endfor %}
+                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <div class="small"></div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center py-3">
+            <div class="small">Need an account? <a href="{% url 'register' %}">Sign up!</a></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#id_username, #id_password").addClass("form-control");
+        $("#id_username").attr("placeholder", "Username");
+        $("#id_password").attr("placeholder", "Password");
+    });
+</script>
+
+{% endblock %}
