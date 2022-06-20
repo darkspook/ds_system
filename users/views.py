@@ -5,11 +5,17 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .decorators import unauthenticated_user
 from django.contrib.auth.models import Group
 
+def transition(request): #transition with preloader before going to app
+	return render(request, 'users/transition.html')
 
-@login_required
+# @login_required
 def home(request):
+	usrgrplist = []
+	if request.user.groups.exists():
+		usrgrplist = list(request.user.groups.values_list('name',flat = True))
 
 	context = {
+		'group':usrgrplist,
 		'title':'Account',
 	}
 	return render(request, 'users/dashboard.html', context)
@@ -24,14 +30,14 @@ def register(request):
 			
 			group = Group.objects.get(name='employee')
 			user.group.add(group)
-			
+
 			messages.success(request, f'Your account has been created! You are now able to log in.')
 			return redirect('login')
 	else:
 		form = UserRegisterForm()
 	return render(request, 'users/register.html', {'form':form})
 
-@login_required
+# @login_required
 def profile(request):
 	if request.method == 'POST':
 		u_form = UserUpdateForm(request.POST, instance=request.user)

@@ -14,7 +14,15 @@
 			{% if user.first_name and user.last_name %}
 			<h6>{{ user.first_name|title }} {{ user.last_name|title }}</h6>
 			{% endif %}
-			<p class="font-weight-light">Joined: {{ user.date_joined|date:"F d, Y" }}<br>Last login: <!-- {{ user.last_login }} or  -->{{ user.last_login|timesince }} ago</p>
+			<p class="font-weight-light">Joined: {{ user.date_joined|date:"F d, Y" }}<br>Last login: <!-- {{ user.last_login }} or  -->{{ user.last_login|timesince }} ago
+			{% if group %}
+				<br>
+				Roles:
+				{% for g in group %}
+					{{ g|upper }},
+				{% endfor %}
+			{% endif %}
+			</p>
 			<a href="{% url 'users:profile' %}" class="btn btn-main-sm">Edit Profile</a>
 		</div>
 	</div>
@@ -27,7 +35,7 @@
 			<div class="card-body">
 				<h5 class="card-title">Delivery Inspection &amp; Acceptance</h5>
 				<p class="card-text text-dark">Delivery I&amp;A is a digital logistics tool used for planning, managing, tracking, optimizing, and executing delivery inspection and acceptance. Enabling Inspectors to focus on the inspection processes.</p>
-				<a href="{% url 'inspection:alldeliveries' %}" class="btn btn-primary">Go to App</a>
+				<a href="{% url 'inspection:home' %}" class="btn btn-primary">Go to App</a>
 			</div>
 		</div>
 

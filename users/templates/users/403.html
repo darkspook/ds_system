@@ -1,0 +1,12 @@
+{% extends 'users/forms_base.html' %}
+{% block content %}
+<style type="text/css">.bg-primary {background-color: white !important;}</style>
+<div class="col-lg-6">
+	<div class="text-center mt-4">
+		<h1 class="display-1">403</h1>
+		<p class="lead">Forbidden</p>
+		<p>We're sorry, but you do not have access to this app.</p>
+		<a href="{% url 'users:home' %}" class="text-uppercase btn btn-outline-secondary btn-sm">&larr; Back to your account</a>
+	</div>
+</div>
+{% endblock %}

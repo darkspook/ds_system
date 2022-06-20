@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'users.myloginrequired.MyLoginRequired',
 ]
 
 ROOT_URLCONF = 'ds_system.urls'
@@ -134,6 +135,20 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/accounts/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_URLS = (
+    # r'(.*)', #all url
+    r'inspection/(.*)',
+    r'ictinventory/(.*)',
+    r'users/(.*)',
+    r'/accounts/(.*)', 
+)
+NO_AUTH_URLS = (
+    r'/admin(.*)$',
+    r'/login(.*)$',
+    r'/logout(.*)$',
+    r'/register(.*)$',
+)
 
 try:
     from .local_settings import *

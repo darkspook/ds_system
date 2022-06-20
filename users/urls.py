@@ -9,9 +9,8 @@ app_name = 'users'
 urlpatterns = [
     path('', views.home, name='home'),
     path('profile/', views.profile, name='profile'),
+    path('transition/', views.transition, name='transition'),
 
-    #Test
-    # path('test/', views.test, name='test'),
 ]
 if settings.DEBUG:
   urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

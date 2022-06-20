@@ -9,10 +9,20 @@ from .models import Delivery
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.timezone import datetime
 import datetime, math
+from users.decorators import allowed_users
 
-
-#def home(request):
-#	return render(request, 'delivery_inspection/home.html')
+@login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
+def home(request):
+	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
+	data, maxval = generatechart(request)
+	context = {'delivery':delivery, 'data':data, 'maxval':maxval}
+	if is_inspector(request): #check if inspector or not
+		print("go to inspector page!")
+		return render(request, 'delivery_inspection/inspector_allpending.html', context)
+	else:
+		print("go to user page!")
+		return render(request, 'delivery_inspection/allpending.html', context)
 
 def generate_report(request):
 	if request.GET['reportType'] == 'dateRange':
@@ -46,46 +56,14 @@ def generate_report(request):
 		# print("No report type selected")
 		return render(request, 'delivery_inspection/reports.html', {'error':'No report selected or invalid parameter!'})
 	
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def reports(request):
 	return render(request, 'delivery_inspection/reports.html')
-		
-def signupuser(request):
-	if request.method == 'GET':
-		return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm()})
-	else:
-		if request.POST['password1'] == request.POST['password2']:
-			try:
-				user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-				user.save()
-				login(request, user)
-				return redirect('inspection:alldeliveries')
-			except IntegrityError:
-				return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm(), 'error':'That username has already bee taken. Please use a new username.'})
-		else:
-			return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm(), 'error':'Password did not match'})
 
-def loginuser(request):
-	if request.method == 'GET':
-		return render(request, 'delivery_inspection/loginuser.html', {'form':LoginForm()})
-	else:
-		user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-		if user is None:
-			return render(request, 'delivery_inspection/loginuser.html', {'form':LoginForm(), 'error':'Username and Password did not match.'})
-		else:
-			login(request, user)
-			return redirect('inspection:alldeliveries')
-
-@login_required
-def logoutuser(request):
-	if request.method == 'POST':
-		logout(request)
-		return render(request, "delivery_inspection/logoutuser.html")
-
-@login_required
-def dashboard(request):
-	return render(request, 'delivery_inspection/dashboard.html')
-
+# @login_required
+# def dashboard(request):
+# 	return render(request, 'delivery_inspection/dashboard.html')
 
 def is_inspector(request):
 	user = User.objects.filter(is_staff=1)
@@ -95,24 +73,14 @@ def is_inspector(request):
 	else:
 		return False;
 
-@login_required
-def alldeliveries(request):
-	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
-	data, maxval = generatechart(request)
-	context = {'delivery':delivery, 'data':data, 'maxval':maxval}
-	if is_inspector(request): #check if inspector or not
-		print("go to inspector page!")
-		return render(request, 'delivery_inspection/inspector_allpending.html', context)
-	else:
-		print("go to user page!")
-		return render(request, 'delivery_inspection/allpending.html', context)
-
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def mydeliveries(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=True, created_by_id=request.user) #show only not inspected deliveries
 	return render(request, 'delivery_inspection/currentpending.html', {'delivery':delivery})
 
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def newdelivery(request):
 	if request.method == 'GET':
 		return render(request, 'delivery_inspection/newdelivery.html', {'form':DeliveryForm()})
@@ -126,7 +94,8 @@ def newdelivery(request):
 		except ValueError:
 			return render(request, 'delivery_inspection/newdelivery.html', {'form':DeliveryForm(), 'error':'Invalid data entered'})
 
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def viewdelivery(request, pk):
 	delivery = get_object_or_404(Delivery, pk=pk, created_by_id=request.user) #can only edit by the creator
 	#delivery = get_object_or_404(Delivery, pk=iar_no)
@@ -142,38 +111,23 @@ def viewdelivery(request, pk):
 		except ValueError:
 			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
 
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def deletedelivery(request, pk):
 	delivery = get_object_or_404(Delivery, pk=pk)
 	if request.method == 'POST':
 		delivery.delete()
 		return redirect('inspection:mydeliveries')
 
-#overall CRUD
 # @login_required
-# def inspectorviewdelivery(request, pk):
-# 	delivery = get_object_or_404(Delivery, pk=pk)
-# 	if request.method == 'GET':
-# 		form = DeliveryForm(instance=delivery)
-# 		return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery, 'form':form})	
-# 	else:
-# 		try:
-# 			form = DeliveryForm(request.POST, instance=delivery)
-# 			form.save()
-# 			return redirect('inspection:alldeliveries')
-# 		except ValueError:
-# 			return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
-
-
-
-
-@login_required
+@allowed_users(allowed_roles=['diainspector'])
 def inspectorviewdelivery(request, pk):
 	delivery = Delivery.objects.filter(pk=pk)
 	#print(delivery)
 	return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery})
 
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def inspectdelivery(request, pk):
 	print("inside inspectdelivery")
 	delivery = get_object_or_404(Delivery, pk=pk)
@@ -181,9 +135,10 @@ def inspectdelivery(request, pk):
 		delivery.inspected_by = str(request.user)
 		delivery.date_inspected = timezone.now()
 		delivery.save()
-		return redirect('inspection:alldeliveries')
+		return redirect('inspection:home')
 
-@login_required
+# @login_required
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def inspecteddelivery(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('-date_inspected') #will show inspected recently
 	return render(request, 'delivery_inspection/inspected.html', {'delivery':delivery})
@@ -196,6 +151,7 @@ def deleteimage(request, pk):
 			delivery.image.delete()
 	return redirect('inspection:viewdelivery', pk=pk)
 
+@allowed_users(allowed_roles=['diainspector', 'diauser'])
 def viewinspected(request, pk):
 	delivery = Delivery.objects.filter(pk=pk)
 	return render(request, 'delivery_inspection/viewinspected.html', {'delivery':delivery})
@@ -218,3 +174,63 @@ def test(request):
 	maxval = round(max(t)/10)*10
 	print(maxval)
 	return render(request, 'delivery_inspection/test.html', {'data':data, 'maxval':maxval+5})
+
+# @login_required
+# @allowed_users(allowed_roles=['inspector'])
+# def alldeliveries(request):
+# 	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
+# 	data, maxval = generatechart(request)
+# 	context = {'delivery':delivery, 'data':data, 'maxval':maxval}
+# 	if is_inspector(request): #check if inspector or not
+# 		print("go to inspector page!")
+# 		return render(request, 'delivery_inspection/inspector_allpending.html', context)
+# 	else:
+# 		print("go to user page!")
+# 		return render(request, 'delivery_inspection/allpending.html', context)
+
+#overall CRUD
+# @login_required
+# def inspectorviewdelivery(request, pk):
+# 	delivery = get_object_or_404(Delivery, pk=pk)
+# 	if request.method == 'GET':
+# 		form = DeliveryForm(instance=delivery)
+# 		return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery, 'form':form})	
+# 	else:
+# 		try:
+# 			form = DeliveryForm(request.POST, instance=delivery)
+# 			form.save()
+# 			return redirect('inspection:alldeliveries')
+# 		except ValueError:
+# 			return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
+
+# def signupuser(request):
+# 	if request.method == 'GET':
+# 		return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm()})
+# 	else:
+# 		if request.POST['password1'] == request.POST['password2']:
+# 			try:
+# 				user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+# 				user.save()
+# 				login(request, user)
+# 				return redirect('inspection:alldeliveries')
+# 			except IntegrityError:
+# 				return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm(), 'error':'That username has already bee taken. Please use a new username.'})
+# 		else:
+# 			return render(request, 'delivery_inspection/signupuser.html', {'form':UserCreationForm(), 'error':'Password did not match'})
+
+# def loginuser(request):
+# 	if request.method == 'GET':
+# 		return render(request, 'delivery_inspection/loginuser.html', {'form':LoginForm()})
+# 	else:
+# 		user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+# 		if user is None:
+# 			return render(request, 'delivery_inspection/loginuser.html', {'form':LoginForm(), 'error':'Username and Password did not match.'})
+# 		else:
+# 			login(request, user)
+# 			return redirect('inspection:alldeliveries')
+
+# # @login_required
+# def logoutuser(request):
+# 	if request.method == 'POST':
+# 		logout(request)
+# 		return render(request, "delivery_inspection/logoutuser.html")

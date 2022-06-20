@@ -33,7 +33,6 @@ def home(request):
 	# print('Context: ',context)
 	return render(request, 'ict_inventory/home.html', context)
 
-# @login_required
 def search(request):
 	if request.method == 'POST':
 		#searchbox = request.POST['searchbox']
@@ -59,7 +58,7 @@ def search(request):
 		return render(request, 'ict_inventory/search.html',{})
 
 # Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset
-# @login_required
+
 def asset_clone(request, pk):
 	# print("Inside clone")
 	asset = get_object_or_404(Asset, pk=pk)
@@ -78,7 +77,6 @@ def asset_clone(request, pk):
 		except ValueError:
 			return render(request, 'ict_inventory/asset_clone.html', {'form':form, 'error':'Invalid data entered.'})
 
-# @login_required
 class AssetCreateView(CreateView):
 	model = Asset
 	template_name = 'ict_inventory/asset_new.html'
@@ -89,7 +87,6 @@ class AssetCreateView(CreateView):
 	# 	form.instance.author = self.request.user
 	# 	return super().form_valid(form)
 
-# @login_required
 class AssetUpdateView(SuccessMessageMixin, UpdateView):
 	model = Asset
 	template_name = 'ict_inventory/asset_update.html'
@@ -97,22 +94,18 @@ class AssetUpdateView(SuccessMessageMixin, UpdateView):
 	form_class = AssetForm
 	success_message = "Asset was updated successfully"
 
-# @login_required
 class AssetDeleteView(DeleteView):
 	model = Asset
 	success_url = reverse_lazy('ict_inventory:home')
 
-# @login_required
 class AssetListView(ListView):
 	model = Asset
 	context_object_name = "assets"
 	ordering = ['-date_acquired']
 
-# @login_required
 class AssetDetailView(DetailView):
 	model = Asset
 
-# @login_required
 def delete_image(request, pk):
 	asset = get_object_or_404(Asset, pk=pk)
 	if request.method == 'POST':
