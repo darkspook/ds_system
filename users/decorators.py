@@ -23,15 +23,12 @@ def allowed_users(allowed_roles=[]):
 				# group = request.user.groups.all()[0].name
 				usrgrplist = list(request.user.groups.values_list('name',flat = True))  
 
-			print('User groups: ',usrgrplist)
+			#print('User groups: ',usrgrplist)
+			check = any(item in allowed_roles for item in usrgrplist)
 
-			for i in allowed_roles:
-				# if group in allowed_roles:
-				if i in usrgrplist:
-					return view_func(request, *args, **kwargs)
-				else:
-					#raise PermissionDenied
-					#return HttpResponse('We\'re sorry, but you do not have access to this app.')
-					return render(request, 'users/403.html')
+			if check:
+				return view_func(request, *args, **kwargs)
+			else:
+				return render(request, 'users/403.html')
 		return wrapper_func
 	return decorator
