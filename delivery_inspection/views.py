@@ -38,20 +38,20 @@ def generate_report(request):
 			print(dateTof)
 			title = "By Date Range: {} to {}".format(dateFromf, dateTof)
 			# delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('date_inspected')
-			delivery = Delivery.objects.filter(date_inspected__isnull=False).exclude(date_delivered__gte=dateTo).filter(date_delivered__gte=dateFrom).order_by('date_inspected')
+			delivery = Delivery.objects.filter(date_inspected__isnull=False).exclude(date_delivered__gte=dateTo).filter(date_delivered__gte=dateFrom).order_by('iar_no')
 			return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'byIARNo'):
 		title = 'By IAR Number "'+request.GET['IARNo']+'"'
-		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(iar_no__contains=request.GET['IARNo']).order_by('date_inspected')
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(iar_no__contains=request.GET['IARNo']).order_by('iar_no')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'byPurpose'):
 		title = 'By Purpose "'+request.GET['purposeKeywords']+'"'
-		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(purpose__contains=request.GET['purposeKeywords']).order_by('date_inspected')
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(purpose__contains=request.GET['purposeKeywords']).order_by('iar_no')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'bySupplier'):
 		#title = "By Supplier"
 		title = 'By Supplier "'+request.GET['supplierKeywords']+'"'
-		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__contains=request.GET['supplierKeywords']).order_by('date_inspected')
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__contains=request.GET['supplierKeywords']).order_by('iar_no')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	else:
 		# print("No report type selected")
