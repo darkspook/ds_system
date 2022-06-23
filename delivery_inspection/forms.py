@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Delivery
+from .models import Delivery, PartialDelivery
 from django import forms
 from django.utils.timezone import datetime
 from django.contrib.auth.forms import  AuthenticationForm
@@ -17,6 +17,20 @@ def generate_iarno():
 	else:
 		#print("Last record does not exist, IAR NO: "+current+"-001")
 		return current + "-001"
+
+class PartialDeliveryForm(ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(PartialDeliveryForm, self).__init__(*args, **kwargs)
+		self.fields['date_delivered'].initial = datetime.now()
+
+	#delivery = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'IAR Number',"disabled":"disabled"}))
+	remarks = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Remarks'}))
+	date_delivered = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Date of Delivery'}))
+	
+	class Meta:
+		model = PartialDelivery
+		fields = ['date_delivered', 'remarks']
+			
 
 class DeliveryForm(ModelForm):
 	def __init__(self, *args, **kwargs):

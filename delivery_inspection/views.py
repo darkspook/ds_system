@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from django.utils import timezone
-from .forms import DeliveryForm, LoginForm
-from .models import Delivery
+from .forms import DeliveryForm, PartialDeliveryForm
+from .models import Delivery, PartialDelivery
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.timezone import datetime
 import datetime, math
 from users.decorators import allowed_users
+from django.contrib import messages
 
 @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
@@ -123,8 +124,13 @@ def deletedelivery(request, pk):
 @allowed_users(allowed_roles=['diainspector'])
 def inspectorviewdelivery(request, pk):
 	delivery = Delivery.objects.filter(pk=pk)
-	#print(delivery)
-	return render(request, 'delivery_inspection/inspector_viewdelivery.html', {'delivery':delivery})
+	partialdelveries = PartialDelivery.objects.filter(delivery_id=pk)
+	context = {
+		'partialdelveries':partialdelveries,
+		'delivery':delivery,
+		'pk':pk,
+	}
+	return render(request, 'delivery_inspection/inspector_viewdelivery.html', context)
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
@@ -137,16 +143,52 @@ def inspectdelivery(request, pk):
 		delivery.save()
 		return redirect('inspection:home')
 
+@allowed_users(allowed_roles=['diainspector'])
+def inspectpartialdelivery(request, pk):
+	print("inside inspectpartialdelivery")
+	delivery = get_object_or_404(Delivery, pk=pk)
+	if request.method == 'GET':
+		form = PartialDeliveryForm()
+		context = {
+			'form':form,
+			'delivery':delivery,
+		}
+		return render(request, 'delivery_inspection/inspector_partialdelivery.html', context)
+	else:
+		try:
+			form = PartialDeliveryForm(request.POST)
+			new = form.save(commit=False) #will not save to DB
+			new.delivery_id = pk
+			new.inspected_by = request.user
+			new.save()
+			messages.success(request, f'Partial Inspection added successfully!')
+			return redirect('inspection:inspectorviewdelivery', pk)
+		except ValueError:
+		# except ValueError as e:
+			# print(e)
+			return render(request, 'delivery_inspection/inspector_partialdelivery.html', {'form':form, 'error':'Invalid data entered'})
+		return redirect('inspection:inspectorviewdelivery', pk)
+
+def deletepartialdelivery(request, pk):
+	pdelivery = get_object_or_404(PartialDelivery, pk=pk)
+	if request.method == 'POST':
+		pdelivery.delete()
+		messages.success(request, f'Partial Inspection deleted successfully!')
+		return redirect('inspection:inspectorviewdelivery', pdelivery.delivery_id)
+
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def inspecteddelivery(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('-date_inspected') #will show inspected recently
-	return render(request, 'delivery_inspection/inspected.html', {'delivery':delivery})
+	context = {
+		'delivery' : delivery,
+	}
+	return render(request, 'delivery_inspection/inspected.html', context)
 
 def deleteimage(request, pk):
 	delivery = get_object_or_404(Delivery, pk=pk)
 	if request.method == 'POST':
-		print("delete image")
+		# print("delete image")
 		if delivery.image:
 			delivery.image.delete()
 	return redirect('inspection:viewdelivery', pk=pk)
@@ -154,7 +196,12 @@ def deleteimage(request, pk):
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def viewinspected(request, pk):
 	delivery = Delivery.objects.filter(pk=pk)
-	return render(request, 'delivery_inspection/viewinspected.html', {'delivery':delivery})
+	partialdelveries = PartialDelivery.objects.filter(delivery_id=pk)
+	context = {
+		'partialdelveries':partialdelveries,
+		'delivery':delivery,
+	}
+	return render(request, 'delivery_inspection/viewinspected.html', context)
 
 def generatechart(request):
 	t = ()

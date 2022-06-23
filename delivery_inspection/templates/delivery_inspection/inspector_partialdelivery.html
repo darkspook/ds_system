@@ -1,0 +1,35 @@
+{% extends 'delivery_inspection/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+    	<i class="fas fa-notes-medical"></i>
+    	New Partial Delivery for <strong>{{ delivery.purpose }}</strong>
+    </div>
+    <div style="padding: 1em 2em;">
+
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <div class="form-floating mb-3">
+        <input type="text" name="delivery_id" value="{{ delivery }}" class="form-control" placeholder="IAR Number" id="delivery_id" disabled>
+        <label>IAR NO</label>
+    </div>
+    <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-floating mb-3">
+            {{ field }}
+            <label>{{ field.label|upper }}</label>
+        </div>
+    {% endfor %}
+        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+            <div class="small"></div>
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Save?');">Save</button>
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

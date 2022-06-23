@@ -18,3 +18,14 @@ class Delivery(models.Model):
 	def __str__(self):
 		#return self.iar_no + " Purpose: " +self.purpose
 		return self.iar_no
+
+class PartialDelivery(models.Model):
+	delivery = models.ForeignKey(Delivery, on_delete=models.CASCADE)
+	remarks = models.CharField(max_length=200, blank=True)
+	date_delivered = models.DateField()
+	inspected_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+	class Meta:
+		verbose_name_plural = "partial deliveries"
+	def __str__(self):
+		return "Partial delivery for " +str(self.delivery)

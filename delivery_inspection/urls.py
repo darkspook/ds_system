@@ -25,7 +25,8 @@ urlpatterns = [
     # Inspector views
     path('inspectorview/<int:pk>', views.inspectorviewdelivery, name='inspectorviewdelivery'), # home interface with clickable IAR No.
     path('view/<int:pk>/inspectdelivery', views.inspectdelivery, name='inspectdelivery'), # Inspect & Accept button/POST
-
+    path('view/<int:pk>/inspectpartialdelivery', views.inspectpartialdelivery, name='inspectpartialdelivery'),
+    path('view/<int:pk>/deletepartialdelivery', views.deletepartialdelivery, name='deletepartialdelivery'),
    	# Auth
     # path('signup/', views.signupuser, name='signupuser'),
     # path('login/', views.loginuser, name='loginuser'),

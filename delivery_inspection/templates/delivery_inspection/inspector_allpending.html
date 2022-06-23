@@ -27,7 +27,14 @@
 	        <tbody>
 {% for del in delivery %}
 	        	<tr>
-					<td><a href="{% url 'inspection:inspectorviewdelivery' del.pk %}">{{ del.iar_no }}</a></td>
+					<td>
+						<a href="{% url 'inspection:inspectorviewdelivery' del.pk %}">{{ del.iar_no }}</a>
+						{% if del.partialdelivery_set.all|length != 0 %}
+							<span class="badge bg-warning alert-warning text-dark" title="Partial Deliveries">
+								{{ del.partialdelivery_set.all|length }}
+							</span>
+						{% endif %}
+					</td>
 					<td>{{ del.purpose }}</td>
 					<td>{{ del.supplier }}</td>
 					<td>{{ del.created_by }}</td>

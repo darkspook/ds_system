@@ -4,7 +4,7 @@
 <div class="card mb-4">
     <div class="card-header bg-success text-white">
         <i class="fas fa-clipboard-check"></i>
-        Inspected &amp; Accepted Delivery
+        Inspected &amp; Accepted Deliveries
     </div>
     {% for del in delivery %}
     <div style="padding: 1em 2em;">
@@ -24,6 +24,35 @@
         </div>
     </div>
     {% endfor %}
+
+    {% if partialdelveries %}
+        <div class="card mt-4">
+            <div class="card-header bg-warning text-center"><strong>PARTIAL DELIVERIES</strong></div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">INSPECTOR</th>
+                            <th scope="col">REMARKS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pdel in partialdelveries %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{pdel.date_delivered|date}}</td>
+                            <td>{{pdel.inspected_by|upper}}</td>
+                            <td>{{pdel.remarks}}</td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endif %}
+    
     </div>
 </div>
 {% endblock %}

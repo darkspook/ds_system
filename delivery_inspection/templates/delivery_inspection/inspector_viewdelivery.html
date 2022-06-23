@@ -8,28 +8,66 @@
     </div>
     {% for del in delivery %}
     <div style="padding: 1em 2em;">
-    <form method="POST" action="{% url 'inspection:inspectdelivery' del.pk %}">
-    {% csrf_token %}
-        <div class="card">
-            <div class="card-header"><h6><b>IAR NO:</b> {{ del.iar_no }}</h6></div>
+        <form method="POST" action="{% url 'inspection:inspectdelivery' del.pk %}">
+        {% csrf_token %}
+            <div class="card">
+                <div class="card-header"><h6><b>IAR NO:</b> {{ del.iar_no }}</h6></div>
+                <div class="card-body">
+                <p class="card-text"><b>SUPPLIER NAME:</b> {{ del.supplier }}</p>
+                <p class="card-text"><b>PURPOSE:</b> {{ del.purpose }}</p>
+                <p class="card-text"><b>DATE DELIVERED:</b> {{ del.date_delivered }}</p>
+                {% if del.image %}
+                <a href="{{ del.image.url }}" class="btn btn-primary">View image</a>
+                {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                <b>CREATED BY:</b> {{ del.created_by|upper }} &mdash; {{ del.date_created|date}} <i class="font-weight-light" style="font-size: small;">({{ del.date_created|timesince}} ago)</i>
+                </div>
+            </div>
+        {% endfor %}
+            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <div class="small"></div>
+                <div class="btn-group">
+                    <a href="{% url 'inspection:inspectpartialdelivery' pk %}" class="btn btn-success mr-2" >PARTIAL Inspect &amp; Accept</a>
+                    <button type="submit" class="btn btn-outline-success" onclick="return confirm('Are you sure you want to fully Inspect & Accept?');">FULL Inspect &amp; Accept</button>
+                </div>
+            </div>
+        </form>
+
+{% if partialdelveries %}
+        <div class="card mt-4">
+            <div class="card-header bg-warning text-center"><strong>PARTIAL DELIVERIES</strong></div>
             <div class="card-body">
-            <p class="card-text"><b>SUPPLIER NAME:</b> {{ del.supplier }}</p>
-            <p class="card-text"><b>PURPOSE:</b> {{ del.purpose }}</p>
-            <p class="card-text"><b>DATE DELIVERED:</b> {{ del.date_delivered }}</p>
-            {% if del.image %}
-            <a href="{{ del.image.url }}" class="btn btn-primary">View image</a>
-            {% endif %}
-            </div>
-            <div class="card-footer text-muted">
-            <b>CREATED BY:</b> {{ del.created_by|upper }} &mdash; {{ del.date_created|date}} <i class="font-weight-light" style="font-size: small;">({{ del.date_created|timesince}} ago)</i>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">INSPECTOR</th>
+                            <th scope="col">REMARKS</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pdel in partialdelveries %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{pdel.date_delivered|date}}</td>
+                            <td>{{pdel.inspected_by|upper}}</td>
+                            <td>{{pdel.remarks}}</td>
+                            <td>
+<form method="POST" action="{% url 'inspection:deletepartialdelivery' pdel.pk %}">
+{% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to Delete?');">Delete</button>
+</form>
+                            </td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
             </div>
         </div>
-    {% endfor %}
-        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-            <div class="small"></div>
-            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to Inspect & Accept?');">Inspect &amp; Accept</button>
-        </div>
-    </form>
+{% endif %}
     </div>
 </div>
 {% endblock %}
