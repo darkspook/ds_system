@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from ict_inventory import views
+from ictinv import views
 from delivery_inspection import views
 from portfolio import views
 from users import views as user_views
