@@ -1,0 +1,45 @@
+{% extends 'ictinv/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+	<div class="card-header bg-warning text-dark">
+		<i class="fas fa-network-wired"></i>
+		All Asset Types
+    </div>
+    <div class="card-body">
+    	<table id="datatablesSimple">
+    		<thead>
+	            <tr>
+	                <th>Name</th>
+	                <th>Symbol</th>
+	                <th>Remarks</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tfoot>
+	            <tr>
+					<th>Name</th>
+	                <th>Symbol</th>
+	                <th>Remarks</th>
+	                <th>Actions</th>
+	            </tr>
+	        </tfoot>
+	        <tbody>
+{% for assettype in assettypes %}
+	        	<tr>
+					<td>{{ assettype.name }}</td>
+					<td style="color: {{ assettype.symbol }}">{{ assettype.symbol }}</td>
+					<td>{{ assettype.remarks }}</td>
+					<td class="text-center" width="10%">
+						<div class="btn-group">
+							<a href="{% url 'ictinv:assettype_update' assettype.pk %}" class="btn btn-info badge">Edit</a>
+							<a href="{% url 'ictinv:assettype_delete' assettype.pk %}" class="btn btn-danger badge">Delete</a>
+						</div>
+					</td>
+	            </tr>
+{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

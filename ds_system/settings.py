@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
     'users.apps.UsersConfig',
+    'ictinv',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+#Add comma on digits/number value
+USE_THOUSAND_SEPARATOR = True
 
 
 # Static files (CSS, JavaScript, Images)

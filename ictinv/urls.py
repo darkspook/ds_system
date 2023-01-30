@@ -21,7 +21,7 @@ from .views import (
     EndUserDeleteView,
     )
 
-app_name = 'ict_inventory'
+app_name = 'ictinv'
 
 urlpatterns = [
     path('', views.home, name='home'),

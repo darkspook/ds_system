@@ -1,18 +1,18 @@
-{% extends 'ict_inventory/base.html' %}
+{% extends 'ictinv/base.html' %}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
     <div class="card-header bg-danger text-white">
-        <i class="fas fa-trash"></i>
-        Delete {{ object.name | upper }}
+    	<i class="fas fa-trash"></i>
+    	Delete {{ object.name | upper }}
     </div>
     <div style="padding: 1em 2em;">
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-            <h4>Are you sure you want to delete the asset <strong>{{ object.name | upper }}</strong> and its component?</h4><br>
+            <h4>Are you sure you want to delete the component <strong>{{ object.name | upper }}</strong>?</h4><br>
             <div class="float-end">
                 <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                <a href="{% url 'ict_inventory:asset_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
+                <a href="#" class="btn btn-secondary" onClick="javascript:history.go(-1);">Cancel</a>
             </div>
         </form>
     </div>

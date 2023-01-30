@@ -1,4 +1,4 @@
-{% extends 'ict_inventory/base.html' %}
+{% extends 'ictinv/base.html' %}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
@@ -12,7 +12,7 @@
             <h4>Are you sure you want to delete the asset <strong>{{ object.name | upper }}</strong> and its component?</h4><br>
             <div class="float-end">
                 <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                <a href="{% url 'ict_inventory:asset_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
+                <a href="{% url 'ictinv:asset_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

@@ -34,7 +34,7 @@ def home(request):
 		}
 	# print('Bar data: ', generatebarchart(request))
 	# print('Context: ',context)
-	return render(request, 'ict_inventory/home.html', context)
+	return render(request, 'ictinv/home.html', context)
 
 def search(request):
 	"""Search for keywords on both Assets and Components
@@ -61,9 +61,9 @@ def search(request):
 		}
 		# print('Result', result)
 		print('Context', context)
-		return render(request, 'ict_inventory/search.html', context)
+		return render(request, 'ictinv/search.html', context)
 	else:
-		return render(request, 'ict_inventory/search.html',{})
+		return render(request, 'ictinv/search.html',{})
 
 # Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset
 
@@ -77,7 +77,7 @@ def asset_clone(request, pk):
 	asset = get_object_or_404(Asset, pk=pk)
 	if request.method == 'GET':
 		form = AssetForm(instance=asset)
-		return render(request, 'ict_inventory/asset_clone.html', {'asset':asset, 'form':form})
+		return render(request, 'ictinv/asset_clone.html', {'asset':asset, 'form':form})
 	else:
 		try:
 			form = AssetForm(request.POST, request.FILES)
@@ -86,14 +86,14 @@ def asset_clone(request, pk):
 			new_asset = Asset.objects.values('id').latest('pk').get('id')
 			print("New clonned asset: ", new_asset)
 			messages.success(request, 'Asset was added successfully.')
-			return redirect('ict_inventory:asset_detail', new_asset)
+			return redirect('ictinv:asset_detail', new_asset)
 		except ValueError:
-			return render(request, 'ict_inventory/asset_clone.html', {'form':form, 'error':'Invalid data entered.'})
+			return render(request, 'ictinv/asset_clone.html', {'form':form, 'error':'Invalid data entered.'})
 
 class AssetCreateView(CreateView):
 	"""Generic creating view for Asset"""
 	model = Asset
-	template_name = 'ict_inventory/asset_new.html'
+	template_name = 'ictinv/asset_new.html'
 	#fields = ['name', 'description', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'remarks', 'image', 'end_user', 'status', 'asset_type']
 	form_class = AssetForm
 
@@ -104,7 +104,7 @@ class AssetCreateView(CreateView):
 class AssetUpdateView(SuccessMessageMixin, UpdateView):
 	"""Generic updating view for Asset"""
 	model = Asset
-	template_name = 'ict_inventory/asset_update.html'
+	template_name = 'ictinv/asset_update.html'
 	#fields = ['name', 'description', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'remarks', 'image', 'end_user', 'status', 'asset_type']
 	form_class = AssetForm
 	success_message = "Asset was updated successfully"
@@ -112,7 +112,7 @@ class AssetUpdateView(SuccessMessageMixin, UpdateView):
 class AssetDeleteView(DeleteView):
 	"""Generic deleting view for Asset"""
 	model = Asset
-	success_url = reverse_lazy('ict_inventory:home')
+	success_url = reverse_lazy('ictinv:home')
 
 class AssetListView(ListView):
 	"""Generic listing view for Asset"""
@@ -126,14 +126,14 @@ class AssetDetailView(DetailView):
 
 # class AssetUpdateView(SuccessMessageMixin, UpdateView):
 # 	model = Asset
-# 	template_name = 'ict_inventory/asset_update.html'
+# 	template_name = 'ictinv/asset_update.html'
 # 	#fields = ['name', 'description', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'remarks', 'image', 'end_user', 'status', 'asset_type']
 # 	form_class = AssetForm
 # 	success_message = "Asset was updated successfully"
 
 # class AssetDeleteView(DeleteView):
 # 	model = Asset
-# 	success_url = reverse_lazy('ict_inventory:home')
+# 	success_url = reverse_lazy('ictinv:home')
 
 def delete_image(request, pk):
 	"""Delete attached image in an Asset"""
@@ -141,7 +141,7 @@ def delete_image(request, pk):
 	if request.method == 'POST':
 		if asset.image:
 			asset.image.delete()
-	return redirect('ict_inventory:asset_detail', pk=pk)
+	return redirect('ictinv:asset_detail', pk=pk)
 
 
 # Component - Component - Component - Component - Component - Component - Component - Component - Component
@@ -154,7 +154,7 @@ def component_clone(request, pk):
 	component = get_object_or_404(Component, pk=pk)
 	if request.method == 'GET':
 		form = ComponentForm(instance=component)
-		return render(request, 'ict_inventory/component_clone.html', {'component':component, 'form':form})
+		return render(request, 'ictinv/component_clone.html', {'component':component, 'form':form})
 	else:
 		try:
 			form = ComponentForm(request.POST, request.FILES)
@@ -163,45 +163,45 @@ def component_clone(request, pk):
 			new_component = Component.objects.values('asset_id').latest('pk').get('asset_id') #get asset_id of newly created component
 			print("New clonned Component: ", new_component)
 			messages.success(request, 'Component was added successfully.')
-			return redirect('ict_inventory:component_listview', new_component)
+			return redirect('ictinv:component_listview', new_component)
 		except ValueError:
-			return render(request, 'ict_inventory/component_clone.html', {'form':form, 'error':'Invalid data entered.'})
+			return render(request, 'ictinv/component_clone.html', {'form':form, 'error':'Invalid data entered.'})
 
 def component_listview(request, pk):
 	"""List View function for Component"""
 	#print("PK: ", pk)
 	asset = get_object_or_404(Asset, pk=pk)
 	components = Component.objects.filter(asset=asset)
-	return render(request, 'ict_inventory/component_listview.html', {'components':components, 'asset':asset})
+	return render(request, 'ictinv/component_listview.html', {'components':components, 'asset':asset})
 
 class ComponentDeleteView(DeleteView):
 	"""Generic deleting view for Component"""
 	model = Component
-	# success_url = reverse_lazy('ict_inventory:component_listview', component.asset_id)
+	# success_url = reverse_lazy('ictinv:component_listview', component.asset_id)
 	def get_success_url(self):
-		return reverse('ict_inventory:component_listview', kwargs={'pk': self.object.asset_id})
+		return reverse('ictinv:component_listview', kwargs={'pk': self.object.asset_id})
 
 # def component_deleteview(request, pk):
 # 	component = get_object_or_404(Component, pk=pk)
 # 	print('Component: ', component)
 # 	if request.method == 'POST':
 # 		component.delete()
-# 		return redirect('ict_inventory:component_listview', component.asset_id)
+# 		return redirect('ictinv:component_listview', component.asset_id)
 
 def component_updateview(request, pk):
 	"""Update View function for Component"""
 	component = get_object_or_404(Component, pk=pk)
 	if request.method == 'GET':
 		form = ComponentForm(instance=component)
-		return render(request, 'ict_inventory/component_update.html', {'component':component, 'form':form})
+		return render(request, 'ictinv/component_update.html', {'component':component, 'form':form})
 	else:
 		try:
 			form = ComponentForm(request.POST, request.FILES, instance=component)
 			form.save()
 			messages.success(request, 'Component was updated successfully.')
-			return redirect('ict_inventory:component_listview', component.asset_id)
+			return redirect('ictinv:component_listview', component.asset_id)
 		except ValueError:
-			return render(request, 'ict_inventory/component_update.html', {'component':component, 'form':form, 'error':'Invalid data entered.'})
+			return render(request, 'ictinv/component_update.html', {'component':component, 'form':form, 'error':'Invalid data entered.'})
 
 def component_delete_image(request, pk):
 	"""Delete attached image in a Component"""
@@ -209,73 +209,73 @@ def component_delete_image(request, pk):
 	if request.method == 'POST':
 		if component.image:
 			component.image.delete()
-	return redirect('ict_inventory:component_listview', component.asset_id)
+	return redirect('ictinv:component_listview', component.asset_id)
 
 def component_add(request, pk):
 	"""Add Component inside an Asset"""
 	asset = get_object_or_404(Asset, pk=pk)
 	form = ComponentForm(initial={'asset': asset.pk, 'brand': asset.brand})
 	if request.method == 'GET':
-		return render(request, 'ict_inventory/component_add.html', {'asset':asset, 'form':form, })
+		return render(request, 'ictinv/component_add.html', {'asset':asset, 'form':form, })
 	else:
 		try:
 			form = ComponentForm(request.POST, request.FILES)
 			new = form.save(commit=False) #will not save to DB
 			new.save()
 			messages.success(request, 'Component was added successfully.')
-			return redirect('ict_inventory:component_listview', pk)
+			return redirect('ictinv:component_listview', pk)
 		except ValueError:
-			return render(request, 'ict_inventory/component_add.html', {'form':ComponentForm(), 'error':'Invalid data entered.'})
+			return render(request, 'ictinv/component_add.html', {'form':ComponentForm(), 'error':'Invalid data entered.'})
 
 class ComponentCreateView(SuccessMessageMixin, CreateView):
 	"""Generic creating view for Component
 	This is New Component in navigation"""
 	model = Component
-	template_name = 'ict_inventory/component_new.html'
+	template_name = 'ictinv/component_new.html'
 	form_class = ComponentForm
 	success_message = "Component was created successfully"
 
 	def get_success_url(self):
-		return reverse('ict_inventory:component_listview', kwargs={'pk': self.object.asset_id})
+		return reverse('ictinv:component_listview', kwargs={'pk': self.object.asset_id})
 
 # SETUP
 class AssetTypeCreateView(SuccessMessageMixin, CreateView):
 	"""Generic creating view for Asset Type"""
 	model = Type
-	template_name = 'ict_inventory/assettype_new.html'
+	template_name = 'ictinv/assettype_new.html'
 	success_message = "Asset Type was created successfully"
 	fields = ['name', 'symbol', 'remarks']
 	def get_success_url(self):
-		return reverse('ict_inventory:assettype_list')
+		return reverse('ictinv:assettype_list')
 
 class AssetTypeListView(ListView):
 	"""Generic listing view for Asset Type"""
 	model = Type
-	template_name = 'ict_inventory/assettype_list.html'
+	template_name = 'ictinv/assettype_list.html'
 	context_object_name = "assettypes"
 	ordering = ['name']
 
 class AssetTypeUpdateView(SuccessMessageMixin, UpdateView):
 	"""Generic updating view for Asset Type"""
 	model = Type
-	template_name = 'ict_inventory/assettype_update.html'
+	template_name = 'ictinv/assettype_update.html'
 	fields = ['name', 'symbol', 'remarks']
 	success_message = "Asset Type was updated successfully"
 
 class AssetTypeDeleteView(DeleteView):
 	"""Generic deleting view for Asset Type"""
 	model = Type
-	template_name = 'ict_inventory/assettype_confirm_delete.html'
-	success_url = reverse_lazy('ict_inventory:assettype_list')
+	template_name = 'ictinv/assettype_confirm_delete.html'
+	success_url = reverse_lazy('ictinv:assettype_list')
 
 class EndUserCreateView(SuccessMessageMixin, CreateView):
 	"""Generic creating view for End User"""
 	model = EndUser
-	template_name = 'ict_inventory/enduser_new.html'
+	template_name = 'ictinv/enduser_new.html'
 	success_message = "End User was created successfully"
 	fields = ['last_name', 'first_name', 'remarks']
 	def get_success_url(self):
-		return reverse('ict_inventory:enduser_list')
+		return reverse('ictinv:enduser_list')
 
 class EndUserListView(ListView):
 	"""Generic listing view for End User"""
@@ -286,7 +286,7 @@ class EndUserListView(ListView):
 class EndUserUpdateView(SuccessMessageMixin, UpdateView):
 	"""Generic updating view for End User"""
 	model = EndUser
-	template_name = 'ict_inventory/enduser_update.html'
+	template_name = 'ictinv/enduser_update.html'
 	fields = ['last_name', 'first_name', 'remarks']
 	#form_class = AssetForm
 	success_message = "End User was updated successfully"
@@ -294,7 +294,7 @@ class EndUserUpdateView(SuccessMessageMixin, UpdateView):
 class EndUserDeleteView(DeleteView):
 	"""Generic deleting view for End User"""
 	model = EndUser
-	success_url = reverse_lazy('ict_inventory:enduser_list')
+	success_url = reverse_lazy('ictinv:enduser_list')
 
 
 
@@ -349,4 +349,4 @@ def test(request):
 	print(assets.count())
 	components = Component.objects.filter(asset_id=1)
 	print(components)
-	return render(request, 'ict_inventory/test.html', {'assets':assets, 'components':components, 'enduser':enduser})
+	return render(request, 'ictinv/test.html', {'assets':assets, 'components':components, 'enduser':enduser})

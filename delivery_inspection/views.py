@@ -46,12 +46,12 @@ def generate_report(request):
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'byPurpose'):
 		title = 'By Purpose "'+request.GET['purposeKeywords']+'"'
-		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(purpose__contains=request.GET['purposeKeywords']).order_by('iar_no')
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(purpose__icontains=request.GET['purposeKeywords']).order_by('iar_no')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	elif(request.GET['reportType'] == 'bySupplier'):
 		#title = "By Supplier"
 		title = 'By Supplier "'+request.GET['supplierKeywords']+'"'
-		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__contains=request.GET['supplierKeywords']).order_by('iar_no')
+		delivery = Delivery.objects.filter(date_inspected__isnull=False).filter(supplier__icontains=request.GET['supplierKeywords']).order_by('iar_no')
 		return render(request, 'delivery_inspection/reports_base.html', {'reports':delivery, 'title':title})
 	else:
 		# print("No report type selected")

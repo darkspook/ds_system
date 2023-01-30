@@ -1,4 +1,4 @@
-{% extends 'ict_inventory/base.html' %}
+{% extends 'ictinv/base.html' %}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
@@ -6,7 +6,7 @@
 		<i class="fas fa-info-circle"></i>
 		<strong>{{ asset | upper }}</strong> Component(s)
 		<div class="float-end">
-			<a href="{% url 'ict_inventory:component_add' asset.pk %}" class="btn btn-success badge">Add Component</a>
+			<a href="{% url 'ictinv:component_add' asset.pk %}" class="btn btn-success badge">Add Component</a>
 		</div>
     </div>
     <div class="card-body">{% for component in components %}
@@ -18,9 +18,9 @@
 							Component {{ forloop.counter }}
 							<div  class="float-end">
 								<div class="btn-group">
-									<a href="{% url 'ict_inventory:component_clone' component.pk %}" class="btn btn-warning badge">Clone</a>
-									<a href="{% url 'ict_inventory:component_update' component.pk %}" class="btn btn-info badge">Edit</a>
-									<a href="{% url 'ict_inventory:component_delete' component.pk %}" class="btn btn-danger badge">Delete</a>
+									<a href="{% url 'ictinv:component_clone' component.pk %}" class="btn btn-warning badge">Clone</a>
+									<a href="{% url 'ictinv:component_update' component.pk %}" class="btn btn-info badge">Edit</a>
+									<a href="{% url 'ictinv:component_delete' component.pk %}" class="btn btn-danger badge">Delete</a>
 								</div>
 							</div>
 
@@ -88,6 +88,6 @@
 		</div>{% endfor %}
     </div>
 </div>
-<a href="{% url 'ict_inventory:asset_detail' asset.id %}" class="btn btn-primary badge">&larr; BACK TO PARENT</a>
+<a href="{% url 'ictinv:asset_detail' asset.id %}" class="btn btn-primary badge">&larr; BACK TO PARENT</a>
 <div class="mt-4"></div>
 {% endblock %}
