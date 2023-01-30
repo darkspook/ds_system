@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ict_inventory',
     'delivery_inspection',
     'portfolio',
     'django_cleanup.apps.CleanupConfig',
@@ -145,7 +144,8 @@ AUTH_URLS = (
     r'inspection/(.*)',
     r'ictinventory/(.*)',
     r'users/(.*)',
-    r'/accounts/(.*)', 
+    r'/accounts/(.*)',
+    r'ictinv/(.*)',
 )
 NO_AUTH_URLS = (
     r'/admin(.*)$',

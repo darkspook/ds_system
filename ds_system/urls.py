@@ -35,7 +35,6 @@ urlpatterns = [
     path('projects/', views.projects, name='projects'),
     path('contact/', views.contact, name='contact'),
     path('inspection/', include('delivery_inspection.urls')),
-    path('ictinventory/', include('ict_inventory.urls')),
     path('accounts/', include('users.urls')),
     path('ictinv/', include('ictinv.urls')),
 ]
