@@ -77,7 +77,7 @@ def is_inspector(request):
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def mydeliveries(request):
-	delivery = Delivery.objects.filter(date_inspected__isnull=True, created_by_id=request.user) #show only not inspected deliveries
+	delivery = Delivery.objects.filter(date_inspected__isnull=True, created_by_id=request.user).order_by('-iar_no') #show only not inspected deliveries
 	return render(request, 'delivery_inspection/currentpending.html', {'delivery':delivery})
 
 # @login_required
