@@ -9,7 +9,8 @@ def generate_iarno():
 	last_record = Delivery.objects.last()
 	today = datetime.now()
 	print(today)
-	current = "{}-{}".format(today.year, today.month) #2021-10
+	current = "{}-{}".format(today.year, today.strftime('%m')) #2021-10
+	print(current)
 	if not last_record == None: #check if last record exist
 		last_no = str(last_record)[-3:]
 		#print("Last record exist, IAR NO: "+current + "-" + str(int(last_no) + 1).zfill(3))
