@@ -1,4 +1,5 @@
 {% extends 'delivery_inspection/base.html' %}
+{# / --for user #}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
@@ -13,6 +14,7 @@
 	                <th>IAR Number</th>
 	                <th>Purpose</th>
 	                <th>Supplier</th>
+	                <th>Inspector</th>
 	                <th>Created by</th>
 	            </tr>
 	        </thead>
@@ -21,6 +23,7 @@
 					<th>IAR NO</th>
 					<th>Purpose</th>
 					<th>Supplier</th>
+					<th>Inspector</th>
 					<th>Created by</th>
 	            </tr>
 	        </tfoot>
@@ -30,6 +33,7 @@
 					<td>{{ del.iar_no }}</td>
 					<td>{{ del.purpose }}</td>
 					<td>{{ del.supplier }}</td>
+					<td>{{ del.inspector }}</td>
 					<td>{{ del.created_by }}</td>
                 </tr>
 {% endfor %}

@@ -1,4 +1,5 @@
 {% extends 'delivery_inspection/base.html' %}
+{# /mydeliveries/ #}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
@@ -13,6 +14,7 @@
 	                <th>IAR Number</th>
 	                <th>Purpose</th>
 	                <th>Supplier</th>
+	                <th>Inspector</th>
 	            </tr>
 	        </thead>
 	        <tfoot>
@@ -20,6 +22,7 @@
 					<th>IAR NO</th>
 					<th>Purpose</th>
 					<th>Supplier</th>
+					<th>Inspector</th>
 	            </tr>
 	        </tfoot>
 	        <tbody>
@@ -28,6 +31,7 @@
 					<td><a href="{% url 'inspection:viewdelivery' del.pk %}">{{ del.iar_no }}</a></td>
 					<td>{{ del.purpose }}</td>
 					<td>{{ del.supplier }}</td>
+					<td>{{ del.inspector }}</td>
                 </tr>
 {% endfor %}
 			</tbody>

@@ -142,7 +142,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_URLS = (
     # r'(.*)', #all url
     r'inspection/(.*)',
-    r'ictinventory/(.*)',
     r'users/(.*)',
     r'/accounts/(.*)',
     r'ictinv/(.*)',

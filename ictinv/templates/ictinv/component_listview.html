@@ -59,6 +59,14 @@
 						<td>{{ component.date_acquired }}</td>
 					</tr>
 					<tr>
+						<th scope="row">END USER</th>
+						<td>{{ component.end_user }}</td>
+					</tr>
+					<tr>
+						<th scope="row">LOCATION</th>
+						<td>{{ component.location }}</td>
+					</tr>
+					<tr>
 						<th scope="row">STATUS</th>
 						{% if component.status == "serviceable" %}
 						<td class="bg-success text-white">

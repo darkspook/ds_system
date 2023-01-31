@@ -2,38 +2,38 @@
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
-	<div class="card-header bg-warning text-dark">
-		<i class="fas fa-list"></i>
-		All Assets
+	<div class="card-header bg-info text-light">
+		<i class="fas fa-check-double"></i>
+		All Components Available
     </div>
     <div class="card-body">
     	<table id="datatablesSimple">
     		<thead>
 	            <tr>
-	                <th>Asset Name</th>
+	                <th>Name</th>
 	                <th>Description</th>
 	                <th>Unit Value</th>
-	                <th>End User</th>
+	                <th>Date Acquired</th>
 	                <th>Location</th>
 	            </tr>
 	        </thead>
 	        <tfoot>
 	            <tr>
-					<th>Asset Name</th>
+					<th>Name</th>
 					<th>Description</th>
 					<th>Unit Value</th>
-					<th>End User</th>
+					<th>Date Acquired</th>
 					<th>Location</th>
 	            </tr>
 	        </tfoot>
 	        <tbody>
-{% for asset in assets %}
+{% for component in components %}
 	        	<tr>
-					<td><a href="{% url 'ictinv:asset_detail' asset.pk %}">{{ asset.name }}</a></td>
-					<td>{{ asset.description|truncatewords:3 }}</td>
-					<td>{{ asset.unit_value }}</td>
-					<td>{{ asset.end_user.first_name|slice:":1" }}. {{ asset.end_user.last_name }}</td>
-					<td>{{ asset.location }}</td>
+					<td><a href="{% url 'ictinv:component_detail' component.pk %}">{{ component.name }}</a></td>
+					<td>{{ component.description }}</td>
+					<td>{{ component.unit_value }}</td>
+					<td>{{ component.date_acquired }}</td>
+					<td>{{ component.asset.location }}</td>
 	            </tr>
 {% endfor %}
 			</tbody>

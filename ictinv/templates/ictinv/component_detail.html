@@ -9,19 +9,10 @@
 		<i class="fas fa-info-circle"></i>
 		<strong>{{ object.name | upper }}</strong>
 		<div  class="float-end">
-			<div class="btn-group" style="margin-right: 20px;">
-				<a href="{% url 'ictinv:component_listview' object.pk %}" class="btn btn-primary badge">View Component <span class="badge bg-light text-dark">
-					{% if object.component_set.all|length != 0 %}
-						{{ object.component_set.all|length }}
-					{% else %}
-					0
-					{% endif %}</span></a>
-				<a href="{% url 'ictinv:component_add' object.pk %}" class="btn btn-success badge">Add Component</a>
-			</div>
 			<div class="btn-group">
-				<a href="{% url 'ictinv:asset_clone' object.pk %}" class="btn btn-warning badge">Clone</a>
-				<a href="{% url 'ictinv:asset_update' object.pk %}" class="btn btn-info badge">Edit</a>
-				<a href="{% url 'ictinv:asset_delete' object.pk %}" class="btn btn-danger badge">Delete</a>
+				<a href="{% url 'ictinv:component_clone2' component.pk %}" class="btn btn-warning badge">Clone</a>
+				<a href="{% url 'ictinv:component_update2' component.pk %}" class="btn btn-info badge">Edit</a>
+				<a href="{% url 'ictinv:component_delete' component.pk %}" class="btn btn-danger badge">Delete</a>
 			</div>
 		</div>
     </div>
@@ -67,8 +58,14 @@
 					<td colspan="2" class="text-center"><strong>OTHER DETAILS</strong></td>
 				</tr>
 				<tr>
-					<th scope="row">TYPE</th>
-					<td>{{ object.asset_type }}</td>
+					<th scope="row">PARENT ASSET</th>
+					<td>
+						{% if object.asset %}
+							<a href="{% url 'ictinv:asset_detail' object.asset.pk %}" title="Go to PARENT ASSET">{{ object.asset }}</a>
+						{% else %}
+							{{ object.asset }}
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">BRAND</th>
@@ -81,6 +78,10 @@
 				<tr>
 					<th scope="row">SERIAL NO.</th>
 					<td>{{ object.serial_num }}</td>
+				</tr>
+				<tr>
+					<th scope="row">REMARKS</th>
+					<td>{{ object.remarks }}</td>
 				</tr>
 				<tr>
 					<th scope="row">STATUS</th>
@@ -103,4 +104,5 @@
 		</table>
     </div>
 </div>
+<div class="mt-4"></div>
 {% endblock %}

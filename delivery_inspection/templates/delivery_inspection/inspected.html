@@ -1,10 +1,11 @@
 {% extends 'delivery_inspection/base.html' %}
+{# /accepted/ #}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
 	<div class="card-header bg-success text-white">
 		<i class="fas fa-clipboard-check"></i>
-		Inspected Deliveries
+		Completed I&amp;A Deliveries
     </div>
     <div class="card-body">
     	<table id="datatablesSimple">
@@ -12,14 +13,14 @@
 	            <tr>
 	                <th>IAR Number</th>
 	                <th>Purpose</th>
-	                <th>Accepted by</th>
+	                <th>Inspector</th>
 	            </tr>
 	        </thead>
 	        <tfoot>
 	            <tr>
 					<th>IAR NO</th>
 					<th>Purpose</th>
-					<th>Inspected by</th>
+					<th>Inspector</th>
 	            </tr>
 	        </tfoot>
 	        <tbody>

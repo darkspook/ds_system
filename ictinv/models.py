@@ -81,7 +81,9 @@ class Component(models.Model):
 	image = models.ImageField(upload_to='component/images/', blank=True)
 	remarks = models.CharField(max_length=200, blank=True)
 	date_last_modified = models.DateTimeField(auto_now=True)
-	asset = models.ForeignKey(Asset, null=True, on_delete=models.CASCADE)
+	asset = models.ForeignKey(Asset, null=True, on_delete=models.SET_NULL)
+	location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
+	end_user = models.ForeignKey(EndUser, null=True, on_delete=models.SET_NULL)
 
 	def __str__(self):
 		return self.name

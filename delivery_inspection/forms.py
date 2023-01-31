@@ -44,10 +44,11 @@ class DeliveryForm(ModelForm):
 	purpose = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Purpose'}))
 	date_delivered = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Date of Delivery'}))
 	image = forms.ImageField(widget=FileInput(attrs={'class': 'form-control'}), required=False)
+	inspector = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Inspector'}), required=False)
 
 	class Meta:
 		model = Delivery
-		fields = ['iar_no', 'supplier', 'purpose', 'date_delivered', 'image',]
+		fields = ['iar_no', 'supplier', 'purpose', 'date_delivered', 'inspector', 'image',]
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Username'}))
