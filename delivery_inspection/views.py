@@ -12,12 +12,30 @@ import datetime, math
 from users.decorators import allowed_users
 from django.contrib import messages
 
+def generatemultichart(request, year):
+	print("Year: ", year)
+	t = ()
+	for i in range(1,13):
+		count = Delivery.objects.filter(date_inspected__month=i, date_inspected__year=year).count()
+		t += count,
+	data = str(t)[1:-1]
+	maxval = round(max(t)/10)*10
+	return data, maxval+5
+
 @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def home(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
-	data, maxval = generatechart(request)
-	context = {'delivery':delivery, 'data':data, 'maxval':maxval}
+	current_year = datetime.datetime.now().year
+	last_year = current_year - 1
+	two_years_ago = current_year - 2
+	data1, maxval1 = generatemultichart(request, current_year) #year 0
+	data2, maxval2 = generatemultichart(request, last_year) #year -1
+	data3, maxval3 = generatemultichart(request, two_years_ago) #year -2
+	#data1, maxval1 = generatechart(request) #year 0
+	#data2, maxval2 = generatechart(request) #year -1
+	# data3, maxval3 = generatechart(request) #year -2
+	context = {'delivery':delivery, 'data1':data1, 'maxval1':maxval1, 'year1':str(current_year), 'data2':data2, 'maxval2':maxval2, 'year2':str(last_year), 'data3':data3, 'maxval3':maxval3, 'year3':str(two_years_ago)}
 	if is_inspector(request): #check if inspector or not
 		print("go to inspector page!")
 		return render(request, 'delivery_inspection/inspector_allpending.html', context)

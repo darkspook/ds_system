@@ -7,7 +7,7 @@ class Delivery(models.Model):
 	purpose = models.TextField()
 	date_delivered = models.DateField()
 	image = models.ImageField(upload_to='delivery_inspection/images/%Y/%m', blank=True)
-	inspected_by = models.CharField(max_length=100, blank=True) #get curren login inspector
+	inspected_by = models.CharField(max_length=100, blank=True) #get current login inspector
 	date_inspected = models.DateTimeField(null=True, blank=True)
 	date_created = models.DateTimeField(auto_now_add=True)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
