@@ -13,7 +13,7 @@ from users.decorators import allowed_users
 from django.contrib import messages
 
 def generatemultichart(request, year):
-	print("Year: ", year)
+	# print("Year: ", year)
 	t = ()
 	for i in range(1,13):
 		count = Delivery.objects.filter(date_inspected__month=i, date_inspected__year=year).count()
@@ -32,8 +32,8 @@ def home(request):
 	data1, maxval1 = generatemultichart(request, current_year) #year 0
 	data2, maxval2 = generatemultichart(request, last_year) #year -1
 	data3, maxval3 = generatemultichart(request, two_years_ago) #year -2
-	#data1, maxval1 = generatechart(request) #year 0
-	#data2, maxval2 = generatechart(request) #year -1
+	# data1, maxval1 = generatechart(request) #year 0
+	# data2, maxval2 = generatechart(request) #year -1
 	# data3, maxval3 = generatechart(request) #year -2
 	context = {'delivery':delivery, 'data1':data1, 'maxval1':maxval1, 'year1':str(current_year), 'data2':data2, 'maxval2':maxval2, 'year2':str(last_year), 'data3':data3, 'maxval3':maxval3, 'year3':str(two_years_ago)}
 	if is_inspector(request): #check if inspector or not

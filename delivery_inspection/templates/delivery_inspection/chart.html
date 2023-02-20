@@ -1,14 +1,15 @@
 <!-- chart.html -->
-<div class="col-xl-6">
-  <div class="card mb-4">
-      <div class="card-header bg-success text-light">
-          <i class="fas fa-chart-bar me-1"></i>
-          Deliveries Inspected & Accepted of {{ year1 }}<!-- {% now "Y" %} -->
-      </div>
-      <div class="card-body"><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card mb-4">
+        <div class="card-header bg-success text-light">
+            <i class="fas fa-chart-bar me-1"></i>
+            Deliveries Inspected & Accepted of {{ year1 }}<!-- {% now "Y" %} -->
+        </div>
+        <div class="card-body"><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
+    </div>
   </div>
-</div>
-    <script type="text/javascript">
+<script type="text/javascript">
 var ctx = document.getElementById("myBarChart1");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
@@ -50,19 +51,21 @@ var myBarChart = new Chart(ctx, {
     }
   }
 });
+</script>
 
-    </script>
-
-<div class="col-xl-6">
-  <div class="card mb-4">
+  <div class="col-xl-6">
+    <div class="card mb-4">
       <div class="card-header bg-info text-light">
-          <i class="fas fa-chart-bar me-1"></i>
-          Deliveries Inspected & Accepted of {{ year2 }}<!-- {% now "Y" %} -->
+        <i class="fas fa-chart-bar me-1"></i>
+        Deliveries Inspected & Accepted of {{ year2 }}
       </div>
       <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+    </div>
   </div>
+
 </div>
-    <script type="text/javascript">
+
+<script type="text/javascript">
 var ctx = document.getElementById("myBarChart2");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
@@ -104,19 +107,22 @@ var myBarChart = new Chart(ctx, {
     }
   }
 });
-
-    </script>
-
-<div class="col-xl-6">
-  <div class="card mb-4">
+</script>
+<div class="row">
+  <div class="col"></div>
+  <div class="col-xl-6">
+    <div class="card mb-4">
       <div class="card-header bg-light text-dark">
-          <i class="fas fa-chart-bar me-1"></i>
-          Deliveries Inspected & Accepted of {{ year3 }}<!-- {% now "Y" %} -->
+        <i class="fas fa-chart-bar me-1"></i>
+        Deliveries Inspected & Accepted of {{ year3 }}
       </div>
       <div class="card-body"><canvas id="myBarChart3" width="100%" height="40"></canvas></div>
+    </div>
   </div>
+  <div class="col"></div>
 </div>
-    <script type="text/javascript">
+
+<script type="text/javascript">
 var ctx = document.getElementById("myBarChart3");
 var myBarChart1 = new Chart(ctx, {
   type: 'bar',
@@ -158,5 +164,4 @@ var myBarChart1 = new Chart(ctx, {
     }
   }
 });
-
-    </script>
+</script>
