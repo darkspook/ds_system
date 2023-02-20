@@ -93,12 +93,16 @@ def asset_clone(request, pk):
 			messages.error(request, 'Invalid data entered.')
 			return render(request, 'ictinv/asset_clone.html', {'form':form})
 
-class AssetCreateView(CreateView):
-	"""Generic creating view for Asset"""
+class AssetCreateView(SuccessMessageMixin,CreateView):
+	"""Generic creating view for Asset
+	This is New Asset in navigation"""
 	model = Asset
 	template_name = 'ictinv/asset_new.html'
-	#fields = ['name', 'description', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'remarks', 'image', 'end_user', 'status', 'asset_type']
 	form_class = AssetForm
+	success_message = "Asset was created successfully"
+
+	# def get_success_url(self):
+	# 	return reverse('ictinv:asset_list')
 
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
@@ -113,7 +117,6 @@ class AssetUpdateView(SuccessMessageMixin, UpdateView):
 	"""Generic updating view for Asset"""
 	model = Asset
 	template_name = 'ictinv/asset_update.html'
-	#fields = ['name', 'description', 'property_num', 'brand', 'model', 'serial_num', 'unit_value', 'date_acquired', 'location', 'remarks', 'image', 'end_user', 'status', 'asset_type']
 	form_class = AssetForm
 	success_message = "Asset was updated successfully"
 

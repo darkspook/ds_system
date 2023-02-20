@@ -39,8 +39,11 @@ class EndUser(models.Model):
 	def __str__(self):
 		return self.first_name+" "+self.last_name
 
+	def get_absolute_url(self):
+		return reverse('ictinv:enduser_list')
+
 class Asset(models.Model):
-	name = models.CharField(max_length=50, unique=True)
+	name = models.CharField(max_length=100, unique=True)
 	description = models.TextField(blank=True)
 	property_num = models.CharField(max_length=50, blank=True)
 	brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
@@ -69,7 +72,7 @@ class Asset(models.Model):
 		return reverse('ictinv:asset_detail', kwargs={'pk': self.pk})
 
 class Component(models.Model):
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=100)
 	description = models.TextField(blank=True)
 	property_num = models.CharField(max_length=50, blank=True)
 	brand = models.ForeignKey(Brand, null=True, on_delete=models.SET_NULL)
