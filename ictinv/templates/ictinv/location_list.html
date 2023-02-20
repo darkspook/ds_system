@@ -1,0 +1,42 @@
+{% extends 'ictinv/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+	<div class="card-header bg-warning text-dark">
+		<i class="fas fa-map-marked-alt"></i>
+		All Locations
+    </div>
+    <div class="card-body">
+    	<table id="datatablesSimple">
+    		<thead>
+	            <tr>
+	                <th>Name</th>
+	                <th>Remarks</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tfoot>
+	            <tr>
+					<th>Name</th>
+	                <th>Remarks</th>
+	                <th>Actions</th>
+	            </tr>
+	        </tfoot>
+	        <tbody>
+{% for location in locations %}
+	        	<tr>
+					<td>{{ location.name }}</td>
+					<td>{{ location.remarks }}</td>
+					<td class="text-center" width="10%">
+						<div class="btn-group">
+							<a href="{% url 'ictinv:location_update' location.pk %}" class="btn btn-info badge">Edit</a>
+							<a href="{% url 'ictinv:location_delete' location.pk %}" class="btn btn-danger badge">Delete</a>
+						</div>
+					</td>
+	            </tr>
+{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

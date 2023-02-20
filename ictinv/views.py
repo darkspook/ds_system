@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Asset, Component, EndUser, Type
+from .models import Asset, Component, EndUser, Type, Brand, Location
 from .forms import AssetForm, ComponentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
@@ -17,6 +17,7 @@ def home(request):
 	"""The Home Dashboard that will display widgets such as charts and and top 10 last modified ict.
 	The data and parameters for charts are generated here via generatebarchart() function then wrap in a context.
 	"""
+	page_title = 'Dashboard'
 	# assets = Asset.objects.order_by('-date_acquired')
 	assets = Asset.objects.order_by('-date_last_modified')
 	types = Type.objects.order_by('pk')
@@ -32,6 +33,7 @@ def home(request):
 			'years':years,
 			'yeardata':yeardata,
 			'maxval':maxval,
+			'title':page_title,
 		}
 	# print('Bar data: ', generatebarchart(request))
 	# print('Context: ',context)
@@ -67,6 +69,18 @@ def search(request):
 	else:
 		return render(request, 'ictinv/search.html',{})
 
+class PageTitleMixin:
+	title = ""
+	def get_title(self):
+		return self.title
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		title = self.get_title()
+		if not title:
+			raise ValueError("Page title should not be empty")
+		context["title"] = title
+		return context
+
 # Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset - Asset
 @allowed_users(allowed_roles=['ict'])
 def asset_clone(request, pk):
@@ -76,10 +90,11 @@ def asset_clone(request, pk):
 	This will not clone the Asset component.
 	"""
 	# print("Inside clone")
+	page_title = 'Clone Asset'
 	asset = get_object_or_404(Asset, pk=pk)
 	if request.method == 'GET':
 		form = AssetForm(instance=asset)
-		return render(request, 'ictinv/asset_clone.html', {'asset':asset, 'form':form})
+		return render(request, 'ictinv/asset_clone.html', {'asset':asset, 'form':form, 'title':page_title})
 	else:
 		try:
 			form = AssetForm(request.POST, request.FILES)
@@ -93,11 +108,12 @@ def asset_clone(request, pk):
 			messages.error(request, 'Invalid data entered.')
 			return render(request, 'ictinv/asset_clone.html', {'form':form})
 
-class AssetCreateView(SuccessMessageMixin,CreateView):
+class AssetCreateView(SuccessMessageMixin, PageTitleMixin, CreateView):
 	"""Generic creating view for Asset
 	This is New Asset in navigation"""
 	model = Asset
 	template_name = 'ictinv/asset_new.html'
+	title = "Create Asset"
 	form_class = AssetForm
 	success_message = "Asset was created successfully"
 
@@ -113,10 +129,11 @@ class AssetCreateView(SuccessMessageMixin,CreateView):
 	# 	form.instance.author = self.request.user
 	# 	return super().form_valid(form)
 
-class AssetUpdateView(SuccessMessageMixin, UpdateView):
+class AssetUpdateView(SuccessMessageMixin, PageTitleMixin, UpdateView):
 	"""Generic updating view for Asset"""
 	model = Asset
 	template_name = 'ictinv/asset_update.html'
+	title = "Edit Asset"
 	form_class = AssetForm
 	success_message = "Asset was updated successfully"
 
@@ -125,9 +142,10 @@ class AssetUpdateView(SuccessMessageMixin, UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class AssetDeleteView(DeleteView):
+class AssetDeleteView(PageTitleMixin, DeleteView):
 	"""Generic deleting view for Asset"""
 	model = Asset
+	title = "Delete Asset"
 	success_url = reverse_lazy('ictinv:home')
 
 	# Proper way of adding decorator to a class based view
@@ -135,21 +153,22 @@ class AssetDeleteView(DeleteView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class AssetListView(ListView):
+class AssetListView(PageTitleMixin, ListView):
 	"""Generic listing view for Asset"""
 	model = Asset
 	context_object_name = "assets"
 	ordering = ['-date_acquired']
+	title = "Asset List"
 
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class AssetDetailView(DetailView):
+class AssetDetailView(PageTitleMixin, DetailView):
 	"""Generic detail view for Asset"""
 	model = Asset
-
+	title = "Asset Detail"
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):
@@ -166,10 +185,11 @@ def delete_image(request, pk):
 
 
 # Component - Component - Component - Component - Component - Component - Component - Component - Component
-class ComponentAvailableListView(ListView):
+class ComponentAvailableListView(PageTitleMixin, ListView):
 	"""Generic listing view for Component Available"""
 	model = Component
 	context_object_name = "components"
+	title = "Available Component List"
 	queryset = Component.objects.filter(end_user=None)
 	template_name = 'ictinv/component_available_list.html'
 
@@ -184,10 +204,11 @@ def component_clone(request, pk):
 	Clone existing Component details to save time and avoid retyping common information.
 	The clone will only be save if you press the Save button.
 	"""
+	page_title = 'Clone Component'
 	component = get_object_or_404(Component, pk=pk)
 	if request.method == 'GET':
 		form = ComponentForm(instance=component)
-		return render(request, 'ictinv/component_clone.html', {'component':component, 'form':form})
+		return render(request, 'ictinv/component_clone.html', {'component':component, 'form':form, 'title':page_title})
 	else:
 		try:
 			form = ComponentForm(request.POST, request.FILES)
@@ -210,33 +231,37 @@ def component_clone(request, pk):
 def component_listview(request, pk):
 	"""List View function for Component"""
 	#print("PK: ", pk)
+	page_title = 'Component List'
 	asset = get_object_or_404(Asset, pk=pk)
 	components = Component.objects.filter(asset=asset)
-	return render(request, 'ictinv/component_listview.html', {'components':components, 'asset':asset})
+	return render(request, 'ictinv/component_listview.html', {'components':components, 'asset':asset, 'title':page_title})
 
-class ComponentListView(ListView):
+class ComponentListView(PageTitleMixin, ListView):
 	"""Generic listing view for Component"""
 	model = Component
 	context_object_name = "components"
 	ordering = ['-id']
+	title = "Component List"
 
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class ComponentDetailView(DetailView):
+class ComponentDetailView(PageTitleMixin, DetailView):
 	"""Generic detail view for Component"""
 	model = Component
+	title = "Component Detail"
 
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class ComponentDeleteView(DeleteView):
+class ComponentDeleteView(PageTitleMixin, DeleteView):
 	"""Generic deleting view for Component"""
 	model = Component
+	title = "Delete Component"
 	# success_url = reverse_lazy('ictinv:component_listview', component.asset_id)
 	def get_success_url(self):
 		#print(self.object.id)
@@ -254,10 +279,11 @@ class ComponentDeleteView(DeleteView):
 def component_updateview(request, pk):
 	"""Update View function for Component back to Component List View"""
 
+	page_title = 'Edit Component'
 	component = get_object_or_404(Component, pk=pk)
 	if request.method == 'GET':
 		form = ComponentForm(instance=component)
-		return render(request, 'ictinv/component_update.html', {'component':component, 'form':form})
+		return render(request, 'ictinv/component_update.html', {'component':component, 'form':form, 'title':page_title})
 	else:
 		try:
 			form = ComponentForm(request.POST, request.FILES, instance=component)
@@ -283,10 +309,11 @@ def component_delete_image(request, pk):
 @allowed_users(allowed_roles=['ict'])
 def component_add(request, pk):
 	"""Add Component inside an Asset"""
+	page_title = 'Add Component'
 	asset = get_object_or_404(Asset, pk=pk)
 	form = ComponentForm(initial={'asset':asset.pk, 'brand':asset.brand, 'property_num':asset.property_num, 'unit_value':asset.unit_value, 'date_acquired':asset.date_acquired, 'end_user':asset.end_user, 'location':asset.location})
 	if request.method == 'GET':
-		return render(request, 'ictinv/component_add.html', {'asset':asset, 'form':form, })
+		return render(request, 'ictinv/component_add.html', {'asset':asset, 'form':form, 'title':page_title})
 	else:
 		try:
 			form = ComponentForm(request.POST, request.FILES)
@@ -298,12 +325,13 @@ def component_add(request, pk):
 			messages.error(request, 'Invalid data entered.')
 			return render(request, 'ictinv/component_add.html', {'form':ComponentForm()})
 
-class ComponentCreateView(SuccessMessageMixin, CreateView):
+class ComponentCreateView(SuccessMessageMixin, PageTitleMixin, CreateView):
 	"""Generic creating view for Component
 	This is New Component in navigation"""
 	model = Component
 	template_name = 'ictinv/component_new.html'
 	form_class = ComponentForm
+	title = "Create Component"
 	success_message = "Component was created successfully"
 
 	def get_success_url(self):
@@ -315,10 +343,117 @@ class ComponentCreateView(SuccessMessageMixin, CreateView):
 		return super().dispatch(*args, **kwargs)
 
 # SETUP - SETUP - SETUP - SETUP - SETUP - SETUP - SETUP - SETUP - SETUP - SETUP - SETUP - SETUP
-class AssetTypeCreateView(SuccessMessageMixin, CreateView):
+class LocationCreateView(SuccessMessageMixin, PageTitleMixin, CreateView):
+	"""Generic creating view for Location"""
+	model = Location
+	template_name = 'ictinv/location_new.html'
+	title = "Create Location"
+	success_message = "Location was created successfully"
+	fields = ['name', 'remarks']
+	def get_success_url(self):
+		return reverse('ictinv:location_list')
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class LocationListView(PageTitleMixin, ListView):
+	"""Generic listing view for Location"""
+	model = Location
+	template_name = 'ictinv/location_list.html'
+	context_object_name = "locations"
+	ordering = ['name']
+	title = "Location List"
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class LocationUpdateView(SuccessMessageMixin, PageTitleMixin, UpdateView):
+	"""Generic updating view for Location"""
+	model = Location
+	template_name = 'ictinv/location_update.html'
+	title = "Edit Location"
+	fields = ['name', 'remarks']
+	success_message = "Location was updated successfully"
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class LocationDeleteView(PageTitleMixin, DeleteView):
+	"""Generic deleting view for Location"""
+	model = Location
+	template_name = 'ictinv/location_confirm_delete.html'
+	title = "Delete Location"
+	success_url = reverse_lazy('ictinv:location_list')
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class BrandCreateView(SuccessMessageMixin, PageTitleMixin, CreateView):
+	"""Generic creating view for Brand"""
+	model = Brand
+	template_name = 'ictinv/brand_new.html'
+	title = "Create Brand"
+	success_message = "Brand was created successfully"
+	fields = ['name', 'remarks']
+	def get_success_url(self):
+		return reverse('ictinv:brand_list')
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class BrandListView(PageTitleMixin, ListView):
+	"""Generic listing view for Brand"""
+	model = Brand
+	template_name = 'ictinv/brand_list.html'
+	context_object_name = "brands"
+	ordering = ['name']
+	title = "Brand List"
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class BrandUpdateView(SuccessMessageMixin, PageTitleMixin, UpdateView):
+	"""Generic updating view for Brand"""
+	model = Brand
+	template_name = 'ictinv/brand_update.html'
+	title = "Edit Brand"
+	fields = ['name', 'remarks']
+	success_message = "Brand was updated successfully"
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class BrandDeleteView(PageTitleMixin, DeleteView):
+	"""Generic deleting view for Brand"""
+	model = Brand
+	template_name = 'ictinv/brand_confirm_delete.html'
+	title = "Delete Brand"
+	success_url = reverse_lazy('ictinv:brand_list')
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+class AssetTypeCreateView(SuccessMessageMixin, PageTitleMixin, CreateView):
 	"""Generic creating view for Asset Type"""
 	model = Type
 	template_name = 'ictinv/assettype_new.html'
+	title = "Create Asset Type"
 	success_message = "Asset Type was created successfully"
 	fields = ['name', 'symbol', 'remarks']
 	def get_success_url(self):
@@ -329,22 +464,24 @@ class AssetTypeCreateView(SuccessMessageMixin, CreateView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class AssetTypeListView(ListView):
+class AssetTypeListView(PageTitleMixin, ListView):
 	"""Generic listing view for Asset Type"""
 	model = Type
 	template_name = 'ictinv/assettype_list.html'
 	context_object_name = "assettypes"
 	ordering = ['name']
+	title = "Asset Type List"
 
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class AssetTypeUpdateView(SuccessMessageMixin, UpdateView):
+class AssetTypeUpdateView(SuccessMessageMixin, PageTitleMixin, UpdateView):
 	"""Generic updating view for Asset Type"""
 	model = Type
 	template_name = 'ictinv/assettype_update.html'
+	title = "Edit Asset Type"
 	fields = ['name', 'symbol', 'remarks']
 	success_message = "Asset Type was updated successfully"
 
@@ -353,10 +490,11 @@ class AssetTypeUpdateView(SuccessMessageMixin, UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class AssetTypeDeleteView(DeleteView):
+class AssetTypeDeleteView(PageTitleMixin, DeleteView):
 	"""Generic deleting view for Asset Type"""
 	model = Type
 	template_name = 'ictinv/assettype_confirm_delete.html'
+	title = "Delete Asset Type"
 	success_url = reverse_lazy('ictinv:assettype_list')
 
 	# Proper way of adding decorator to a class based view
@@ -364,10 +502,11 @@ class AssetTypeDeleteView(DeleteView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class EndUserCreateView(SuccessMessageMixin, CreateView):
+class EndUserCreateView(SuccessMessageMixin, PageTitleMixin, CreateView):
 	"""Generic creating view for End User"""
 	model = EndUser
 	template_name = 'ictinv/enduser_new.html'
+	title = "Create End User"
 	success_message = "End User was created successfully"
 	fields = ['last_name', 'first_name', 'remarks']
 	def get_success_url(self):
@@ -378,21 +517,23 @@ class EndUserCreateView(SuccessMessageMixin, CreateView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class EndUserListView(ListView):
+class EndUserListView(PageTitleMixin, ListView):
 	"""Generic listing view for End User"""
 	model = EndUser
 	context_object_name = "endusers"
 	ordering = ['last_name']
+	title = "End User List"
 
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class EndUserUpdateView(SuccessMessageMixin, UpdateView):
+class EndUserUpdateView(SuccessMessageMixin, PageTitleMixin, UpdateView):
 	"""Generic updating view for End User"""
 	model = EndUser
 	template_name = 'ictinv/enduser_update.html'
+	title = "Edit End User"
 	fields = ['last_name', 'first_name', 'remarks']
 	#form_class = AssetForm
 	success_message = "End User was updated successfully"
@@ -402,11 +543,11 @@ class EndUserUpdateView(SuccessMessageMixin, UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
 
-class EndUserDeleteView(DeleteView):
+class EndUserDeleteView(PageTitleMixin, DeleteView):
 	"""Generic deleting view for End User"""
 	model = EndUser
 	success_url = reverse_lazy('ictinv:enduser_list')
-
+	title = "Delete End User"
 	# Proper way of adding decorator to a class based view
 	@method_decorator(allowed_users(allowed_roles=['ict']))
 	def dispatch(self, *args, **kwargs):

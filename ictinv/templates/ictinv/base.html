@@ -139,8 +139,8 @@
                                     </a>
                                     <div class="collapse" id="setupCollapseBrand" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionSetup">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="#">New</a>
-                                            <a class="nav-link" href="#">List View</a>
+                                            <a class="nav-link" href="{% url 'ictinv:brand_create' %}">New</a>
+                                            <a class="nav-link" href="{% url 'ictinv:brand_list' %}">List View</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#setupCollapseUser" aria-expanded="false" aria-controls="setupCollapseUser">
@@ -159,8 +159,8 @@
                                     </a>
                                     <div class="collapse" id="setupCollapseLoc" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionSetup">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="#">New</a>
-                                            <a class="nav-link" href="#">List View</a>
+                                            <a class="nav-link" href="{% url 'ictinv:location_create' %}">New</a>
+                                            <a class="nav-link" href="{% url 'ictinv:location_list' %}">List View</a>
                                         </nav>
                                     </div>
                                 </nav>
@@ -191,6 +191,7 @@
             </div>
         </div>
         <script type="text/javascript">
+        <!-- Script for collapsing/showing dropdown menu -->
         {% with request.resolver_match.url_name as url_name %}
             {% if url_name == 'asset_create' or url_name == 'asset_list' %}
                 $(document).ready(function() {
@@ -203,6 +204,42 @@
                     $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(5)").removeClass("collapsed");
                     $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(5)").attr("aria-expanded","true");
                     $("#collapseComponents").addClass("show");
+                });
+            {% elif url_name == 'assettype_create' or url_name == 'assettype_list' or url_name == 'assettype_update' or url_name == 'assettype_delete'%}
+                $(document).ready(function() {
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").removeClass("collapsed");
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").attr("aria-expanded","true");
+                    $("#collapseSetup").addClass("show");
+                    $("#sidenavAccordionSetup > a:nth-child(1)").removeClass("collapsed");
+                    $("#sidenavAccordionSetup > a:nth-child(1)").attr("aria-expanded","true");
+                    $("#setupCollapseType").addClass("show");  
+                });
+            {% elif url_name == 'enduser_create' or url_name == 'enduser_list' or url_name == 'enduser_update' or url_name == 'enduser_delete'%}
+                $(document).ready(function() {
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").removeClass("collapsed");
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").attr("aria-expanded","true");
+                    $("#collapseSetup").addClass("show");
+                    $("#sidenavAccordionSetup > a:nth-child(5)").removeClass("collapsed");
+                    $("#sidenavAccordionSetup > a:nth-child(5)").attr("aria-expanded","true");
+                    $("#setupCollapseUser").addClass("show");
+                });
+            {% elif url_name == 'brand_create' or url_name == 'brand_list' or url_name == 'brand_update' or url_name == 'brand_delete'%}
+                $(document).ready(function() {
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").removeClass("collapsed");
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").attr("aria-expanded","true");
+                    $("#collapseSetup").addClass("show");
+                    $("#sidenavAccordionSetup > a:nth-child(3)").removeClass("collapsed");
+                    $("#sidenavAccordionSetup > a:nth-child(3)").attr("aria-expanded","true");
+                    $("#setupCollapseBrand").addClass("show");
+                });
+            {% elif url_name == 'location_create' or url_name == 'location_list' or url_name == 'location_update' or url_name == 'location_delete'%}
+                $(document).ready(function() {
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").removeClass("collapsed");
+                    $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(9)").attr("aria-expanded","true");
+                    $("#collapseSetup").addClass("show");
+                    $("#sidenavAccordionSetup > a:nth-child(7)").removeClass("collapsed");
+                    $("#sidenavAccordionSetup > a:nth-child(7)").attr("aria-expanded","true");
+                    $("#setupCollapseLoc").addClass("show");
                 });
             {% endif %}
         {% endwith %}

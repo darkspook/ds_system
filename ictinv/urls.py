@@ -17,11 +17,19 @@ from .views import (
     EndUserCreateView,
     EndUserListView,
     EndUserUpdateView,
+    EndUserDeleteView,
     AssetTypeCreateView,
     AssetTypeListView,
     AssetTypeUpdateView,
     AssetTypeDeleteView,
-    EndUserDeleteView,
+    BrandCreateView,
+    BrandListView,
+    BrandUpdateView,
+    BrandDeleteView,
+    LocationCreateView,
+    LocationListView,
+    LocationUpdateView,
+    LocationDeleteView,
     )
 
 app_name = 'ictinv'
@@ -59,6 +67,15 @@ urlpatterns = [
     path('assettype/', AssetTypeListView.as_view(), name='assettype_list'),
     path('assettype/<int:pk>/update/', AssetTypeUpdateView.as_view(), name='assettype_update'),
     path('assettype/<int:pk>/delete/', AssetTypeDeleteView.as_view(), name='assettype_delete'),
+    path('brand/new/', BrandCreateView.as_view(), name='brand_create'),
+    path('brand/', BrandListView.as_view(), name='brand_list'),
+    path('brand/<int:pk>/update/', BrandUpdateView.as_view(), name='brand_update'),
+    path('brand/<int:pk>/delete/', BrandDeleteView.as_view(), name='brand_delete'),
+    path('location/new/', LocationCreateView.as_view(), name='location_create'),
+    path('location/', LocationListView.as_view(), name='location_list'),
+    path('location/<int:pk>/update/', LocationUpdateView.as_view(), name='location_update'),
+    path('location/<int:pk>/delete/', LocationDeleteView.as_view(), name='location_delete'),
+
 
     #Test
     path('test/', views.test, name='test'),

@@ -4,15 +4,15 @@
 <div class="card mb-4">
     <div class="card-header bg-danger text-white">
     	<i class="fas fa-trash"></i>
-    	Delete <strong>{{ object.last_name | upper }}, {{ object.first_name | upper }}</strong>
+    	Delete <strong>{{ object.name | upper }}</strong>
     </div>
     <div style="padding: 1em 2em;">
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-            <h4>Are you sure you want to delete the end user <strong>{{ object.last_name | upper }}, {{ object.first_name | upper }}</strong>?</h4><br>
+            <h4>Are you sure you want to delete the brand <strong>{{ object.name | upper }}</strong>?</h4><br>
             <div class="float-end">
                 <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                <a href="{% url 'ictinv:enduser_list' %}" class="btn btn-secondary">Cancel</a>
+                <a href="{% url 'ictinv:brand_list' %}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

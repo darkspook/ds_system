@@ -37,7 +37,10 @@ class EndUser(models.Model):
 	date_last_modified = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.first_name+" "+self.last_name
+		return self.last_name+", "+self.first_name
+
+	# def __str__(self):
+	# 	return self.first_name+" "+self.last_name
 
 	def get_absolute_url(self):
 		return reverse('ictinv:enduser_list')
