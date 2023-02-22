@@ -21,12 +21,12 @@
 			{% for result in results %}
 				<tr>
 				{% if category == "asset" %}
-					<th scope="row"><a href="{% url 'ictinv:asset_detail' result.pk %}">{{ result.name }}</a></th>
-					<td>{{ result.description }}</td>
+					<th scope="row" width="50%"><a href="{% url 'ictinv:asset_detail' result.pk %}">{{ result.name }}</a></th>
+					<td width="50%">{{ result.description }}</td>
 				{% elif category == "component" %}
-					<th scope="row"><a href="{% url 'ictinv:component_listview' result.asset_id %}">{{ result.name }}</a></th>
-					<td>{{ result.description }}</td>
-					<td>{{ result.asset.name }}</td>
+					<th scope="row"  width="40%"><a href="{% url 'ictinv:component_listview' result.asset_id %}">{{ result.name }}</a></th>
+					<td width="30%">{{ result.description }}</td>
+					<td width="30%">{{ result.asset.name }}</td>
 				{% endif %}
 				</tr>
 			{% endfor %}

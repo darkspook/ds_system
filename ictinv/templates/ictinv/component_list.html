@@ -7,7 +7,7 @@
 		All Components
     </div>
     <div class="card-body">
-    	<table id="datatablesSimple">
+    	<table id="datatablesSimple" class="display compact" style="width:100%">
     		<thead>
 	            <tr>
 	                <th>Name</th>
@@ -36,7 +36,7 @@
 					<td>{{ component.unit_value }}</td>
 					<td>
 					{% if component.end_user != None %}
-						{{ component.end_user.first_name|slice:":1" }}. {{ component.end_user.last_name }}
+						{{ component.end_user.last_name }} {{component.end_user.first_name|slice:":1" }}.
 					{% endif %}
 					</td>
 					<td>{{ component.asset.location }}</td>
