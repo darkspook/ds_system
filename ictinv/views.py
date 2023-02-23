@@ -51,6 +51,11 @@ def search(request):
 		category = request.POST['category']
 		search_q = request.POST['searchq']
 
+		if search_q == '':
+			page_title = 'Search All'
+		else:
+			page_title = 'Search for "'+search_q+'"'
+
 		if category == 'asset':
 			multi_q = Q(Q(name__icontains = search_q) | Q(description__icontains = search_q) | Q(model__icontains = search_q) | Q(location__name__icontains = search_q) | Q(end_user__first_name__icontains = search_q) | Q(end_user__last_name__icontains = search_q))
 			result = Asset.objects.filter(multi_q)
@@ -62,6 +67,7 @@ def search(request):
 			'category':category,
 			'searchq':search_q,
 			'results':result,
+			'title':page_title,
 		}
 		# print('Result', result)
 		print('Context', context)

@@ -31,7 +31,7 @@
 	        <tbody>
 {% for component in components %}
 	        	<tr>
-					<td><a href="{% url 'ictinv:component_detail' component.pk %}">{{ component.name }}</a></td>
+					<td><a href="{% url 'ictinv:component_detail' component.pk %}" title="{{ component.name }}">{{ component.name }}</a></td>
 					<td>{{ component.asset.name }}</td>
 					<td>{{ component.unit_value }}</td>
 					<td>

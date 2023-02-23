@@ -29,8 +29,8 @@
 	        <tbody>
 {% for component in components %}
 	        	<tr>
-					<td><a href="{% url 'ictinv:component_detail' component.pk %}">{{ component.name }}</a></td>
-					<td>{{ component.description }}</td>
+					<td><a href="{% url 'ictinv:component_detail' component.pk %}" title="{{ component.name }}">{{ component.name }}</a></td>
+					<td title="{{ component.description }}">{{ component.description }}</td>
 					<td>{{ component.unit_value }}</td>
 					<td>{{ component.date_acquired }}</td>
 					<td>
