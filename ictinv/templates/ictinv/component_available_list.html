@@ -7,7 +7,7 @@
 		All Components Available
     </div>
     <div class="card-body">
-    	<table id="datatablesSimple" class="display compact" style="width:100%">
+    	<table id="datatablesComponentList" class="display compact" style="width:100%">
     		<thead>
 	            <tr>
 	                <th>Name</th>
@@ -46,4 +46,14 @@
 		</table>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#datatablesComponentList').DataTable({
+		"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+		// "pageLength": -1,
+		"pageLength": 50,
+		"order": [],
+	});
+});
+</script>
 {% endblock %}

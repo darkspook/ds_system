@@ -4,11 +4,12 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import (
-    AssetListView, 
+    AssetListView,
+    AssetAvailableListView,
     AssetDetailView, 
     AssetCreateView, 
     AssetUpdateView, 
-    AssetDeleteView, 
+    AssetDeleteView,
     ComponentListView,
     ComponentAvailableListView,
     ComponentDetailView,
@@ -38,6 +39,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.search, name='search'),
     path('asset/', AssetListView.as_view(), name='asset_list'),
+    path('asset/available', AssetAvailableListView.as_view(), name='asset_available_list'),
     path('asset/<int:pk>/', AssetDetailView.as_view(), name='asset_detail'),
     path('asset/<int:pk>/update/', AssetUpdateView.as_view(), name='asset_update'),
     path('asset/<int:pk>/delete/', AssetDeleteView.as_view(), name='asset_delete'),

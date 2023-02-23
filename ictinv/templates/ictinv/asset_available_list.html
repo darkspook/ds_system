@@ -4,7 +4,7 @@
 <div class="card mb-4">
 	<div class="card-header bg-warning text-dark">
 		<i class="fas fa-list"></i>
-		All Assets
+		All Assets Available
     </div>
     <div class="card-body">
     	<table id="datatablesAssetList" class="display compact" style="width:100%">
@@ -13,7 +13,7 @@
 	                <th>Asset Name</th>
 	                <th>Description</th>
 	                <th>Unit Value</th>
-	                <th>End User</th>
+	                <th>Date Acquired</th>
 	                <th>Location</th>
 	            </tr>
 	        </thead>
@@ -22,7 +22,7 @@
 					<th>Asset Name</th>
 					<th>Description</th>
 					<th>Unit Value</th>
-					<th>End User</th>
+					<th>Date Acquired</th>
 					<th>Location</th>
 	            </tr>
 	        </tfoot>
@@ -32,11 +32,7 @@
 					<td><a href="{% url 'ictinv:asset_detail' asset.pk %}" title="{{ asset.name }}">{{ asset.name }}</a></td>
 					<td title="{{ asset.description }}">{{ asset.description|truncatewords:3 }}</td>
 					<td>{{ asset.unit_value }}</td>
-					<td>
-					{% if asset.end_user %}
-					{{ asset.end_user.last_name }} {{ asset.end_user.first_name|slice:":1" }}.
-					{% endif %}
-					</td>
+					<td>{{ asset.date_acquired }}</td>
 					<td>{{ asset.location }}</td>
 	            </tr>
 {% endfor %}

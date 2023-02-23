@@ -188,6 +188,19 @@ def delete_image(request, pk):
 			asset.image.delete()
 	return redirect('ictinv:asset_detail', pk=pk)
 
+class AssetAvailableListView(PageTitleMixin, ListView):
+	"""Generic listing view for Asset Available"""
+	model = Asset
+	context_object_name = "assets"
+	title = "Available Asset List"
+	ordering = ['-date_acquired']
+	queryset = Asset.objects.filter(end_user=None)
+	template_name = 'ictinv/asset_available_list.html'
+
+	# Proper way of adding decorator to a class based view
+	@method_decorator(allowed_users(allowed_roles=['ict']))
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
 
 # Component - Component - Component - Component - Component - Component - Component - Component - Component
 class ComponentAvailableListView(PageTitleMixin, ListView):
