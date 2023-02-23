@@ -45,7 +45,7 @@ class AssetForm(ModelForm):
 	location = forms.ModelChoiceField(widget=Select(attrs={'class': 'form-control'}), queryset=Location.objects.all().order_by('name'))
 	remarks = forms.CharField(widget=Textarea(attrs={'class': 'form-control', 'style':'height:50px;'}), required=False)
 	image = forms.ImageField(widget=FileInput(attrs={'class': 'form-control'}), required=False)
-	end_user = forms.ModelChoiceField(widget=Select(attrs={'class': 'form-control'}), queryset=EndUser.objects.all().order_by('last_name'))
+	end_user = forms.ModelChoiceField(widget=Select(attrs={'class': 'form-control'}), queryset=EndUser.objects.all().order_by('last_name'), required=False)
 	status = forms.ChoiceField(widget=Select(attrs={'class': 'form-control'}), choices=Asset.STATUS_CHOICES)
 	asset_type = forms.ModelChoiceField(widget=Select(attrs={'class': 'form-control'}), queryset=Type.objects.all().order_by('name'))
 

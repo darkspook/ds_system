@@ -26,7 +26,6 @@ def home(request):
 	# print('Year: ', years)
 	context = {
 			'assets':assets[:10], #top 10
-			# 'assets':assets,
 			'types':types,
 			'data':generatepiechart(request),
 			'latest':assets.latest('date_last_modified'),
@@ -52,7 +51,7 @@ def search(request):
 		search_q = request.POST['searchq']
 
 		if search_q == '':
-			page_title = 'Search All'
+			page_title = 'Search'
 		else:
 			page_title = 'Search for "'+search_q+'"'
 
@@ -246,7 +245,7 @@ class ComponentListView(PageTitleMixin, ListView):
 	"""Generic listing view for Component"""
 	model = Component
 	context_object_name = "components"
-	ordering = ['-id']
+	ordering = ['-date_acquired']
 	title = "Component List"
 
 	# Proper way of adding decorator to a class based view
@@ -369,7 +368,7 @@ class LocationListView(PageTitleMixin, ListView):
 	model = Location
 	template_name = 'ictinv/location_list.html'
 	context_object_name = "locations"
-	ordering = ['name']
+	# ordering = ['name']
 	title = "Location List"
 
 	# Proper way of adding decorator to a class based view
@@ -422,7 +421,7 @@ class BrandListView(PageTitleMixin, ListView):
 	model = Brand
 	template_name = 'ictinv/brand_list.html'
 	context_object_name = "brands"
-	ordering = ['name']
+	# ordering = ['name']
 	title = "Brand List"
 
 	# Proper way of adding decorator to a class based view
@@ -475,7 +474,7 @@ class AssetTypeListView(PageTitleMixin, ListView):
 	model = Type
 	template_name = 'ictinv/assettype_list.html'
 	context_object_name = "assettypes"
-	ordering = ['name']
+	# ordering = ['name']
 	title = "Asset Type List"
 
 	# Proper way of adding decorator to a class based view
@@ -527,7 +526,7 @@ class EndUserListView(PageTitleMixin, ListView):
 	"""Generic listing view for End User"""
 	model = EndUser
 	context_object_name = "endusers"
-	ordering = ['last_name']
+	# ordering = ['last_name']
 	title = "End User List"
 
 	# Proper way of adding decorator to a class based view

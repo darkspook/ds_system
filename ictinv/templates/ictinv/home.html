@@ -5,10 +5,10 @@
 <div class="card mb-4">
 	<div class="card-header">
 		<i class="fas fa-list-ol"></i>
-		Last Modified Assets
+		TOP 10 Last Modified Assets
     </div>
     <div class="card-body">
-    	<table id="datatablesSimple" class="display compact" style="width:100%">
+    	<table id="datatablesLastModified" class="display compact" style="width:100%">
     		<thead>
 	            <tr>
 	                <th>Asset Name</th>
@@ -33,7 +33,11 @@
 					<td><a href="{% url 'ictinv:asset_detail' asset.pk %}" title="{{ asset.name }}">{{ asset.name }}</a></td>
 					<td title="{{ asset.description }}">{{ asset.description|truncatewords:3 }}</td>
 					<td>{{ asset.unit_value }}</td>
-					<td>{{ asset.end_user.last_name }} {{ asset.end_user.first_name|slice:":1" }}.</td>
+					<td>
+					{% if asset.end_user %}
+					{{ asset.end_user.last_name }} {{ asset.end_user.first_name|slice:":1" }}.
+					{% endif %}
+					</td>
 					<td>{{ asset.location }}</td>
 	            </tr>
 {% endfor %}
@@ -41,4 +45,14 @@
 		</table>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#datatablesLastModified').DataTable({
+		ordering: false,
+		searching: false,
+		paging: false,
+		info: false,
+	});
+});
+</script>
 {% endblock %}
