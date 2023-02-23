@@ -39,7 +39,13 @@
 						{{ component.end_user.last_name }} {{component.end_user.first_name|slice:":1" }}.
 					{% endif %}
 					</td>
-					<td>{{ component.asset.location }}</td>
+					<td>
+					{% if component.asset == None %}
+						{{ component.location }}
+					{% else %}
+						{{ component.asset.location }}
+					{% endif %}
+					</td>
 	            </tr>
 {% endfor %}
 			</tbody>

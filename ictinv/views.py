@@ -535,7 +535,6 @@ class EndUserUpdateView(SuccessMessageMixin, PageTitleMixin, UpdateView):
 	template_name = 'ictinv/enduser_update.html'
 	title = "Edit End User"
 	fields = ['last_name', 'first_name', 'remarks']
-	#form_class = AssetForm
 	success_message = "End User was updated successfully"
 
 	# Proper way of adding decorator to a class based view

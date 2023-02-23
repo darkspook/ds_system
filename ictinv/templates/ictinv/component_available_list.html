@@ -33,7 +33,13 @@
 					<td>{{ component.description }}</td>
 					<td>{{ component.unit_value }}</td>
 					<td>{{ component.date_acquired }}</td>
-					<td>{{ component.asset.location }}</td>
+					<td>
+					{% if component.asset == None %}
+						{{ component.location }}
+					{% else %}
+						{{ component.asset.location }}
+					{% endif %}
+					</td>
 	            </tr>
 {% endfor %}
 			</tbody>

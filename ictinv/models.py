@@ -14,6 +14,9 @@ class Type(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_absolute_url(self):
+		return reverse('ictinv:assettype_list')
+
 class Location(models.Model):
 	name = models.CharField(max_length=50, unique=True)
 	remarks = models.CharField(max_length=200, blank=True)
@@ -21,6 +24,9 @@ class Location(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def get_absolute_url(self):
+		return reverse('ictinv:location_list')
 
 class Brand(models.Model):
 	name = models.CharField(max_length=50, unique=True)
@@ -30,6 +36,9 @@ class Brand(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_absolute_url(self):
+		return reverse('ictinv:brand_list')
+
 class EndUser(models.Model):
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
@@ -38,9 +47,6 @@ class EndUser(models.Model):
 
 	def __str__(self):
 		return self.last_name+", "+self.first_name
-
-	# def __str__(self):
-	# 	return self.first_name+" "+self.last_name
 
 	def get_absolute_url(self):
 		return reverse('ictinv:enduser_list')
