@@ -46,3 +46,15 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+//Datepicker for new/update asset, new/update component
+$(function() {
+    $("#id_date_acquired").datepicker({dateFormat:"yy-mm-dd"})
+});
+
+//Datepicker for reports
+$(function() {
+    $("#dateFrom").datepicker({dateFormat:"yy-mm-dd"})
+    
+    $("#dateTo").datepicker({dateFormat:"yy-mm-dd"})
+});

@@ -133,12 +133,8 @@
   </div>
 
 <script type="text/javascript">
-{% with request.resolver_match.url_name as url_name %}
-  {% if url_name == 'reports' %}
     $(document).ready(function() {
-      $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(8)").css("color", "white");
+      $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(8)").addClass("active");
     });
-  {% endif %}
-{% endwith %}
 </script>
 {% endblock %}
