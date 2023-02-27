@@ -10,6 +10,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
 from users.decorators import allowed_users
 from django.utils.decorators import method_decorator
+import datetime
 
 #@login_required
 @allowed_users(allowed_roles=['ict'])
@@ -37,6 +38,68 @@ def home(request):
 	# print('Bar data: ', generatebarchart(request))
 	# print('Context: ',context)
 	return render(request, 'ictinv/home.html', context)
+
+@allowed_users(allowed_roles=['ict'])
+def reports(request):
+	# assets = Asset.objects.all()
+	endusers = EndUser.objects.all().order_by('last_name')
+	locations = Location.objects.all().order_by('name')
+	context = {
+			'endusers':endusers,
+			'locations':locations,
+
+		}
+	return render(request, 'ictinv/reports.html', context)
+
+def generate_report(request):
+	# print("Inside generate_report")
+	if request.GET['reportType'] == 'dateRange':
+		dateFrom = request.GET['dateFrom']
+		dateTo = request.GET['dateTo'] 
+		if not dateFrom or not dateTo:
+			return render(request, 'ictinv/reports_base.html', {'title':'No parameter provided'})
+		else:
+			dateFromf = datetime.datetime.strptime(dateFrom, '%Y-%m-%d').strftime("%b. %d, %Y")
+			print(dateFromf)
+			dateTof = datetime.datetime.strptime(dateTo, '%Y-%m-%d').strftime("%b. %d, %Y")
+			print(dateTof)
+			title = "By Date Acquired Range: {} to {}".format(dateFromf, dateTof)
+			assets = Asset.objects.exclude(date_acquired__gte=dateTo).filter(date_acquired__gte=dateFrom).order_by('property_num')
+			return render(request, 'ictinv/reports_base.html', {'reports':assets, 'title':title})
+	elif(request.GET['reportType'] == 'byEnduser'):
+		if request.GET.get('endUser') != '---------':
+			enduser = request.GET.get('endUser')
+			print(enduser)
+			enduser_name = EndUser.objects.filter(id=enduser).first()
+			title = 'By End-user: "'+enduser_name.last_name+', '+enduser_name.first_name+'"'
+			assets = Asset.objects.filter(end_user__exact=enduser).order_by('date_acquired')
+			print(assets)
+			# end_user = EndUser.objects.all()
+			return render(request, 'ictinv/reports_base.html', {'reports':assets, 'title':title})
+		else:
+			return render(request, 'ictinv/reports_base.html', {'title':'No parameter provided'})
+	elif(request.GET['reportType'] == 'byLocation'):
+		if request.GET.get('location') != '---------':
+			location = request.GET.get('location')
+			location_name = Location.objects.filter(id=location).first()
+			title = 'By Location: "'+location_name.name+'"'
+			assets = Asset.objects.filter(location__exact=location).order_by('date_acquired')
+			print(assets)
+			# end_user = EndUser.objects.all()
+			return render(request, 'ictinv/reports_base.html', {'reports':assets, 'title':title})
+		else:
+			return render(request, 'ictinv/reports_base.html', {'title':'No parameter provided'})
+
+	elif(request.GET['reportType'] == 'byAvail'):
+		title = 'All Available Assets'
+		assets = Asset.objects.filter(end_user__isnull=True).order_by('date_acquired')
+		print(assets)
+		# end_user = EndUser.objects.all()
+		return render(request, 'ictinv/reports_base.html', {'reports':assets, 'title':title})
+	else:
+		# print("No report type selected")
+		return render(request, 'ictinv/reports.html', {'error':'No report selected or invalid parameter!'})
+
 
 @allowed_users(allowed_roles=['ict'])
 def search(request):
@@ -591,7 +654,7 @@ def generatepiechart(request):
 
 def generatebarchart(request):
 	"""Yearly Asset Acquisition
-	Get the total count of all asset per year acuired and make it as barchart data.
+	Get the total count of all asset per year acquired and make it as barchart data.
 	"""
 	t = ()
 	yearcount = Asset.objects.dates('date_acquired', 'year')
@@ -618,7 +681,8 @@ def test(request):
 	enduser = EndUser.objects.filter(id=1)
 	print(enduser)
 	assets = Asset.objects.filter(end_user_id=1)
+	# assets = Asset.objects.all()
 	print(assets.count())
-	components = Component.objects.filter(asset_id=1)
-	print(components)
+	# components = Component.objects.filter(asset_id=1)
+	components = Component.objects.all()
 	return render(request, 'ictinv/test.html', {'assets':assets, 'components':components, 'enduser':enduser})

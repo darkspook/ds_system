@@ -1,0 +1,144 @@
+{% extends 'ictinv/base.html' %}
+{% block content %}
+<!-- reports.html -->
+<div class="mt-4"></div>
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-light">
+      <i class="fas fa-file-alt"></i>
+      Asset Reports
+    </div>
+    <div class="card-body">
+      <div class="accordion" id="accordionAssetReports">
+        <!-- BY DATE RANGE -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="AssetheadingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#AssetcollapseOne" aria-expanded="true" aria-controls="AssetcollapseOne">
+              Assets Acquired by DATE RANGE
+            </button>
+          </h2>
+          <div id="AssetcollapseOne" class="accordion-collapse collapse show" aria-labelledby="AssetheadingOne" data-bs-parent="#accordionAssetReports">
+            <div class="accordion-body">
+              <form method="GET" action="{% url 'ictinv:generate_report'%}" target="_blank">
+                {% csrf_token %}
+                <input type="hidden" id="reportType" name="reportType" value="dateRange">
+                <div class="input-group mb-3">
+                  <div class="form-floating">
+                    <input type="text" id="dateFrom" name="dateFrom" class="form-control" placeholder="From" aria-label="From">
+                    <label for="dateFrom">From</label>
+                  </div>
+                  <span class="input-group-text">&mdash;</span>
+                  <div class="form-floating">
+                    <input type="text" id="dateTo" name="dateTo" class="form-control" placeholder="To" aria-label="To">
+                    <label for="dateTo">To</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Generate</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      <!-- BY END-USER  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="AssetheadingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#AssetcollapseTwo" aria-expanded="false" aria-controls="AssetcollapseTwo">
+            Assets by END-USER
+          </button>
+        </h2>
+        <div id="AssetcollapseTwo" class="accordion-collapse collapse" aria-labelledby="AssetheadingTwo" data-bs-parent="#accordionAssetReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'ictinv:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="byEnduser">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">End-User</span>
+                </div>
+                <select id="endUser" name="endUser" class="form-select">
+                  <option selected>---------</option>
+                  {% for enduser in endusers %}
+                  <option value="{{enduser.id}}">{{enduser.last_name}}, {{enduser.first_name}}</option>
+                  {% endfor %}
+                </select>
+
+                <button type="submit" class="btn btn-primary">Generate</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- BY LOCATION  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="AssetheadingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#AssetcollapseThree" aria-expanded="false" aria-controls="AssetcollapseThree">
+            Assets by LOCATION
+          </button>
+        </h2>
+        <div id="AssetcollapseThree" class="accordion-collapse collapse" aria-labelledby="AssetheadingThree" data-bs-parent="#accordionAssetReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'ictinv:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="byLocation">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Location</span>
+                </div>
+                <select id="location" name="location" class="form-select">
+                  <option selected>---------</option>
+                  {% for location in locations %}
+                  <option value="{{location.id}}">{{location.name}}</option>
+                  {% endfor %}
+                </select>
+
+                <button type="submit" class="btn btn-primary">Generate</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- BY AVAILABILITY  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="AssetheadingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#AssetcollapseFour" aria-expanded="false" aria-controls="AssetcollapseFour">
+            Assets Available
+          </button>
+        </h2>
+        <div id="AssetcollapseFour" class="accordion-collapse collapse" aria-labelledby="AssetheadingFour" data-bs-parent="#accordionAssetReports">
+          <div class="accordion-body">
+            <form method="GET" action="{% url 'ictinv:generate_report'%}" target="_blank">
+              {% csrf_token %}
+              <input type="hidden" id="reportType" name="reportType" value="byAvail">
+              <div class="input-group mb-3">
+                <button type="submit" class="btn btn-primary">Generate</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-info text-light">
+      <i class="fas fa-file-alt"></i>
+      Component Reports
+    </div>
+    <div class="card-body">
+    </div>
+  </div>
+
+<script type="text/javascript">
+{% with request.resolver_match.url_name as url_name %}
+  {% if url_name == 'reports' %}
+    $(document).ready(function() {
+      $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(8)").css("color", "white");
+    });
+  {% endif %}
+{% endwith %}
+</script>
+{% endblock %}

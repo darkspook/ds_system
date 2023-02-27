@@ -1,0 +1,57 @@
+<!-- report_base.html -->
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	{% if title %}
+        <title>{{ title|capfirst }} Report | ICT Inventory</title>
+    {% else %}
+        <title>Reports | ICT Inventory</title>
+    {% endif %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+	</head>
+	<body><br>
+		<h2 class="text-center"><span class="border border-dark" style="padding: 0 5px;">ICT INVENTORY REPORT</span></h2>
+		{% if title %}
+        <h6 class="text-center">{{ title|upper }}</h6>
+    	{% endif %}<br>
+    	<div class="font-italic text-right">Report timestamp: {% now "N j, Y P" %}</div>
+		<table data-toggle="table">
+			<thead>
+				<tr>
+					<th>NAME</th>
+					<th>PROPERTY NO.</th>
+					<th>UNIT VALUE</th>
+					<th>DATE ACQUIRED</th>
+					<th>END-USER</th>
+					<th>LOCATION</th>
+				</tr>
+			</thead>
+			<tbody>
+{% for report in reports %}
+	        	<tr>
+					<td>{{ report.name }}</td>
+					<td>{{ report.property_num }}</td>
+					<td style="text-align:right">{{ report.unit_value }}</td>
+					<td>{{ report.date_acquired }}</td>
+					<td>{{ report.end_user }}</td>
+					<td>{{ report.location }}</td>
+                </tr>
+{% endfor %}
+				<tr>
+					<td colspan="6" class="text-center font-weight-bold">***NOTHING FOLLOWS***</td>
+                </tr>
+			</tbody>
+		</table><br>
+		<p>
+			<h6>Prepared by:</h6>
+		</p><br>
+		<p>
+			<h5>{{ user.username|upper }}</h5>
+		</p>
+		<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+		<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+	</body>
+</html>

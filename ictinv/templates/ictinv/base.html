@@ -113,7 +113,7 @@
                             </div>
 
                             <div class="sb-sidenav-menu-heading">Others</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'ictinv:reports' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                 Reports
                             </a>
@@ -203,7 +203,7 @@
         <script type="text/javascript">
         <!-- Script for collapsing/showing dropdown menu -->
         {% with request.resolver_match.url_name as url_name %}
-            {% if url_name == 'asset_create' or url_name == 'asset_list' or url_name == 'asset_available_list'%}
+            {% if url_name == 'asset_create' or url_name == 'asset_list' or url_name == 'asset_available_list' or url_name == 'asset_detail'%}
                 $(document).ready(function() {
                     $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(3)").removeClass("collapsed");
                     $("#sidenavAccordion > div.sb-sidenav-menu > div > a:nth-child(3)").attr("aria-expanded","true");
