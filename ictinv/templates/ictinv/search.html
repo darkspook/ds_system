@@ -10,23 +10,50 @@
 		<table class="table table-hover">
 			<thead class="thead-dark">
 				<tr>
-      				<th scope="col" style="width: 15%">NAME</th>
-      				<th scope="col">DESCRIPTION</th>
+      				<th scope="col">NAME</th>
       				{% if category == "component" %}
       				<th scope="col">PARENT ASSET</th>
+      				{% else %}
+      				<th scope="col">UNIT VALUE</th>
       				{% endif %}
+      				<th scope="col">END USER</th>
+      				<th scope="col">LOCATION</th>
     			</tr>
 			</thead>
 			<tbody>			
 			{% for result in results %}
 				<tr>
+					<!-- Asset Search -->
 				{% if category == "asset" %}
-					<th scope="row" width="50%"><a href="{% url 'ictinv:asset_detail' result.pk %}" title="{{ result.name }}">{{ result.name }}</a></th>
-					<td width="50%" title="{{ result.description }}">{{ result.description }}</td>
+					<th scope="row" width="60%">
+						<a href="{% url 'ictinv:asset_detail' result.pk %}" title="{{ result.name }}">{{ result.name }}</a>
+						{% if result.component_set.all|length != 0 %}
+						<span class="badge bg-primary text-light">
+						{{ result.component_set.all|length }} <span style="font-size: 0.7em;">Component(s)</span>
+						</span>
+					{% endif %}
+					</th>
+					<td width="15%" title='{{ result.unit_value }}'>
+					{{ result.unit_value }}</td>
+					{% if result.end_user %}
+					<td width="10%" title='{{ result.end_user.last_name }} {{ result.end_user.first_name|slice:":1" }}.'>
+					{{ result.end_user.last_name }} {{ result.end_user.first_name|slice:":1" }}.</td>
+					{% else %}
+					<td></td>
+					{% endif %}
+					<td width="15%" title="{{ result.location }}">{{ result.location }}</td>
+					<!-- Component Search -->
 				{% elif category == "component" %}
-					<th scope="row"  width="40%"><a href="{% url 'ictinv:component_detail' result.pk %}" title="{{ result.name }}">{{ result.name }}</a></th>
-					<td width="30%" title="{{ result.description }}">{{ result.description }}</td>
-					<td width="30%">{{ result.asset.name }}</td>
+					<th scope="row"  width="35%"><a href="{% url 'ictinv:component_detail' result.pk %}" title="{{ result.name }}">{{ result.name }}</a></th>
+					<td width="40%" title="{{ result.asset.name }}">{{ result.asset.name }}</td>
+					{% if result.asset.end_user %}
+					<td width="10%" title='{{ result.asset.end_user.last_name }} {{ result.asset.end_user.first_name|slice:":1" }}.'>
+					{{ result.asset.end_user.last_name }} {{ result.asset.end_user.first_name|slice:":1" }}.
+					{% else %}
+					<td></td>
+					{% endif %}
+					</td>
+					<td width="15%" title="{{ result.asset.location }}">{{ result.asset.location }}</td>
 				{% endif %}
 				</tr>
 			{% endfor %}

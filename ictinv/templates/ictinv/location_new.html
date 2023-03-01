@@ -12,31 +12,29 @@
             {{ error }}
         </div>
     {% endif %}
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="myform">
         {% csrf_token %}
             <div class="row g-2">
         {% for field in form %}
-
                 <div class="col-md-12 ">
                     <div class="input-group input-group-sm">
                         <span class="input-group-text" id="inputGroup-sizing-sm">{{field.label|upper}}</span>
                         {{ field }}
                     </div>
                 </div>
-
         {% endfor %}
             </div>
             <div class="d-flex align-items-center justify-content-between">
                 <div class="small" style="padding-bottom: 4em;"></div>
-                <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to Save?');">Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $("#id_name, #id_remarks").addClass("form-control");
-    });
+$(document).ready(function(){
+    $("#id_name, #id_remarks").addClass("form-control");
+});
 </script>
 {% endblock %}

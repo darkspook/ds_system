@@ -1,3 +1,15 @@
+//Confirm Modal
+$('#myform').submit(function(e) {
+	e.preventDefault(); // prevent the form from submitting
+
+    $('#confirm-submit-modal').modal('show'); // display the confirmation modal
+});
+
+$('#confirm-submit-btn').click(function() {
+    $('#myform').off('submit'); // remove the submit event handler to avoid an infinite loop
+    $('#myform').submit(); // submit the form
+});
+
 // Tree
 $(function () {
 	$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');

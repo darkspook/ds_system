@@ -3,7 +3,7 @@
 <div class="mt-4"></div>
 {% include 'ictinv/charts.html' %}
 <div class="card mb-4">
-	<div class="card-header">
+	<div class="card-header bg-success text-white">
 		<i class="fas fa-list-ol"></i>
 		TOP 10 Last Modified Assets
     </div>
@@ -12,7 +12,7 @@
     		<thead>
 	            <tr>
 	                <th>Asset Name</th>
-	                <th>Description</th>
+	                <!-- <th>Description</th> -->
 	                <th>Unit Value</th>
 	                <th>End User</th>
 	                <th>Location</th>
@@ -21,7 +21,7 @@
 	        <tfoot>
 	            <tr>
 					<th>Asset Name</th>
-					<th>Description</th>
+					<!-- <th>Description</th> -->
 					<th>Unit Value</th>
 	                <th>End User</th>
 	                <th>Location</th>
@@ -31,7 +31,7 @@
 {% for asset in assets %}
 	        	<tr>
 					<td><a href="{% url 'ictinv:asset_detail' asset.pk %}" title="{{ asset.name }}">{{ asset.name }}</a></td>
-					<td title="{{ asset.description }}">{{ asset.description|truncatewords:3 }}</td>
+					<!-- <td title="{{ asset.description }}">{{ asset.description|truncatewords:3 }}</td> -->
 					<td>{{ asset.unit_value }}</td>
 					<td>
 					{% if asset.end_user %}
