@@ -1,5 +1,5 @@
 {% extends 'delivery_inspection/base.html' %}
-{# /accepted/ #}
+{# /completed/ #}
 {% block content %}
 <div class="mt-4"></div>
 <div class="card mb-4">
@@ -8,7 +8,7 @@
 		Completed I&amp;A Deliveries
     </div>
     <div class="card-body">
-    	<table id="datatablesSimple">
+    	<table id="datatablesAccepted" class="display compact">
     		<thead>
 	            <tr>
 	                <th>IAR Number</th>
@@ -42,4 +42,13 @@
 		</table>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#datatablesAccepted').DataTable({
+		"lengthMenu": [ [50, 100, -1], [50, 100, "All"] ],
+		"pageLength": 50,
+		"order": [],
+	});
+});
+</script>
 {% endblock %}

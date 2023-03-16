@@ -8,7 +8,7 @@
 		My Deliveries
     </div>
     <div class="card-body">
-    	<table id="datatablesSimple">
+    	<table id="datatablesMyDeliveries" class="display compact">
     		<thead>
 	            <tr>
 	                <th>IAR Number</th>
@@ -38,4 +38,13 @@
 		</table>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#datatablesMyDeliveries').DataTable({
+		"lengthMenu": [ [50, 100, -1], [50, 100, "All"] ],
+		"pageLength": 50,
+		"order": [],
+	});
+});
+</script>
 {% endblock %}

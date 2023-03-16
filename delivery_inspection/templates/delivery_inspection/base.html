@@ -13,14 +13,13 @@
         <title>Delivery I&amp;A</title>
         {% endif %}
 
-        <!--CSS-->
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <!--Table CSS-->
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
+        <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet" />
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="{% static 'delivery_inspection/assets/logo.png' %}">
-        <!-- Table sorting-->
+        <!-- SB Styles-->
         <link href="{% static 'delivery_inspection/css/styles.css' %}" rel="stylesheet" />
-        <!--Fontawesome scripts-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <!--JQuery DatePicker-->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -69,15 +68,15 @@
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Deliveries</div>
-                            <a class="nav-link" href="{% url 'inspection:newdelivery' %}">
+                            <a class="nav-link" href="{% url 'inspection:newdeliveries' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-notes-medical"></i></div>
-                                New Delivery
+                                New Deliveries
                             </a>
                             <a class="nav-link" href="{% url 'inspection:mydeliveries' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
                                 My Deliveries
                             </a>
-                            <a class="nav-link" href="{% url 'inspection:inspecteddelivery' %}">
+                            <a class="nav-link" href="{% url 'inspection:completeddelivery' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-check"></i></div>
                                 Completed Deliveries
                             </a>
@@ -124,12 +123,16 @@
             {% endfor %}
         {% endif %}
         </script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> <!-- included in sb admin-->
         <!-- Custom JS -->
         <script src="{% static 'delivery_inspection/js/scripts.js' %}"></script>
         <!-- Table CSS & JS -->
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="{% static 'delivery_inspection/js/datatables-simple-demo.js' %}"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> -->
+        <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+        <!-- <script src="{% static 'delivery_inspection/js/datatables-simple-demo.js' %}"></script> -->
+        <!--Fontawesome scripts-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </body>
 </html>

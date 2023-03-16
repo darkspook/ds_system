@@ -96,13 +96,13 @@ def is_inspector(request):
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def mydeliveries(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=True, created_by_id=request.user).order_by('-date_delivered') #show only not inspected deliveries
-	return render(request, 'delivery_inspection/currentpending.html', {'delivery':delivery})
+	return render(request, 'delivery_inspection/mydeliveries.html', {'delivery':delivery})
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
-def newdelivery(request):
+def newdeliveries(request):
 	if request.method == 'GET':
-		return render(request, 'delivery_inspection/newdelivery.html', {'form':DeliveryForm()})
+		return render(request, 'delivery_inspection/newdeliveries.html', {'form':DeliveryForm()})
 	else:
 		try:
 			form = DeliveryForm(request.POST, request.FILES)
@@ -111,7 +111,7 @@ def newdelivery(request):
 			new.save()
 			return redirect('inspection:mydeliveries')
 		except ValueError:
-			return render(request, 'delivery_inspection/newdelivery.html', {'form':DeliveryForm(), 'error':'Invalid data entered'})
+			return render(request, 'delivery_inspection/newdeliveries.html', {'form':DeliveryForm(), 'error':'Invalid data entered'})
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
@@ -196,12 +196,12 @@ def deletepartialdelivery(request, pk):
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
-def inspecteddelivery(request):
+def completeddelivery(request):
 	delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('-date_inspected') #will show inspected recently
 	context = {
 		'delivery' : delivery,
 	}
-	return render(request, 'delivery_inspection/inspected.html', context)
+	return render(request, 'delivery_inspection/completed.html', context)
 
 def deleteimage(request, pk):
 	delivery = get_object_or_404(Delivery, pk=pk)

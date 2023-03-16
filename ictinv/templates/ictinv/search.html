@@ -28,7 +28,7 @@
 					<th scope="row" width="60%">
 						<a href="{% url 'ictinv:asset_detail' result.pk %}" title="{{ result.name }}">{{ result.name }}</a>
 						{% if result.component_set.all|length != 0 %}
-						<span class="badge bg-primary text-light">
+						<span class="badge bg-secondary text-light">
 						{{ result.component_set.all|length }} <span style="font-size: 0.7em;">Component(s)</span>
 						</span>
 					{% endif %}

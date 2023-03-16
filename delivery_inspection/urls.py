@@ -11,12 +11,12 @@ urlpatterns = [
     
     # Inspection
     # path('dashboard/', views.dashboard, name='dashboard'),
-   	path('newdelivery/', views.newdelivery, name='newdelivery'),
+   	path('newdeliveries/', views.newdeliveries, name='newdeliveries'),
    	# path('alldeliveries/', views.alldeliveries, name='alldeliveries'),
    	path('mydeliveries/', views.mydeliveries, name='mydeliveries'),
     path('view/<int:pk>', views.viewdelivery, name='viewdelivery'),
     path('view/<int:pk>/delete', views.deletedelivery, name='deletedelivery'),
-   	path('accepted/', views.inspecteddelivery, name='inspecteddelivery'),
+   	path('completed/', views.completeddelivery, name='completeddelivery'),
     path('view/<int:pk>/deleteimage', views.deleteimage, name='deleteimage'),
     path('view/<int:pk>/inspected', views.viewinspected, name='viewinspected'),
     path('reports/', views.reports, name='reports'),
