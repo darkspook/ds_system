@@ -37,6 +37,9 @@ urlpatterns = [
     path('inspection/', include('delivery_inspection.urls')),
     path('accounts/', include('users.urls')),
     path('ictinv/', include('ictinv.urls')),
+    path('ictrequest/', include('ictrequest.urls')),
+
+    path('duty/', views.dutygenerator, name='dutygenerator'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

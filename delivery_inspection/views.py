@@ -25,6 +25,7 @@ def generatemultichart(request, year):
 @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def home(request):
+	page_title = 'Dashboard'
 	delivery = Delivery.objects.filter(date_inspected__isnull=True) #show only not inspected deliveriess
 	current_year = datetime.datetime.now().year
 	last_year = current_year - 1
@@ -35,7 +36,7 @@ def home(request):
 	# data1, maxval1 = generatechart(request) #year 0
 	# data2, maxval2 = generatechart(request) #year -1
 	# data3, maxval3 = generatechart(request) #year -2
-	context = {'delivery':delivery, 'data1':data1, 'maxval1':maxval1, 'year1':str(current_year), 'data2':data2, 'maxval2':maxval2, 'year2':str(last_year), 'data3':data3, 'maxval3':maxval3, 'year3':str(two_years_ago)}
+	context = {'delivery':delivery, 'data1':data1, 'maxval1':maxval1, 'year1':str(current_year), 'data2':data2, 'maxval2':maxval2, 'year2':str(last_year), 'data3':data3, 'maxval3':maxval3, 'year3':str(two_years_ago), 'title':page_title,}
 	if is_inspector(request): #check if inspector or not
 		print("go to inspector page!")
 		return render(request, 'delivery_inspection/inspector_allpending.html', context)
@@ -78,7 +79,8 @@ def generate_report(request):
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def reports(request):
-	return render(request, 'delivery_inspection/reports.html')
+	page_title = 'Reports'
+	return render(request, 'delivery_inspection/reports.html', {'title':page_title,})
 
 # @login_required
 # def dashboard(request):
@@ -95,14 +97,16 @@ def is_inspector(request):
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def mydeliveries(request):
+	page_title = 'My Deliveries'
 	delivery = Delivery.objects.filter(date_inspected__isnull=True, created_by_id=request.user).order_by('-date_delivered') #show only not inspected deliveries
-	return render(request, 'delivery_inspection/mydeliveries.html', {'delivery':delivery})
+	return render(request, 'delivery_inspection/mydeliveries.html', {'delivery':delivery, 'title':page_title,})
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def newdeliveries(request):
+	page_title = 'New Deliveries'
 	if request.method == 'GET':
-		return render(request, 'delivery_inspection/newdeliveries.html', {'form':DeliveryForm()})
+		return render(request, 'delivery_inspection/newdeliveries.html', {'form':DeliveryForm(), 'title':page_title,})
 	else:
 		try:
 			form = DeliveryForm(request.POST, request.FILES)
@@ -111,16 +115,17 @@ def newdeliveries(request):
 			new.save()
 			return redirect('inspection:mydeliveries')
 		except ValueError:
-			return render(request, 'delivery_inspection/newdeliveries.html', {'form':DeliveryForm(), 'error':'Invalid data entered'})
+			return render(request, 'delivery_inspection/newdeliveries.html', {'form':DeliveryForm(), 'error':'Invalid data entered', 'title':page_title,})
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def viewdelivery(request, pk):
+	page_title = 'Update Delivery'
 	delivery = get_object_or_404(Delivery, pk=pk, created_by_id=request.user) #can only edit by the creator
 	#delivery = get_object_or_404(Delivery, pk=iar_no)
 	if request.method == 'GET':
 		form = DeliveryForm(instance=delivery)
-		return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form})
+		return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'title':page_title,})
 	else:
 		try:
 			form = DeliveryForm(request.POST, request.FILES, instance=delivery)
@@ -128,7 +133,7 @@ def viewdelivery(request, pk):
 			form.save()
 			return redirect('inspection:mydeliveries')
 		except ValueError:
-			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered'})	
+			return render(request, 'delivery_inspection/viewdelivery.html', {'delivery':delivery, 'form':form, 'error':'Invalid data entered', 'title':page_title,})	
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
@@ -141,19 +146,21 @@ def deletedelivery(request, pk):
 # @login_required
 @allowed_users(allowed_roles=['diainspector'])
 def inspectorviewdelivery(request, pk):
+	page_title = 'Inspect & Accept Delivery'
 	delivery = Delivery.objects.filter(pk=pk)
 	partialdelveries = PartialDelivery.objects.filter(delivery_id=pk)
 	context = {
 		'partialdelveries':partialdelveries,
 		'delivery':delivery,
 		'pk':pk,
+		'title':page_title,
 	}
 	return render(request, 'delivery_inspection/inspector_viewdelivery.html', context)
 
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def inspectdelivery(request, pk):
-	print("inside inspectdelivery")
+	# print("inside inspectdelivery")
 	delivery = get_object_or_404(Delivery, pk=pk)
 	if request.method == 'POST':
 		delivery.inspected_by = str(request.user)
@@ -197,9 +204,11 @@ def deletepartialdelivery(request, pk):
 # @login_required
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def completeddelivery(request):
+	page_title = 'Completed Deliveries'
 	delivery = Delivery.objects.filter(date_inspected__isnull=False).order_by('-date_inspected') #will show inspected recently
 	context = {
 		'delivery' : delivery,
+		'title':page_title,
 	}
 	return render(request, 'delivery_inspection/completed.html', context)
 
@@ -213,11 +222,13 @@ def deleteimage(request, pk):
 
 @allowed_users(allowed_roles=['diainspector', 'diauser'])
 def viewinspected(request, pk):
+	page_title = 'Completed Delivery'
 	delivery = Delivery.objects.filter(pk=pk)
 	partialdelveries = PartialDelivery.objects.filter(delivery_id=pk)
 	context = {
 		'partialdelveries':partialdelveries,
 		'delivery':delivery,
+		'title':page_title,
 	}
 	return render(request, 'delivery_inspection/viewinspected.html', context)
 

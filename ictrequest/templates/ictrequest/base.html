@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if title %}
+    <title>{{ title|capfirst }} | ICT Supplies Request</title>
+    {% else %}
+    <title>ICT Supplies Request/title>
+  {% endif %}
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'ictrequest/assets/logo.png' %}">
+  <!-- Custom CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/my_styles.css' %}">
+  <!-- BS CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/bootstrap.min.css' %}">
+  <!-- Fontawesom CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/font-awesome.min.css' %}">
+  <!-- Page Template CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/template_styles.css' %}">
+</head>
+
+<body class="body-wrapper bg-light">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light navigation">
+              <a class="navbar-brand" href="#">
+                ICT Supplies Request
+              </a>
+              <ul class="navbar-nav ml-auto mt-10">
+                <li class="nav-item">
+                  <a class="btn btn-primary" href="{% url 'users:profile' %}" title="Profile"><i class="fa fa-user"></i></a>
+                  <a class="btn btn-danger" href="{% url 'logout' %}" title="Logout"><i class="fa fa-sign-out"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="dashboard section" style="padding: 0;">
+    <!-- Container Start -->
+    <div class="container">
+      <!-- Row Start -->
+      <div class="row">
+{% block content %}
+{% endblock %}
+      </div>
+      <!-- Row End -->
+    </div>
+    <!-- Container End -->
+  </section>
+  <!-- Footer Bottom -->
+  <footer class="footer-bottom">
+    <!-- Container Start -->
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-12">
+        <!-- Copyright -->
+        <div class="copyright">
+          <p><img src="{% static 'users/assets/logo.png' %}" width="21px" alt=""> &copy; 2023-<script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> ICT Supplies Request.</script></p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-12">
+      </div>
+    </div>
+    </div>
+    <!-- Container End -->
+    <!-- To Top -->
+    <div class="top-to">
+      <a id="top" class="" href="#"><i class="fa fa-angle-up"></i></a>
+    </div>
+  </footer>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- JQuery JS -->
+  <script src="{% static 'ictrequest/js/jquery.min.js' %}"></script>
+  <!-- Page Template JS-->
+  <script src="{% static 'ictrequest/js/template_script.js' %}"></script>
+  <!-- Custom JS -->
+  <script src="{% static 'ictrequest/js/my_script.js' %}"></script>
+</body>
+</html>

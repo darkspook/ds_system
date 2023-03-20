@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'users.apps.UsersConfig',
     'ictinv',
+    'ictrequest',
 ]
 
 MIDDLEWARE = [

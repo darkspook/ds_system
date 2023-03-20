@@ -42,12 +42,13 @@ def home(request):
 @allowed_users(allowed_roles=['ict'])
 def reports(request):
 	# assets = Asset.objects.all()
+	page_title = "Reports"
 	endusers = EndUser.objects.all().order_by('last_name')
 	locations = Location.objects.all().order_by('name')
 	context = {
 			'endusers':endusers,
 			'locations':locations,
-
+			'title':page_title,
 		}
 	return render(request, 'ictinv/reports.html', context)
 

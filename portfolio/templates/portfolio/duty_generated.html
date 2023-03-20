@@ -1,0 +1,28 @@
+<!-- report_base.html -->
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{month}} {{year|cut:","}} Duty Schedule </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+	</head>
+	<body><br>
+		<h2 class="text-center">Duty Personnel for {{month}} {{year|cut:","}}</h2><br>
+
+{% for key, p in personnel.items %}
+
+	{% if p|length == 4 %}
+		{{key}} {{month}} {{year|cut:","}}<br>AM<br>{{p.0}}<br>{{p.1}}
+		<br>PM<br>{{p.2}}<br>{{p.3}}
+		<hr>
+	{% else %}
+		{{key}} {{month}} {{year|cut:","}}<br>{{p|join:"<br> "}}<hr>
+	{%endif%}
+{% endfor %}
+
+		<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+		<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+	</body>
+</html>

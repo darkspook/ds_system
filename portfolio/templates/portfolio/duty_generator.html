@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Duty Generator</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{% static 'ictrequest/assets/logo.png' %}">
+  <!-- Custom CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/my_styles.css' %}">
+  <!-- BS CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/bootstrap.min.css' %}">
+  <!-- Fontawesom CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/font-awesome.min.css' %}">
+  <!-- Page Template CSS-->
+  <link rel="stylesheet" href="{% static 'ictrequest/css/template_styles.css' %}">
+  <style type="text/css">
+    ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 70px 40px 70px;
+    grid-gap: 10px
+}
+select {
+    width: 70px
+}
+li.relative {
+    position: relative
+}
+#add {
+    position: absolute;
+    width: 40px;
+    font-size: 18px;
+    top: 0
+}
+#remove {
+    position: absolute;
+    width: 40px;
+    font-size: 18px;
+    bottom: 0
+}
+  </style>
+</head>
+
+<body class="body-wrapper bg-light">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light navigation">
+              <a class="navbar-brand" href="#">
+                Duty Generator
+              </a>
+              <ul class="navbar-nav ml-auto mt-10">
+                <li class="nav-item">
+                  <!-- <a class="btn btn-primary" href="{% url 'users:profile' %}" title="Profile"><i class="fa fa-user"></i></a>
+                  <a class="btn btn-danger" href="{% url 'logout' %}" title="Logout"><i class="fa fa-sign-out"></i></a> -->
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="dashboard section" style="padding: 0;">
+    <!-- Container Start -->
+    <div class="container">
+      <!-- Row Start -->
+<!--       <div class="row">
+        <ul>
+    <li>
+      <label for="select1">Available Personnel</label> 
+        <select id="select1" name="select1" multiple>
+            <option>Item 1</option>
+            <option>Item 2</option>
+            <option>Item 3</option>
+            <option>Item 4</option>
+        </select>
+    </li>
+    <li class="relative">
+        <input  type="button" id="add" value="&#8702;" onclick="addOptions( 'select1', 'select2' )" />
+        <input  type="button" id="remove" value="&#8701;" onclick="addOptions( 'select2', 'select1' )" />
+    </li>
+    <li>
+        <label for="select2">Excempted Personnel</label> 
+        <select id="select2" name="select2" multiple></select>
+    </li>
+</ul>
+
+
+      </div><hr> -->
+
+      <div class="row">
+<form method="GET" action="{% url 'dutygenerator'%}" target="_blank">
+      <div class="form-group row">
+    <label for="inputYear" class="col-sm-2 col-form-label">Year</label>
+    <div class="col-sm-10">
+      <input type="input" class="form-control" id="inputYear" name="inputYear">
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="Month">Month</label>
+    <select class="form-control" id="selectMonth" name="selectMonth">
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+  </div>
+<button type="submit" class="btn btn-primary float-right">Generate</button>
+</form>
+      </div>
+      <!-- Row End -->
+    </div>
+    <!-- Container End -->
+  </section>
+  <!-- Footer Bottom -->
+  <div style="padding-bottom: 350px"></div>
+  <footer class="footer-bottom">
+    <!-- Container Start -->
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-12">
+        <!-- Copyright -->
+        <div class="copyright">
+          <p><img src="{% static 'users/assets/logo.png' %}" width="21px" alt=""> &copy; 2023-<script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> Duty Generator.</script></p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-12">
+      </div>
+    </div>
+    </div>
+    <!-- Container End -->
+    <!-- To Top -->
+    <div class="top-to">
+      <a id="top" class="" href="#"><i class="fa fa-angle-up"></i></a>
+    </div>
+  </footer>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- JQuery JS -->
+  <script src="{% static 'ictrequest/js/jquery.min.js' %}"></script>
+  <!-- Page Template JS-->
+  <!-- <script src="{% static 'ictrequest/js/template_script.js' %}"></script> -->
+  <!-- Custom JS -->
+  <!-- <script src="{% static 'ictrequest/js/my_script.js' %}"></script> -->
+  <script type="text/javascript">
+  var d = new Date(),
+  n = d.getMonth(),
+  y = d.getFullYear();
+  $('#selectMonth option[value="'+(n+2)+'"]').prop('selected', true);
+  $('#inputYear').val(y);
+  $('#inputYear').prop('readonly', true);
+
+
+  function addOptions( fromId, toId ) {
+    var fromEl = document.getElementById( fromId ),
+    toEl = document.getElementById( toId );
+
+    if ( fromEl.selectedIndex >= 0 ) {
+      var index = toEl.options.length;
+
+      for ( var i = 0; i < fromEl.options.length; i++ ) {
+        if ( fromEl.options[ i ].selected ) {
+          toEl.options[ index ] = fromEl.options[ i ];
+          i--;
+          index++
+        }
+      }
+    }
+  }
+  </script>
+</body>
+</html>
