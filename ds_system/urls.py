@@ -34,6 +34,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('projects/', views.projects, name='projects'),
     path('contact/', views.contact, name='contact'),
+    path('tree/', views.tree, name='tree'),
     path('inspection/', include('delivery_inspection.urls')),
     path('accounts/', include('users.urls')),
     path('ictinv/', include('ictinv.urls')),

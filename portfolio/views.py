@@ -11,9 +11,9 @@ def dutygenerator(request):
 
 		# List of personnel 29
 		duty_personnel = {}
-		total_personnel = 29+1
+		total_personnel = 27+1
 		personnel = list(range(1, total_personnel)) #29 personnel
-		exempted_personnel = [1]; #list of exempted personnel
+		exempted_personnel = [0]; #list of exempted personnel
 		# print(f"Exempted personnel {exempted_personnel}")
 		# print(len(personnel))
 		# Initialize calendar and shuffle personnel list
@@ -40,7 +40,7 @@ def dutygenerator(request):
 			if day[1] < 5:
 				if len(personnel)<2:
 					# print("Weekdays, available personnel is less than 2, RESET!")
-					personnel = list(range(1, 30))
+					personnel = list(range(1, 28))
 					personnel = [item for item in personnel if item not in exempted_personnel] #remove exempted from the list
 					random.shuffle(personnel)
 		        # Select two personnel randomly and remove them from the list
@@ -52,7 +52,7 @@ def dutygenerator(request):
 			else:
 				if len(personnel)<4:
 					# print("Weekend, available personnel is less than 4, RESET!")
-					personnel = list(range(1, 30))
+					personnel = list(range(1, 28))
 					personnel = [item for item in personnel if item not in exempted_personnel] #remove exempted from the list
 					random.shuffle(personnel)
 		        # Select four personnel randomly and remove them from the list
@@ -103,62 +103,58 @@ personnel_dict = {
 
 def translatepersonnel(personnel):
 	if personnel == 1:
-		return "Jessar B. Adornado"
-	elif personnel == 2:
 		return "Julius Christopher B. Arroyo"
-	elif personnel == 3:
+	elif personnel == 2:
 		return "Sherry Ann B. Balingit"
-	elif personnel == 4:
+	elif personnel == 3:
 		return "Sarahlyn B. Bendaña"
-	elif personnel == 5:
+	elif personnel == 4:
 		return "Akim S. Berces"
-	elif personnel == 6:
+	elif personnel == 5:
 		return "Ronel R. Bernardino"
-	elif personnel == 7:
+	elif personnel == 6:
 		return "Efren D. Binamira Jr."
-	elif personnel == 8:
+	elif personnel == 7:
 		return "Joya P. De La Rama"
-	elif personnel == 9:
+	elif personnel == 8:
 		return "Jeric M. De La Rosa"
-	elif personnel == 10:
-		return "Neil D. Dianela"
-	elif personnel == 11:
+	elif personnel == 9:
 		return "Lanilyn C. Esquivel"
-	elif personnel == 12:
+	elif personnel == 10:
 		return "Lourdes M. Francisco"
-	elif personnel == 13:
+	elif personnel == 11:
 		return "Frenlie Micah F. Guiriba"
-	elif personnel == 14:
+	elif personnel == 12:
 		return "Kristeen C. Lim"
-	elif personnel == 15:
+	elif personnel == 13:
 		return "Raymund John Tomas D. Lorilla"
-	elif personnel == 16:
+	elif personnel == 14:
 		return "Joy M. Lotrinia"
-	elif personnel == 17:
+	elif personnel == 15:
 		return "Karla Thea O. Manlangit"
-	elif personnel == 18:
+	elif personnel == 16:
 		return "Chat C. Mimay"
-	elif personnel == 19:
+	elif personnel == 17:
 		return "Gian Carlo A. Molina"
-	elif personnel == 20:
+	elif personnel == 18:
 		return "Ronna Faith M. Naz"
-	elif personnel == 21:
+	elif personnel == 19:
 		return "Rodel M. Mortega"
-	elif personnel == 22:
+	elif personnel == 20:
 		return "Marian Mae S. Navarra"
-	elif personnel == 23:
+	elif personnel == 21:
 		return "Gremil Alexis A. Naz"
-	elif personnel == 24:
+	elif personnel == 22:
 		return "Ma. Angelica A. Precones"
-	elif personnel == 25:
+	elif personnel == 23:
 		return "Marlopredan B. Tandog"
-	elif personnel == 26:
+	elif personnel == 24:
 		return "Joan D. Vergara"
-	elif personnel == 27:
+	elif personnel == 25:
 		return "Ruffa G. Belga"
-	elif personnel == 28:
+	elif personnel == 26:
 		return "Jovel N. Loreto"
-	elif personnel == 29:
+	elif personnel == 27:
 		return "Ma. Ires J. Galido"
 	# elif personnel == 26:
 	# 	return "Vergara"
@@ -183,3 +179,6 @@ def projects(request):
 
 def contact(request):
 	return render(request, 'portfolio/contact.html')
+
+def tree(request):
+	return render(request, 'portfolio/tree.html')
