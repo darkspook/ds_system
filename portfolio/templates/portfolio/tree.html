@@ -109,7 +109,11 @@
   <section class="dashboard section" style="padding: 0;">
     <div id="chart-container" style="border-radius: 5px;"></div>  
     <!-- Container Start -->
-    <div class="container"></div>
+    <div class="container">
+      <div class="alert alert-warning" role="alert">
+        Best viewed on a computer screen or large displays.
+      </div>
+    </div>
     <!-- Container End -->
   </section>
   <!-- Footer Bottom -->
@@ -150,17 +154,17 @@
       'zoom': true,
       'verticalLevel': 4,
       'visibleLevel': 4,
-      'createNode': function($node, data) { // center on select node
-          $node.on('click', function(event) {
-            if (!$(event.target).is('.edge, .toggleBtn')) {
-              var $this = $(this);
-              var $chart = $this.closest('.orgchart');
-              var newX = window.parseInt(($chart.outerWidth(true)/8) - ($this.offset().left - $chart.offset().left) - ($this.outerWidth(true)/8));
-              var newY = window.parseInt(($chart.outerHeight(true)/8) - ($this.offset().top - $chart.offset().top) - ($this.outerHeight(true)/8));
-              $chart.css('transform', 'matrix(1, 0, 0, 1, ' + newX + ', ' + newY + ')');
-            }
-          });
-        }
+      // 'createNode': function($node, data) { // center on select node
+      //     $node.on('click', function(event) {
+      //       if (!$(event.target).is('.edge, .toggleBtn')) {
+      //         var $this = $(this);
+      //         var $chart = $this.closest('.orgchart');
+      //         var newX = window.parseInt(($chart.outerWidth(true)/8) - ($this.offset().left - $chart.offset().left) - ($this.outerWidth(true)/8));
+      //         var newY = window.parseInt(($chart.outerHeight(true)/8) - ($this.offset().top - $chart.offset().top) - ($this.outerHeight(true)/8));
+      //         $chart.css('transform', 'matrix(1, 0, 0, 1, ' + newX + ', ' + newY + ')');
+      //       }
+      //     });
+      //   }
     });
     //PTZ
     oc.$chartContainer.on('touchmove', function(event) {
