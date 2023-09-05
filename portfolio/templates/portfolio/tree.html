@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Family Tree</title>
+  <title>AGUILAR - ARROYO Family Tree</title>
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{% static 'ictrequest/assets/logo.png' %}">
   <!-- Custom CSS-->
@@ -19,15 +19,19 @@
 
   <link rel="stylesheet" href="{% static 'portfolio/css/jquery.orgchart.css' %}">
   <style type="text/css">
-  #chart-container {
-    position: relative;
-    height: 420px;
-    border: 1px solid #aaa;
-    margin: 0.5rem;
-    overflow: auto;
-    text-align: center;
-  }
-  .orgchart .nodes {
+    .body-wrapper { background: url("{% static 'portfolio/img/tree-bg.png' %}") center;}
+
+    .navbar-brand { margin: auto; }
+
+    #chart-container {
+      position: relative;
+      height: 600px;
+      border: 1px solid #000;
+      margin: 0.5rem;
+      overflow: auto;
+      text-align: center;
+    }
+    .orgchart .nodes {
       justify-content: center;
     }
     .orgchart .node .title {
@@ -44,7 +48,7 @@
       margin-top: 2px;
       margin-left: 2px;
     }
-
+    /*https://htmlcolorcodes.com/colors/*/
     .orgchart { background: #fff; border-radius: 5px; }
     .orgchart td.left, .orgchart td.right, .orgchart td.top { border-color: #aaa; }
     .orgchart td>.down { background-color: #aaa; }
@@ -52,38 +56,50 @@
     .orgchart .greatgrand .content { border-color: #008000; }
     .orgchart .grand1 .title { background-color: #0000FF; }
     .orgchart .grand1 .content { border-color: #0000FF; }
+    .orgchart .pibling1 .title { background-color: #00BFFF; }
+    .orgchart .pibling1 .content { border-color: #00BFFF; }
+    .orgchart .cousin1 .title { background-color: #0047AB; }
+    .orgchart .cousin1 .content { border-color: #0047AB; }
+    .orgchart .nibling1 .title { background-color: #7393B3; }
+    .orgchart .nibling1 .content { border-color: #7393B3; }
     .orgchart .grand2 .title { background-color: #FFA500; }
     .orgchart .grand2 .content { border-color: #FFA500; }
+    .orgchart .pibling2 .title { background-color: #FF6347; }
+    .orgchart .pibling2 .content { border-color: #FF6347; }
+    .orgchart .cousin2 .title { background-color: #EC5800; }
+    .orgchart .cousin2 .content { border-color: #EC5800; }
+    .orgchart .nibling2 .title { background-color: #8B4000; }
+    .orgchart .nibling2 .content { border-color: #8B4000; }
     .orgchart .grand3 .title { background-color: #FFD700; }
     .orgchart .grand3 .content { border-color: #FFD700; }
+    .orgchart .pibling3 .title { background-color: #d4ac0d; }
+    .orgchart .pibling3 .content { border-color: #d4ac0d; }
+    .orgchart .cousin3 .title { background-color: #E49B0F; }
+    .orgchart .cousin3 .content { border-color: #E49B0F; }
+    .orgchart .nibling3 .title { background-color: #8B8000; }
+    .orgchart .nibling3 .content { border-color: #8B8000; }
     .orgchart .grand4 .title { background-color: #FF0000; }
     .orgchart .grand4 .content { border-color: #FF0000; }
-    .orgchart .uncle1 .title { background-color: #00BFFF; }
-    .orgchart .uncle1 .content { border-color: #00BFFF; }
-    .orgchart .uncle2 .title { background-color: #FF6347; }
-    .orgchart .uncle2 .content { border-color: #FF6347; }
-    .orgchart .uncle3 .title { background-color: #d4ac0d; }
-    .orgchart .uncle3 .content { border-color: #d4ac0d; }
+    .orgchart .pibling4 .title { background-color: #D2042D; }
+    .orgchart .pibling4 .content { border-color: #D2042D; }
+    .orgchart .cousin4 .title { background-color: #8B0000; }
+    .orgchart .cousin4 .content { border-color: #8B0000; }
+    .orgchart .nibling4 .title { background-color: #DC143C; }
+    .orgchart .nibling4 .content { border-color: #DC143C; }
 
   </style>
 </head>
 
-<body class="body-wrapper bg-light">
+<body class="body-wrapper bg-dark">
   <section>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-12">
-            <nav class="navbar navbar-expand-lg navbar-light navigation">
+            <nav class="navbar navbar-expand-lg navbar-dark">
               <a class="navbar-brand" href="#">
-                AGUILAR - ARROYO Family Tree
+                <img src="{% static 'portfolio/img/a-a.png' %}" height="60px"> FAMILY TREE
               </a>
-              <ul class="navbar-nav ml-auto mt-10">
-                <li class="nav-item">
-                  <!-- <a class="btn btn-primary" href="{% url 'users:profile' %}" title="Profile"><i class="fa fa-user"></i></a>
-                  <a class="btn btn-danger" href="{% url 'logout' %}" title="Logout"><i class="fa fa-sign-out"></i></a> -->
-                </li>
-              </ul>
             </nav>
           </div>
         </div>
@@ -97,7 +113,7 @@
     <!-- Container End -->
   </section>
   <!-- Footer Bottom -->
-  <div style="padding-bottom: 350px"></div>
+  <div style="padding-bottom: 100px"></div>
   <footer class="footer-bottom">
     <!-- Container Start -->
     <div class="container">
@@ -105,7 +121,7 @@
       <div class="col-sm-6 col-12">
         <!-- Copyright -->
         <div class="copyright">
-          <p><img src="{% static 'users/assets/logo.png' %}" width="21px" alt=""> &copy; 2023-<script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> Aguilar - Arroyo Family Tree.</script></p>
+          <p><img src="{% static 'users/assets/logo.png' %}" width="21px" alt=""> &copy; 2023-<script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> AGUILAR - ARROYO Family Tree.</script></p>
         </div>
       </div>
       <div class="col-sm-6 col-12">
@@ -122,82 +138,30 @@
   <!-- JQuery JS -->
   <script src="{% static 'ictrequest/js/jquery.min.js' %}"></script>
   <script src="{% static 'portfolio/js/jquery.orgchart.js' %}"></script>
-  <!-- Page Template JS-->
-  <!-- <script src="{% static 'ictrequest/js/template_script.js' %}"></script> -->
-  <!-- Custom JS -->
-  <!-- <script src="{% static 'ictrequest/js/my_script.js' %}"></script> -->
   <script type="text/javascript">
   $(function() {
-    var datascource = {
-      'name': 'Marciana† & Florentino†', 'title': 'Marciana Aguilar† & Florentino Arroyo†', 'className': 'greatgrand',
-      'children': [
-        { 'name': 'Johnny† & Loreto†', 'title': 'Johnny Arroyo† & Loreto†', 'className': 'grand1',
-          'children': [
-            { 'name': 'Marichu & Bok†', 'title': 'Marichu & Bok†<br>Marichu & Bok†', 'className': 'uncle1' },
-            { 'name': 'Sonnyboy & Freslita', 'title': 'Sonnyboy & Freslita', 'className': 'uncle1'},
-            { 'name': 'Boying & Adela', 'title': 'Boying & Adela', 'className': 'uncle1'},
-            { 'name': 'Juancho', 'title': 'Juancho', 'className': 'uncle1'},
-            { 'name': 'Nenette & Dodjie', 'title': 'Nenette & Dodjie', 'className': 'uncle1'},
-            { 'name': 'Mancie & Boboy', 'title': 'Mancie & Boboy', 'className': 'uncle1',
-              'children': [
-                { 'name': 'Roque Rogelio†', 'title': 'Roque Rogelio†' },
-                { 'name': 'Moira', 'title': 'Moira' },
-                { 'name': 'John Kyle', 'title': 'John Kyle' },
-                { 'name': 'John Kevin', 'title': 'John Kevin' }
-              ]
-            }
-          ]
-        },
-        { 'name': 'Virgina† & Maximo†', 'title': 'Virgina Arroyo† & Maximo†', 'className': 'grand2',
-          'children': [
-            { 'name': 'Toto & Malou', 'title': 'Toto & Malou', 'className': 'uncle2' },
-            { 'name': 'Isaac & Arlene', 'title': 'Isaac & Arlene', 'className': 'uncle2' },
-            { 'name': 'Flory & Rudy', 'title': 'Flory & Rudy', 'className': 'uncle2',
-              'children': [
-                { 'name': 'Roderick & Ivy', 'title': 'Roderick & Ivy',
-                  'children': [{ 'name': 'Xavion', 'title': 'Xavion' }]
-                },
-                { 'name': 'Ruth', 'title': 'Ruth' }
-              ]
-            }
-          ]
-        },
-        { 'name': 'Mariano Sr.† & Crisanta†', 'title': 'Mariano Arroyo Sr.† & Crisanta Duran†', 'className': 'grand3',
-          'children': [
-            { 'name': 'Eyet & Ric†', 'title': 'Evelyn Arroyo & Ricardo Gavica†', 'className': 'uncle3' },
-            { 'name': 'Nonong & Malou', 'title': 'Mariano Arroyo Jr. & Malou Bisuña', 'className': 'uncle3' },
-            { 'name': 'Yammy & Don', 'title': 'Meriam Arroyo & Don Pedro Cavite', 'className': 'uncle3' },
-            { 'name': 'Jing-Jing & Max†', 'title': 'Marissa Arroyo & Maximo Gulapa†', 'className': 'uncle3' },
-            { 'name': 'Kiko & Angie', 'title': 'Francisco Arroyo & Angie Acompañado', 'className': 'uncle3' },
-            { 'name': 'Ronald & Carmen', 'title': 'Ronald Arroyo & Carmen', 'className': 'uncle3' },
-            { 'name': 'Bobby and Lena', 'title': 'Robert Arroyo and ELena Panuelos', 'className': 'uncle3' },
-            { 'name': 'Maricris & Johnny', 'title': 'Maricris Arroyo & Johnny Bagalacsa', 'className': 'uncle3' },
-            { 'name': 'Jun-Jun & Hayle', 'title': 'Mariano Arroyo II & Hayle Miranda', 'className': 'uncle3' },
-            { 'name': 'Girly & Ricky', 'title': 'Annielyn Arroyo & Ricky Dela Torre', 'className': 'uncle3' },
-            { 'name': 'Jumbo & Athena', 'title': 'Mark Joker Arroyo & Athena Hinolan', 'className': 'uncle3' }
-          ]
-        },
-        { 'name': 'Aurora & Gaudioso Sr.†', 'title': 'Aurora Arroyo & Gaudioso Cadenas Sr.†', 'className': 'grand4',
-          'children': [
-            { 'name': 'Aurel & Mayeth', 'title': 'Aurel & Mayeth' },
-            { 'name': 'Guddy & Milla', 'title': 'Guddy & Milla' },
-            { 'name': 'Emma & Glenn†', 'title': 'Emma & Glenn†' },
-            { 'name': 'Ricky† & Epin', 'title': 'Ricky† & Epin' },
-            { 'name': 'Erma & Joel', 'title': 'Erma & Joel' },
-            { 'name': 'Alvin & Mercy', 'title': 'Alvin & Mercy' }
-          ]
-        }
-      ]
-    };
+    var datasource =  {{json_tree | safe}};
 
     var oc = $('#chart-container').orgchart({
-      'visibleLevel': 5,
+      // 'visibleLevel': 2,
       'pan': true,
-      'data' : datascource,
-      'nodeContent': 'title',
-      'zoom': true
+      'nodeContent': 'fullname',
+      'data' : datasource,
+      'zoom': true,
+      'verticalLevel': 4,
+      'visibleLevel': 4,
+      'createNode': function($node, data) { // center on select node
+          $node.on('click', function(event) {
+            if (!$(event.target).is('.edge, .toggleBtn')) {
+              var $this = $(this);
+              var $chart = $this.closest('.orgchart');
+              var newX = window.parseInt(($chart.outerWidth(true)/8) - ($this.offset().left - $chart.offset().left) - ($this.outerWidth(true)/8));
+              var newY = window.parseInt(($chart.outerHeight(true)/8) - ($this.offset().top - $chart.offset().top) - ($this.outerHeight(true)/8));
+              $chart.css('transform', 'matrix(1, 0, 0, 1, ' + newX + ', ' + newY + ')');
+            }
+          });
+        }
     });
-
     //PTZ
     oc.$chartContainer.on('touchmove', function(event) {
       event.preventDefault();

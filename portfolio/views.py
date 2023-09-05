@@ -1,6 +1,80 @@
 from django.shortcuts import render
 import random
 import calendar
+import json
+import csv
+
+def tree(request):
+
+	def build_family_tree(member, family_members):
+		if member['name'] in family_members:
+			member['children'] = family_members[member['name']]
+			for child in family_members[member['name']]:
+				build_family_tree(child, family_members)
+
+	csv_file = 'portfolio/static/portfolio/tree.csv'
+	data = []
+
+	# Read the CSV file and store data in dictionaries
+	with open(csv_file, 'r') as file:
+		csv_reader = csv.DictReader(file)
+		for row in csv_reader:
+			if row['fullname'] is '':
+				row['fullname'] = row['name']
+
+			# Replace '+' with '†' in name and fullname
+			# row['name'] = row['name'].replace('+', '†')
+			# row['fullname'] = row['fullname'].replace('+', '†')
+			# row['parent'] = row['parent'].replace('+', '†')
+			# if 'bday' in row:
+			# 	row['fullname'] = f"{row['fullname']}<br>{row['bday']}"
+			# 	del row['bday']
+
+			data.append(row)
+
+			# print('DATA: ',data)
+	file.close()
+
+	# Create a dictionary to store members
+	family_members = {}
+
+	# Organize the data into the family members dictionary
+	for item in data:
+		parent = item.get('parent')
+		# if parent is '':
+		if parent is '' or parent == item['name']:
+			# This is a top-level member or a parent with themselves as a child
+			family_members[item['name']] = []
+		else:
+			if parent not in family_members:
+				family_members[parent] = []
+			family_members[parent].append(item)
+
+	# Find top-level members
+	top_level_members = [member for member in data if member['parent'] not in family_members]
+
+	# Build the family tree
+	for top_member in top_level_members:
+		build_family_tree(top_member, family_members)
+
+	for member in data:
+		# Remove the "parent" key from all members
+		member.pop('parent', None)
+		# Replace '+' with '†' in the "name" and "fullname" fields
+		member['name'] = member['name'].replace('+', '†')
+		member['fullname'] = member['fullname'].replace('+', '†')
+
+	final_data = top_level_members
+
+	# print('FINAL DATA: ',final_data)
+	json_tree = json.dumps(final_data, indent=2)
+	# json_tree = json.dumps(final_data)
+	# json_tree = json.dumps(data, ensure_ascii=False) #special characters
+	context = {'json_tree': json_tree[1:-1]}
+	# context = {'json_tree': json_tree}
+	# print('JSON DATA: ',json_tree[1:-1])
+
+	return render(request, 'portfolio/tree.html', context)
 
 def dutygenerator(request):
 	print("Inside dutygenerator")
@@ -179,6 +253,3 @@ def projects(request):
 
 def contact(request):
 	return render(request, 'portfolio/contact.html')
-
-def tree(request):
-	return render(request, 'portfolio/tree.html')

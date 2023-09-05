@@ -1,0 +1,157 @@
+name,fullname,parent,className
+Marciana+ & Florentino+,Marciana Aguilar+ & Florentino Arroyo+,,greatgrand
+name,fullname,parent,className
+Johnny+ & Loreto+,Johnny A. Arroyo+ & Loreto+,Marciana+ & Florentino+,grand1
+Marichu & Bok+,Marichu Arroyo & Bok,Johnny+ & Loreto+,pibling1
+Johnden,,Marichu & Bok+,cousin1
+Anna Kathrina+,,Marichu & Bok+,cousin1
+Chris Joy,,Marichu & Bok+,cousin1
+Marijan & Mario+,,Johnny+ & Loreto+,pibling1
+Sonnyboy & Freslita,,Johnny+ & Loreto+,pibling1
+Trixie,,Sonnyboy & Freslita,cousin1
+Tricia,,Sonnyboy & Freslita,cousin1
+John Florenz,,Sonnyboy & Freslita,cousin1
+Boying & Adela,,Johnny+ & Loreto+,pibling1
+Love,,Boying & Adela,cousin1
+Macy,,Love,nibling1
+Audrick,,Love,nibling1
+Oboy,,Love,nibling1
+Totoy,,Love,nibling1
+Irene,,Boying & Adela,cousin1
+Bogs,,Irene,nibling1
+Pablo,,Boying & Adela,cousin1
+Hazel,,Boying & Adela,cousin1
+Zhay,,Hazel,nibling1
+Nono,,Hazel,nibling1
+Totoy,,Hazel,nibling1
+Chleo,,Boying & Adela,cousin1
+Patrick,,Boying & Adela,cousin1
+Pao,,Boying & Adela,cousin1
+Pauline,,Boying & Adela,cousin1
+Juancho,,Johnny+ & Loreto+,pibling1
+Jayson,,Juancho,cousin1
+Nenette & Dodjie,,Johnny+ & Loreto+,pibling1
+Chrieza & Gleasm,,Nenette & Dodjie,cousin1
+Calia,,Chrieza & Gleasm,nibling1
+Ciara,,Chrieza & Gleasm,nibling1
+Bhem-Bhem,,Nenette & Dodjie,cousin1
+Chloe,,Nenette & Dodjie,cousin1
+Chelsea,,Nenette & Dodjie,cousin1
+Mancie & Boboy,,Johnny+ & Loreto+,pibling1
+Roque Rogelio,,Mancie & Boboy,cousin1
+Moira,,Mancie & Boboy,cousin1
+John Kyle,,Mancie & Boboy,cousin1
+John Kevin,,Mancie & Boboy,cousin1
+Virgina+ & Maximo+,Virgina A. Arroyo+ & Maximo+,Marciana+ & Florentino+,grand2
+Tony & Josie,,Virgina+ & Maximo+,
+Mimi & Mark,,Tony & Josie,nibling2
+Bunsoy & Linda,,Tony & Josie,nibling2
+Toto & Malou,,Virgina+ & Maximo+,pibling2
+Hazel & Rene,,Toto & Malou,cousin2
+Renzel,,Hazel & Rene,nibling2
+Cherry,,Toto & Malou,cousin2
+Ikay,,Cherry,nibling2
+Yammy,,Toto & Malou,cousin2
+Totie,,Toto & Malou,cousin2
+Isaac & Arlene,,Virgina+ & Maximo+,pibling2
+Prince,,Isaac & Arlene,cousin2
+Flory & Rudy,,Virgina+ & Maximo+,pibling2
+Roderick & Ivy,,Flory & Rudy,cousin2
+Xavion,,Roderick & Ivy,nibling2
+Ruth,,Flory & Rudy,cousin2
+Ano+ & Tita+,Mariano A. Arroyo Sr.+ & Crisanta M. Duran+,Marciana+ & Florentino+,grand3
+Eyet & Ric+,Evelyn D. Arroyo & Ricardo Gavica+,Ano+ & Tita+,pibling3
+Kay,Karen Kay A. Gavica,Eyet & Ric+,cousin3
+Nonong & Malou,Mariano D. Arroyo Jr. & Marilou B. Bisuña,Ano+ & Tita+,pibling3
+Poknoy,Francis B. Arroyo,Nonong & Malou,cousin3
+Toto,Nagato Shin P. Arroyo,Poknoy,nibling3
+Pot-Pot,Lidho Nin L. Arroyo,Poknoy,nibling3
+Pompo+ & Collie,Mark Alfred B. Arroyo+ & Corallie S. Castillo ,Nonong & Malou,cousin3
+Sinag,Marcella Sinag C. Arroyo,Pompo+ & Collie,nibling3
+Choy & Zen,Julius Christopher B. Arroyo & Zenda S. Iraola,Nonong & Malou,cousin3
+Marizz,Maria Izzyqielle I. Arroyo,Choy & Zen,nibling3
+Dao-Dao,Zathrian I. Arroyo,Choy & Zen,nibling3
+Shok,Cailan Arishok I. Arroyo,Choy & Zen,nibling3
+Paday & Ken,Marianne Kaye B. Arroyo & Kenneth King M. Andrada,Nonong & Malou,cousin3
+Keira,Kristine Keira A. Andrada,Paday & Ken,nibling3
+Maya,Amaia Lucia A. Andrada,Paday & Ken,nibling3
+Pidoy,Luis Alfredo B. Arroyo,Nonong & Malou,cousin3
+Yammy & Don,,Ano+ & Tita+,pibling3
+Kemby & James,,Yammy & Don,cousin3
+Drake,,Kemby & James,nibling3
+Blythe,,Kemby & James,nibling3
+Chuck,,Yammy & Don,cousin3
+Kolin,,Yammy & Don,cousin3
+Chubby,,Yammy & Don,cousin3
+Kyla,,Yammy & Don,cousin3
+Jing-Jing & Max+,,Ano+ & Tita+,pibling3
+Kenette & JR,,Jing-Jing & Max+,cousin3
+Mini,,Kenette & JR,nibling3
+Tiny,,Kenette & JR,nibling3
+Megan,,Kenette & JR,nibling3
+Zobek & Franz,,Jing-Jing & Max+,cousin3
+Eli,,Zobek & Franz,nibling3
+Malik,,Zobek & Franz,nibling3
+Chic-Chic,Angeliekris A. Gulapa,Jing-Jing & Max+,cousin3
+Amethyst,Knierim Knyzeva Amethyst Gulapa,Chic-Chic,nibling3
+Tayshaun,Tayshaun Corleone Gulapa,Chic-Chic,nibling3
+Kiko & Angie,Francisco D. Arroyo & Ma Angela C. Acompañado,Ano+ & Tita+,pibling3
+Marvic,Francis Marvic T. Arroyo,Kiko & Angie,cousin3
+Kianyss,Alyssa Andrea A. Arroyo,Kiko & Angie,cousin3
+Ysay,Ana Ysabela A. Arroyo,Kiko & Angie,cousin3
+Mae,Alaina Mae A. Arroyo,Kiko & Angie,cousin3
+Brian,Brian Franco A. Arroyo,Kiko & Angie,cousin3
+Ronald & Carmen,Ronald D. Arroyo & Carmen Lime,Ano+ & Tita+,pibling3
+Kim,Kim L. Arroyo,Ronald & Carmen,cousin3
+Nova,Nova L. Arroyo,Ronald & Carmen,cousin3
+Bobby and Elena,Robert D. Arroyo & Elena D. Panuelos,Ano+ & Tita+,pibling3
+Clark,Kurt Russel P. Arroyo,Bobby and Elena,cousin3
+Kevin,Kurt Kevin P. Arroyo,Bobby and Elena,cousin3
+Tin-Tin,Kristine Eina P. Arroyo,Bobby and Elena,cousin3
+Cris & Johnnie,Maricris D. Arroyo & Johnnie C. Bagalacsa,Ano+ & Tita+,pibling3
+Jamae,Clarice Jamae A. Bagalacsa,Cris & Johnnie,cousin3
+Janelle,Janelle Alexis A. Bagalacsa,Cris & Johnnie,cousin3
+Denice,Jan Denice A. Bagalacsa,Cris & Johnnie,cousin3
+Jun-Jun & Hayle,Mariano D. Arroyo II & Hayle Miranda,Ano+ & Tita+,pibling3
+Wawo,Lehmar M. Arroyo,Jun-Jun & Hayle,cousin3
+Chin-Chin,Francine M. Arroyo,Jun-Jun & Hayle,cousin3
+Zareke,Zareke Riley Arroyo,Chin-Chin,nibling3
+Choc-Choc,Kacer M. Arroyo,Jun-Jun & Hayle,cousin3
+Girly & Ricky,Annieyn D. Arroyo & Ricky S. De La Torre,Ano+ & Tita+,pibling3
+Ogie,Reggie A. De La Torre,Girly & Ricky,cousin3
+Renz,Renz A. De La Torre,Girly & Ricky,cousin3
+Julianne,Julianne A. De La Torre,Girly & Ricky,cousin3
+Jumbo & Athena,Mark Joker Arroyo & Athena Hinolan,Ano+ & Tita+,pibling3
+Matheo,,Jumbo & Athena,cousin3
+Alfonso,,Jumbo & Athena,cousin3
+Aurora & Gaudioso Sr.+,Aurora Arroyo & Gaudioso Cadenas Sr.+,Marciana+ & Florentino+,grand4
+Aurel & Mayeth,,Aurora & Gaudioso Sr.+,pibling4
+Yheye & Jay-R,,Aurel & Mayeth,cousin4
+Sam,,Yheye & Jay-R,nibling4
+Shine,,Yheye & Jay-R,nibling4
+Sha,,Yheye & Jay-R,nibling4
+Oyo,,Aurel & Mayeth,cousin4
+Guddy & Milla,,Aurora & Gaudioso Sr.+,pibling4
+Yenyen & Joel,,Guddy & Milla,cousin4
+Papoy,,Yenyen & Joel,nibling4
+Patrick,,Yenyen & Joel,nibling4
+Nono & Ems,,Guddy & Milla,cousin4
+Olai,,Nono & Ems,nibling4
+Joem,,Nono & Ems,nibling4
+Gab,,Nono & Ems,nibling4
+Jay,,Nono & Ems,nibling4
+Nonoy & Inah,,Guddy & Milla,cousin4
+Emma & Glenn+,,Aurora & Gaudioso Sr.+,pibling4
+Niknay & Michael,,Emma & Glenn+,cousin4
+Nica,,Emma & Glenn+,cousin4
+Ricky+ & Epin,,Aurora & Gaudioso Sr.+,pibling4
+Otoy,,Ricky+ & Epin,cousin4
+Beboy,,Ricky+ & Epin,cousin4
+Jeroh,,Ricky+ & Epin,cousin4
+Jetro,,Ricky+ & Epin,cousin4
+Jabis,,Ricky+ & Epin,cousin4
+Erma & Joel,,Aurora & Gaudioso Sr.+,pibling4
+Jerald,,Erma & Joel,cousin4
+Alvin & Mercy,,Aurora & Gaudioso Sr.+,pibling4
+Mica,,Alvin & Mercy,cousin4
+Joy,,Alvin & Mercy,cousin4
