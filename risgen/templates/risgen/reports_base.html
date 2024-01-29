@@ -1,0 +1,122 @@
+<!-- report_base.html -->
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Print RIS | RISGEN</title>
+    <style type="text/css">
+    	.table, .table-bordered, table, td, th {
+    		padding: .3rem !important;
+    		border-color: #000 !important;
+    		border-style: solid !important;
+    	}
+    </style>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css"> -->
+	</head>
+	<body style="margin: 10px 20px;"><br>
+		<div class="font-italic text-right"><i>Appendix 63</i></div><br>
+		<h5 class="text-center">REQUISITION AND ISSUE SLIP</h5><br>
+		<div class="container" style="margin-left: 0; padding-left: 0;">
+			<div class="row">
+				<div class="col">
+					<strong>Entity Name :</strong>
+				</div>
+				<div class="col">
+				</div>
+				<div class="col">
+				</div>
+				<div class="col">
+					<strong>Fund Cluster :</strong>
+				</div>
+			</div>
+		</div>
+		<table class="table table-bordered" style="font-size: medium; margin-bottom: 0;">
+			<tbody>
+				<tr style="border: 2px solid black">
+					<th colspan="4" width="50%">Division :<br>Office :</th>
+{% for ir in issuingris %}
+					<th colspan="4" style="border: 2px solid black;">Responsibility Center Code :<br>RIS No. : <span style="text-decoration: underline; font-weight: normal;">{{ir.ris_no}}</span></th>
+				</tr>
+				<tr class="text-center" style="border: 2px solid black">
+					<td colspan="4" style="border: 2px solid black"><strong><i>Requisition</i></strong></td>
+					<td colspan="2" style="white-space: nowrap;"><strong><i>Stock Available?</i></strong></td>
+					<td colspan="2" style="border: 2px solid black; "><strong><i>Issue</i></strong></td>
+				</tr>
+				<tr class="text-center" style="border: 2px solid black">
+					<td style="white-space: nowrap;">Stock No.</td>
+					<td style="width: 5%;">Unit</td>
+					<td style="width: 35%;">Description</td>
+					<td style="width: 5%;">Quantity</td>
+					<td style="width: 5%;">Yes</td>
+					<td style="width: 5%;">No</td>
+					<td style="width: 5%;">Quantity</td>
+					<td style="width: 35%;">Remarks</td>
+				</tr>
+{% if issuingrisitems %}
+{% for iri in issuingrisitems %}
+	        	<tr class="text-center" style="border-width: 0 2px; border-style: solid; border-color: #000;">
+					<td>{{ iri.stock_no }}</td>
+					<td>{{ iri.unit }}</td>
+					<td>{{ iri.item_description }}</td>
+					<td></td>
+					<td><strong>&#x2713;</strong></td>
+					<td></td>
+					<td>{{ iri.qty }}</td>
+					<td>{{ iri.remarks }}</td>
+                </tr>
+{% endfor %}
+{% else %}
+				<tr class="text-center" style="border-width: 0 2px; border-style: solid; border-color: #000;">
+					<td colspan="8">***NO DATA***</td>
+				</tr>
+{% endif%}
+				<tr style="border-width: 2px 2px 0 2px; border-style: solid; border-color: #000;">
+					<td colspan="8">Purpose: <span style="text-decoration: underline;">{{ ir.purpose }}</span></td>
+				</tr>
+			</tbody></table>
+			<table class="table table-bordered" style="font-size: medium; border: 2px solid black">
+			<tbody>
+				<tr>
+					<td></td>
+					<td style="width: 22%;" colspan="2">Requested by:</td>
+					<td style="width: 22%;" colspan="2">Approved by:</td>
+					<td style="width: 22%;" colspan="2">Issued by:</td>
+					<td style="width: 22%;" colspan="2">Received by:</td>
+				</tr>
+				<tr>
+					<td>Signature :</td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td style="white-space: nowrap;">Printed Name :</td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td>Designation :</td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td>Date :</td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+				</tr>
+{% endfor %}
+			</tbody>
+		</table>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> -->
+		<!-- <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script> -->
+	</body>
+</html>

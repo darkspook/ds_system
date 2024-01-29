@@ -23,6 +23,8 @@ urlpatterns = [
     path('generatereport/', views.generate_report, name='generate_report'),
 
     # Inspector views
+    path('resetiarno/', views.reset_iarno, name='resetiarno'),
+    path('resetconfirm/<int:pk>', views.reset_confirm, name='reset_confirm'),
     path('inspectorview/<int:pk>', views.inspectorviewdelivery, name='inspectorviewdelivery'), # home interface with clickable IAR No.
     path('view/<int:pk>/inspectdelivery', views.inspectdelivery, name='inspectdelivery'), # Inspect & Accept button/POST
     path('view/<int:pk>/inspectpartialdelivery', views.inspectpartialdelivery, name='inspectpartialdelivery'),

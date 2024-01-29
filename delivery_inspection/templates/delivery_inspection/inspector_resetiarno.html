@@ -1,0 +1,35 @@
+{% extends 'delivery_inspection/base.html' %}
+{# /inspectorview/pk #}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+    {% for del in delivery %}
+    <div class="card-header bg-danger text-white">
+    	<i class="fas fa-undo"></i>
+    	Reset {{ del.iar_no }} to {{ del.iar_no|slice:"0:-3" }}001?
+    </div>
+    <div style="padding: 1em 2em;">
+        <form method="POST" action="{% url 'inspection:reset_confirm' del.pk %}">
+        {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+                <p class="card-text"><b>SUPPLIER NAME:</b> {{ del.supplier }}</p>
+                <p class="card-text"><b>PURPOSE:</b> {{ del.purpose }}</p>
+                <p class="card-text"><b>DATE DELIVERED:</b> {{ del.date_delivered }}</p>
+                {% if del.image %}
+                <a href="{{ del.image.url }}" class="btn btn-primary">View image</a>
+                {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                <b>CREATED BY:</b> {{ del.created_by|upper }} &mdash; {{ del.date_created|date}} <i class="font-weight-light" style="font-size: small;">({{ del.date_created|timesince}} ago)</i>
+                </div>
+            </div>
+        {% endfor %}
+            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <div class="small"></div>
+                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to Reset?');">Confirm Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

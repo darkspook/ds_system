@@ -1,0 +1,53 @@
+{% extends 'risgen/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+	<div class="card-header bg-primary text-light">
+		<i class="fas fa-tasks"></i>
+		New Delivery List
+		&nbsp;&nbsp;&nbsp;<a href="{% url 'risgen:home' %}" class="btn btn-outline-light badge">Get New Deliveries</a>
+		<!-- <div  class="float-end">
+			<a href="#" class="btn btn-outline-light badge">Get New Deliveries</a>
+		</div> -->
+    </div>
+    <div class="card-body">
+    	<table id="datatablesRIS" class="display compact">
+    		<thead>
+	            <tr>
+	                <th>RIS Number</th>
+	                <th>Delivery Date</th>
+	                <th>Purpose</th>
+	            </tr>
+	        </thead>
+	        <tfoot>
+	            <tr>
+					<th>RIS Number</th>
+					<th>Delivery Date</th>
+	                <th>Purpose</th>
+	            </tr>
+	        </tfoot>
+	        <tbody>
+{% for ris in ris_no %}
+	        	<tr>
+					<td>
+						<a href="{% url 'risgen:issuingris_detail' ris.pk %}" title="{{ ris.ris_no }}">{{ ris.ris_no }}</a>
+					</td>
+					<td>{{ ris.delivery_date }}</td>
+					<td>{{ ris.purpose }}</td>
+                </tr>
+{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#datatablesRIS').DataTable({
+		"lengthMenu": [ [50, 100, -1], [50, 100, "All"] ],
+		"pageLength": 50,
+		"order": [],
+	});
+});
+</script>
+{% endblock %}

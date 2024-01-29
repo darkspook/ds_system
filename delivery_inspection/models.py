@@ -12,6 +12,7 @@ class Delivery(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 	inspector = models.CharField(max_length=100, blank=True) #this will be a sort of reminder who is the actual inspector that will press accept & inspect
+	deliverable = models.IntegerField()
 
 	class Meta:
 		verbose_name_plural = "deliveries"

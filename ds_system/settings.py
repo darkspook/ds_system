@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'ictinv',
     'ictrequest',
+    'risgen',
 ]
 
 MIDDLEWARE = [

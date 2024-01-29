@@ -1,0 +1,44 @@
+{% extends 'risgen/base.html' %}
+{% block content %}
+<div class="mt-4"></div>
+<div class="card mb-4">
+    <div class="card-header bg-danger text-white">
+    	<i class="fas fa-file-medical"></i>
+    	New Issuing RIS
+    </div>
+    <div style="padding: 1em 2em;">
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+        <form method="POST" enctype="multipart/form-data" id="myform">
+        {% csrf_token %}
+            <div class="row g-2">
+        {% for field in form %}
+                <div >
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{field.label|upper}}</span>
+                        {{ field }}
+                    </div>
+                </div>
+        {% endfor %}
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="small" style="padding-bottom: 4em;"></div>
+                <button type="submit" class="btn btn-danger px-5" onclick="return confirm('Are you sure you want to Save?');">Save</button>
+                <!-- <button type="submit" class="btn btn-danger px-5">Save</button> -->
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#collapseAssets > nav > a:nth-child(1)").addClass("active");
+});
+
+$(function() {
+    $("#id_delivery_date").datepicker({dateFormat:"yy-mm-dd"})
+});
+</script>
+{% endblock %}

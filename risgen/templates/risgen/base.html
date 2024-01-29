@@ -8,9 +8,9 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         {% if title %}
-        <title>{{ title|capfirst }} | Delivery I&amp;A</title>
+        <title>{{ title|capfirst }} | RIS Generator</title>
         {% else %}
-        <title>Delivery I&amp;A</title>
+        <title>RIS Generator</title>
         {% endif %}
 
         <!--Table CSS-->
@@ -39,7 +39,7 @@
 {% endif %}
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="{% url 'inspection:home' %}"><img src="{% static 'delivery_inspection/assets/logo.png' %}" class="img-fluid" alt="Logo" width="45" height="45" style="margin-right: 10px;">Delivery I&amp;A</a>
+            <a class="navbar-brand ps-3" href="{% url 'inspection:home' %}"><img src="{% static 'delivery_inspection/assets/logo.png' %}" class="img-fluid" alt="Logo" width="45" height="45" style="margin-right: 10px;">RIS Generator</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
@@ -63,31 +63,23 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" href="{% url 'inspection:home' %}">
+                            <a class="nav-link" href="{% url 'risgen:home' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Deliveries</div>
-                            <a class="nav-link" href="{% url 'inspection:newdeliveries' %}">
+                            <div class="sb-sidenav-menu-heading">Actions</div>
+                            <a class="nav-link" href="{% url 'risgen:issuingris_new' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-notes-medical"></i></div>
-                                New Deliveries
+                                New Issuing RIS
                             </a>
-                            <a class="nav-link" href="{% url 'inspection:mydeliveries' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
-                                My Deliveries
-                            </a>
-                            <a class="nav-link" href="{% url 'inspection:completeddelivery' %}">
+                            <a class="nav-link" href="{% url 'risgen:issuedris_list' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clipboard-check"></i></div>
-                                Completed Deliveries
+                                Issued RIS
                             </a>
                             <div class="sb-sidenav-menu-heading">Others</div>
-                            <a class="nav-link" href="{% url 'inspection:reports' %}">
+                            <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                 Reports
-                            </a>
-                            <a class="nav-link" href="{% url 'inspection:resetiarno' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-undo"></i></div>
-                                Reset IAR No. Series
                             </a>
                             <!-- <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-folder-plus"></i></div>
@@ -110,7 +102,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted"> &copy; 2021-<script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> Delivery I&amp;A.</div>
+                            <div class="text-muted"> &copy; <!-- 2021- --><script>var CurrentYear=new Date().getFullYear();document.write(CurrentYear)</script> RISGEN</div>
                         </div>
                     </div>
                 </footer>

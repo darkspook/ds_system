@@ -39,6 +39,7 @@ urlpatterns = [
     path('accounts/', include('users.urls')),
     path('ictinv/', include('ictinv.urls')),
     path('ictrequest/', include('ictrequest.urls')),
+    path('risgen/', include('risgen.urls')),
 
     path('duty/', views.dutygenerator, name='dutygenerator'),
 ]

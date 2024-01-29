@@ -12,6 +12,31 @@ import datetime, math
 from users.decorators import allowed_users
 from django.contrib import messages
 
+
+def reset_confirm(request, pk):
+		delivery = get_object_or_404(Delivery, pk=pk)
+		yearmonth = str(delivery)[:-3]
+		newiarno = yearmonth + "001"
+		delivery.iar_no = newiarno
+		delivery.save()
+		messages.success(request, f'IAR No. reset successfully!')
+
+		return redirect('inspection:home')
+
+# @login_required
+@allowed_users(allowed_roles=['diainspector'])
+def reset_iarno(request):
+	last_record = Delivery.objects.last()
+	pk=last_record.pk
+	page_title = 'Reset IAR No.'
+	delivery = Delivery.objects.filter(pk=pk)
+	context = {
+		'delivery':delivery,
+		'pk':pk,
+		'title':page_title,
+	}
+	return render(request, 'delivery_inspection/inspector_resetiarno.html', context)
+
 def generatemultichart(request, year):
 	# print("Year: ", year)
 	t = ()

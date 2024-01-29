@@ -3,7 +3,12 @@ from .models import Delivery, PartialDelivery
 from django import forms
 from django.utils.timezone import datetime
 from django.contrib.auth.forms import  AuthenticationForm
-from django.forms.widgets import PasswordInput, TextInput, Textarea, DateInput, FileInput
+from django.forms.widgets import PasswordInput, TextInput, Textarea, DateInput, FileInput, Select
+
+DELIVERABLE_CHOICES = ( 
+    ("1", "Goods"), 
+    ("2", "Services")
+) 
 
 def generate_iarno():
 	last_record = Delivery.objects.last()
@@ -45,10 +50,11 @@ class DeliveryForm(ModelForm):
 	date_delivered = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Date of Delivery'}))
 	image = forms.ImageField(widget=FileInput(attrs={'class': 'form-control'}), required=False)
 	inspector = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Inspector'}), required=False)
+	deliverable = forms.ChoiceField(widget=Select(attrs={'class': 'form-control'}), choices=DELIVERABLE_CHOICES)
 
 	class Meta:
 		model = Delivery
-		fields = ['iar_no', 'supplier', 'purpose', 'date_delivered', 'inspector', 'image',]
+		fields = ['iar_no', 'deliverable', 'supplier', 'purpose', 'date_delivered', 'inspector', 'image',]
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'class': 'form-control','placeholder': 'Username'}))
