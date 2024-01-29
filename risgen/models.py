@@ -66,6 +66,7 @@ class IssuingRIS(models.Model):
 	purpose = models.TextField()
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_issued = models.DateTimeField(null=True, blank=True)
+	# remarks = models.TextField()
 
 	class Meta:
 		verbose_name_plural = "Issuing RIS"

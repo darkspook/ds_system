@@ -14,11 +14,13 @@ class IssuingRISForm(ModelForm):
 
 	ris_no = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}))
 	delivery_date = forms.CharField(widget=DateInput(attrs={'class': 'form-control','placeholder': 'Date of Delivery'}))
-	purpose = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Purpose', 'style':'height:50px;'}))
+	purpose = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Purpose'}))
+	# remarks = forms.CharField(widget=Textarea(attrs={'class': 'form-control','placeholder': 'Remarks'}))
 
 	class Meta:
 		model = IssuingRIS
-		fields = ['ris_no', 'delivery_date', 'purpose',]
+		fields = ['ris_no', 'delivery_date', 'purpose']
+		# fields = ['ris_no', 'delivery_date', 'purpose', 'remarks']
 
 class IssuingRISItemsForm(ModelForm):
 	"""docstring for IssuingRISItemsForm"""

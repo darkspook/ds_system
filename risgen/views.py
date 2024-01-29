@@ -5,11 +5,11 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import IssuingRISItemsForm, IssuingRISForm
 from django.contrib import messages
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required, user_passes_test
+from users.decorators import allowed_users
 
-# def issuingris_new(request):
-
-# 	return pass
-
+# @login_required
+@allowed_users(allowed_roles=['risgenadmin'])
 def issuedris_detail(request, pk):
 	page_title = 'Issued RIS Detail'
 	issuingris = IssuingRIS.objects.filter(pk=pk)
@@ -22,9 +22,15 @@ def issuedris_detail(request, pk):
 	}
 	return render(request, 'risgen/issuedris_detail.html', context)
 
+# @login_required
+@allowed_users(allowed_roles=['risgenadmin'])
 def issuedris_list(request):
+	page_title = 'Issued RIS List'
 	risno = IssuingRIS.objects.filter(date_issued__isnull=False)
-	context = {'ris_no':risno}
+	context = {
+		'ris_no':risno,
+		'title':page_title,
+	}
 	# context = {}
 	# print('context = ', context);
 	return render(request, 'risgen/issuedris_list.html', context)
@@ -72,14 +78,20 @@ def item_update(request, pk):
 			messages.error(request, 'Invalid data entered.')
 			return render(request, 'risgen/item_update.html', {'issuingrisitems':issuingrisitems, 'form':form})
 
+# @login_required
+@allowed_users(allowed_roles=['risgenadmin'])
 def home(request):
-	CompletedDIA.get_completed_dia_init()
+	# CompletedDIA.get_completed_dia_init()
 	# CompletedDIA.get_completed_dia()
 	# print(completed_dia)
 	IssuingRIS.assign_ris_no()
 	ris_no = IssuingRIS.generate_ris_no()
 	risno = IssuingRIS.objects.filter(date_issued__isnull=True)
-	context = {'ris_no':risno}
+	page_title = 'Home'
+	context = {
+		'ris_no':risno,
+		'title':page_title
+	}
 	# context = {}
 	# print('context = ', context);
 	return render(request, 'risgen/home.html', context)
@@ -150,7 +162,9 @@ class IssuingRISItemsCreateView(SuccessMessageMixin, PageTitleMixin, CreateView)
 
 # 	def dispatch(self, *args, **kwargs):
 # 		return super().dispatch(*args, **kwargs)
-
+	
+# @login_required
+@allowed_users(allowed_roles=['risgenadmin'])
 def issuingris_detail(request, pk):
 	page_title = 'Issuing RIS Detail'
 	issuingris = IssuingRIS.objects.filter(pk=pk)
